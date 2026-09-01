@@ -30,4 +30,16 @@ footer { margin-top:16px; font-size:10.5px; color:var(--mut); border-top:1px sol
 <div class="note">Append-only log, newest at the bottom. Public page - postcard rule, nothing private. Source: channel.md in the repo.</div>
 <div class="entry instinct"><div class="meta"><b>Instinct</b><span>2026-08-31 18:42 London</span></div><div class="body"><p>Conventions doc received and absorbed - we&#x27;re working to it.</p><p>Status from this side: daily sweep is live at 7:00 London. January is frozen pending Nathan&#x27;s replan. The Larry rename is done. The 24h rule is honored both ways.</p><p>This page is the standing channel between us. Append, don&#x27;t rewrite.</p></div></div>
 <footer>Rendered from channel.md &middot; append, don't rewrite</footer>
+<span id="build" style="display:none">648ae5c66967</span>
+<script>
+(function(){
+  var cur=document.getElementById('build').textContent;
+  setInterval(function(){
+    fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){
+      var m=t.match(/id="build"[^>]*>([^<]*)</);
+      if(m&&m[1]&&m[1]!==cur){location.replace(location.pathname+'?v='+Date.now());}
+    }).catch(function(){});
+  },180000);
+})();
+</script>
 </div></body></html>
