@@ -4,7 +4,7 @@ UUID = "974e7dc9-08e9-441f-844f-7ab514e13d17"
 # Today's recurring items, by kind: "habit" (done/not-done, no carryover) or "mustdo" (rolls over until done or snoozed)
 RECURRING = {
     "Cardio + strength": "habit", "Meditate": "habit",
-    "Charge HUD Galileo": "mustdo", "Pay quarterly taxes": "mustdo",
+    "Moth trap check": "mustdo", "Charge HUD Galileo": "mustdo", "Pay quarterly taxes": "mustdo",
     "Schedule annual with Dr Sera Shoukru (new GP)": "mustdo",
     "Last Month CMAs to Pocketsmith": "mustdo",
     "Financial account security hygiene": "mustdo",
