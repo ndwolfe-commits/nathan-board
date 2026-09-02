@@ -15,7 +15,7 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font:13.5px/1.42 -apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fafafa; }
 .wrap { max-width:660px; margin:0 auto; padding:18px 16px 40px; }
-header { border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
+header { border-bottom:1.5px solid var(--ink); padding-bottom:5px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
 h1 { font-size:17px; letter-spacing:.02em; }
 header .meta { font-size:11px; color:var(--mut); text-align:right; }
 h2 { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:2px; margin:16px 0 5px; }
@@ -30,48 +30,53 @@ li b { font-weight:600; }
 .cols li { break-inside:avoid; }
 .done li { color:var(--mut); }
 .done li:before { background:#9bbf8f; }
-a.tapdone { float:right; font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:6px; }
-a.tapdone:hover { color:var(--accent); border-color:var(--accent); }
+a.tapdone, a.tapsnooze { float:right; font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:6px; }
+a.tapdone:hover, a.tapsnooze:hover { color:var(--accent); border-color:var(--accent); }
+.snzmenu { display:none; float:right; font-size:10px; line-height:1.9; margin-left:4px; }
+.snzmenu a { color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent); margin:0 3px; }
 li.pdone { opacity:.55; }
 li.pdone a.tapdone { color:#4a7c4e; border-color:#bcd3bd; background:#f2f8f2; }
-footer { margin-top:18px; font-size:10.5px; color:var(--mut); border-top:1px solid var(--line); padding-top:6px; }
+li.snoozed { display:none; }
+#snoozed-note { color:var(--mut); font-size:11px; cursor:pointer; }
+#snoozed-note:before { background:#d9c89a; }
+ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
+ol.num li { counter-increment:nowc; cursor:grab; }
+ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
+nav.bottom { margin-top:20px; font-size:11px; border-top:1px solid var(--line); padding-top:7px; }
+nav.bottom a { color:var(--accent); text-decoration:none; }
+nav.bottom a:hover { text-decoration:underline; }
+nav.bottom .sep { color:var(--line); margin:0 5px; }
+footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 @media (max-width:520px) { .cols ul { columns:1; } body { font-size:13px; } }
 </style></head>
 <body><div class="wrap">
 <header>
 <h1>The Board</h1>
-<div class="meta">Nathan Wolfe &middot; <a href="channel.html">The Channel (Instinct &lt;&gt; Claude)</a> &middot; <a href="rules.html">Rules &amp; Memory</a><br>Wednesday 2 September 2026, 13:25 BST &middot; auto-updates</div>
+<div class="meta">Nathan Wolfe &middot; <a href="channel.html">The Channel (Instinct &lt;&gt; Claude)</a> &middot; <a href="rules.html">Rules &amp; Memory</a><br>Wednesday 2 September</div>
 </header>
 <section class="">
 <h2>Now <span>10 &middot; things Nathan himself has to do</span></h2>
-<ul>
-<li><b>Task: Cardio + strength</b> <span class=d>- daily</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a></li>
-<li><b>Task: Meditate</b> <span class=d>- daily</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a></li>
-<li><b>Task: HSBC cash run (counter service)</b> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20HSBC%20cash%20run%20%28counter%20service%29" rel="noopener">done</a></li>
-<li><b>King Alfred Y7 application (Asa, Sept 2027 entry)</b> <span class=d>- not yet submitted (prior one bounced); worksheet in your inbox; you wanted it in by Wed 2 Sep</span> <span class=tag>submit ASAP - hard deadline Thu 24 Sep, 4pm</span> <a href="https://www.kingalfred.org.uk/admissions/entry-at-11/year-7-entry-application-form/">application form</a> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20King%20Alfred%20Y7%20application%20%28Asa%2C%20Sept%202027%20entry%29" rel="noopener">done</a></li>
-<li><b>Double-check new-flat insurance stack</b> <span class=d>- make sure the cover matches the new place</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Double-check%20new-flat%20insurance%20stack" rel="noopener">done</a></li>
-<li><b>Tasks decision</b> <span class=d>- Google Tasks trial running with evening backstop</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Tasks%20decision" rel="noopener">done</a></li>
-<li><b>Utilities audit</b> <span class=d>- close out St Pancras Chambers + Gasholders; verify everything&#x27;s on the new flat</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Utilities%20audit" rel="noopener">done</a></li>
-<li><b>Doctor&#x27;s appointments</b> <span class=d>- one test to schedule + reply to Patel and Saleha</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Doctor%27s%20appointments" rel="noopener">done</a></li>
-<li><b>Fidelity</b> <span class=d>- fix credit card payment structure; needs a call - maybe a Retell job</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Fidelity" rel="noopener">done</a></li>
-<li><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending</span> <a href="https://calendly.com/">calendly.com</a> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a></li>
-</ul>
-</section>
-<section class="">
-<h2>Waiting on others <span>2 &middot; tracked; follow-ups fire before they go stale</span></h2>
-<ul>
-<li><b>Mounjaro</b> <span class=d>- Nathan emailed Everyday Meds 1 Sep, awaiting reply</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Mounjaro" rel="noopener">done</a></li>
-<li><b>Young Farmers, Kentish Town City Farm (Charles)</b> <span class=d>- watching</span> <a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Young%20Farmers%2C%20Kentish%20Town%20City%20Farm%20%28Charles%29" rel="noopener">done</a></li>
-</ul>
+<ol class="num" id="nowlist">
+<li><b>Cardio + strength</b> <span class=d>- daily</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a></li>
+<li><b>Meditate</b> <span class=d>- daily</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a></li>
+<li><b>HSBC cash run (counter service)</b> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20HSBC%20cash%20run%20%28counter%20service%29" rel="noopener">done</a></li>
+<li><b>King Alfred Y7 application (Asa, Sept 2027 entry)</b> <span class=d>- not yet submitted (prior one bounced); worksheet in your inbox; you wanted it in by Wed 2 Sep</span> <span class=tag>submit ASAP - hard deadline Thu 24 Sep, 4pm</span> <a href="https://www.kingalfred.org.uk/admissions/entry-at-11/year-7-entry-application-form/">application form</a> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20King%20Alfred%20Y7%20application%20%28Asa%2C%20Sept%202027%20entry%29" rel="noopener">done</a></li>
+<li><b>Double-check new-flat insurance stack</b> <span class=d>- make sure the cover matches the new place (renters insurance rolled in from the old task list)</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Double-check%20new-flat%20insurance%20stack" rel="noopener">done</a></li>
+<li><b>Utilities audit</b> <span class=d>- close out St Pancras Chambers + Gasholders; verify everything&#x27;s on the new flat</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Utilities%20audit" rel="noopener">done</a></li>
+<li><b>Doctor&#x27;s appointments</b> <span class=d>- one test to schedule + reply to Patel and Saleha</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Doctor%26%23x27%3Bs%20appointments" rel="noopener">done</a></li>
+<li><b>Fidelity</b> <span class=d>- fix credit card payment structure; needs a call - maybe a Retell job</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Fidelity" rel="noopener">done</a></li>
+<li><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending</span> <a href="https://calendly.com/">calendly.com</a> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a></li>
+<li><b>Connect Lance and Adam</b> <span class=d>- intro email pending your confirm</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Connect%20Lance%20and%20Adam" rel="noopener">done</a></li>
+<li id="snoozed-note" style="display:none"></li>
+</ol>
 </section>
 <section class="cols">
-<h2>Longer arcs <span>9 &middot; important, not on fire</span></h2>
+<h2>Longer arcs <span>8 &middot; important, not on fire</span></h2>
 <ul>
-<li><b>Estate planning</b> <span class=d>- beneficiary update; solicitor path when you say</span></li>
+<li><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
 <li><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
 <li><b>LinkedIn profile fixes</b> <span class=d>- queued for 12 Oct</span> <a href="https://www.linkedin.com/">linkedin.com</a></li>
 <li><b>Sell the blue circular sofa + Persian rug; donate clothes</b> <span class=d>- send photos + dimensions, listings get drafted</span></li>
-<li><b>Connect Lance and Adam</b> <span class=d>- intro email pending your confirm</span></li>
 <li><b>Linking</b> <span class=d>- one topic now: WhatsApp personal linking + any other accounts worth connecting (Google parked per you)</span></li>
 <li><b>Tock password</b> <span class=d>- in breach databases; reset worth doing</span></li>
 <li><b>Kids scuba</b> <span class=d>- finish coursework; dive trip spring or Dec</span></li>
@@ -79,12 +84,13 @@ footer { margin-top:18px; font-size:10.5px; color:var(--mut); border-top:1px sol
 </ul>
 </section>
 <section class="">
-<h2>Standing <span>4 &middot; rules + watchers that just run</span></h2>
+<h2>Standing <span>5 &middot; watchers that just run</span></h2>
 <ul>
 <li>Opportunity discovery: advisory/board roles, connection-mapped, running quietly</li>
 <li>Asa pickup group chat watched for schedule changes</li>
 <li>Boys schedule with Lauren - dates frozen pending your replan; sweeps run our side</li>
 <li>Eurostar - Sept/Oct seats + possible 20 Sep move, Carol&#x27;s Oct passenger info (VYJK3C), points claims, Carte Blanche watch + Oct rebook nudge: all tracked our side</li>
+<li>Young Farmers, Kentish Town City Farm (Charles) - standing order; moves up to Waiting once announced</li>
 </ul>
 </section>
 <section class="done">
@@ -98,8 +104,17 @@ footer { margin-top:18px; font-size:10.5px; color:var(--mut); border-top:1px sol
 <li>Joe Waldman catch-ups revived (monthly)</li>
 </ul>
 </section>
-<footer>Maintained by Nathan's assistant &middot; same URL, always current</footer>
-<span id="build" style="display:none">Wednesday 2 September 2026, 13:25 BST</span>
+<section class="">
+<h2>Waiting <span>1 &middot; attention items only - full list behind the Waiting link</span></h2>
+<ul>
+<li><b>Mounjaro</b> <span class=d>- Nathan emailed Everyday Meds 1 Sep, awaiting reply</span> <a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Mounjaro" rel="noopener">done</a></li>
+</ul>
+</section>
+<nav class="bottom">
+<a href="snoozed.html">Snoozed</a><span class=sep>&middot;</span><a href="attic.html">Attic</a><span class=sep>&middot;</span><a href="pings.html">Pings up front</a><span class=sep">&middot;</span><a href="rules.html">Rules &amp; Memory</a><span class=sep>&middot;</span><a href="channel.html">The Channel</a><span class=sep>&middot;</span><a href="standing.html">Standing</a><span class=sep>&middot;</span><a href="analysis.html">Analysis reports</a><span class=sep>&middot;</span><a href="review.html">Review</a><span class=sep>&middot;</span><a href="cadence.html">Cadence</a><span class=sep>&middot;</span><a href="sweeps.html">Sweeps</a><span class=sep>&middot;</span><a href="waiting.html">Waiting</a><span class=sep>&middot;</span><a href="done.html">Done</a>
+</nav>
+<footer>Maintained by Nathan&#x27;s assistant &middot; same URL, always current</footer>
+<span id="build" style="display:none">Wednesday 2 September 2026, 15:10 BST</span>
 <script>
 (function(){
   var cur=document.getElementById('build').textContent;
@@ -118,32 +133,100 @@ footer { margin-top:18px; font-size:10.5px; color:var(--mut); border-top:1px sol
   function store(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
   function read(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
   function isDaily(li){ return li.textContent.indexOf('- daily') !== -1; }
-  function titleOf(a){ var li=a.closest('li'); var b=li.querySelector('b'); return b ? b.textContent.replace(/^Task:\s*/,'').trim() : li.textContent.trim(); }
+  function titleOf(el){ var li=el.closest('li'); var b=li.querySelector('b'); return b ? b.textContent.replace(/^Task:\s*/,'').trim() : li.textContent.trim(); }
   function mark(li,a,daily){ li.classList.add('pdone'); a.textContent = daily ? '\u2713 today' : '\u2713 done'; }
-  function send(title,src){
-    var url = ENDPOINT + '?item=' + encodeURIComponent(title) + '&t=' + encodeURIComponent(new Date().toISOString()) + '&src=' + src;
+  function send(params){
+    var url = ENDPOINT + '?' + params + '&t=' + encodeURIComponent(new Date().toISOString());
     var ok = false;
     try { ok = navigator.sendBeacon(url); } catch(e){}
     if(!ok){ try { fetch(url,{mode:'no-cors'}).then(function(){},function(){}); ok = true; } catch(e){} }
-    if(!ok){ var q = JSON.parse(read('board-outbox')||'[]'); q.push(title+'|'+new Date().toISOString()); store('board-outbox', JSON.stringify(q)); }
+    if(!ok){ var q = JSON.parse(read('board-outbox')||'[]'); q.push(params); store('board-outbox', JSON.stringify(q)); }
   }
   function flush(){
     var q = JSON.parse(read('board-outbox')||'[]'); if(!q.length) return;
     var left=[];
-    q.forEach(function(p){ var parts=p.split('|'); var ok=false; try{ ok=navigator.sendBeacon(ENDPOINT+'?item='+encodeURIComponent(parts[0])+'&t='+encodeURIComponent(parts[1])+'&src=board-outbox'); }catch(e){} if(!ok) left.push(p); });
+    q.forEach(function(p){ var ok=false; try{ ok=navigator.sendBeacon(ENDPOINT+'?'+p+'&src=board-outbox'); }catch(e){} if(!ok) left.push(p); });
     store('board-outbox', JSON.stringify(left));
   }
+  function refreshSnoozeNote(){
+    var items=[...document.querySelectorAll('#nowlist li.snoozed')];
+    var note=document.getElementById('snoozed-note');
+    if(!note) return;
+    if(items.length){
+      var first=items[0];
+      note.style.display='';
+      note.innerHTML=items.length+' item'+(items.length>1?'s':'')+' snoozed'+(first.dataset.until?' until '+first.dataset.until:'')+' &middot; <u>show</u>';
+    } else { note.style.display='none'; }
+  }
   document.querySelectorAll('a.tapdone').forEach(function(a){
-    var li = a.closest('li'); var title = titleOf(a); var daily = isDaily(li);
-    var done = read('board-done:'+title);
+    var li=a.closest('li'); var title=titleOf(a); var daily=isDaily(li);
+    var done=read('board-done:'+title);
     if(done && (daily ? done===today() : true)) mark(li,a,daily);
     a.addEventListener('click', function(e){
-      e.preventDefault();
-      mark(li,a,daily);
-      store('board-done:'+title, today());
-      send(title,'board');
+      e.preventDefault(); mark(li,a,daily); store('board-done:'+title, today());
+      send('item='+encodeURIComponent(title)+'&src=board');
     });
   });
+  document.querySelectorAll('a.tapsnooze').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var m=a.parentElement.querySelector('.snzmenu');
+      m.style.display = m.style.display==='inline' ? 'none' : 'inline';
+    });
+  });
+  document.querySelectorAll('.snzmenu a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var li=a.closest('li'); var title=titleOf(a); var d=a.dataset.days;
+      var days = d==='custom' ? parseInt(prompt('Snooze how many days?','3'),10) : parseInt(d,10);
+      if(!days || days<1) return;
+      var until=new Date(Date.now()+days*86400000);
+      var untilStr=until.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+      li.classList.add('snoozed'); li.dataset.until=untilStr;
+      store('board-snooze:'+title, until.toISOString().slice(0,10));
+      a.closest('.snzmenu').style.display='none';
+      refreshSnoozeNote();
+      send('item='+encodeURIComponent(title)+'&src=board-snooze&until='+encodeURIComponent(until.toISOString().slice(0,10)));
+    });
+  });
+  document.querySelectorAll('a.tapdone, a.tapsnooze').forEach(function(a){
+    var li=a.closest('li'); if(!li || li.id==='snoozed-note') return;
+  });
+  document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
+    if(li.id==='snoozed-note') return;
+    var b=li.querySelector('b'); if(!b) return;
+    var title=b.textContent.replace(/^Task:\s*/,'').trim();
+    var sn=read('board-snooze:'+title);
+    if(sn && sn>=today()){ li.classList.add('snoozed'); li.dataset.until=new Date(sn+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); }
+    else if(sn){ try{ localStorage.removeItem('board-snooze:'+title); }catch(e){} }
+  });
+  var note=document.getElementById('snoozed-note');
+  if(note){ note.addEventListener('click', function(){
+    document.querySelectorAll('#nowlist li.snoozed').forEach(function(li){ li.classList.remove('snoozed'); var b=li.querySelector('b'); if(b){ try{ localStorage.removeItem('board-snooze:'+b.textContent.replace(/^Task:\s*/,'').trim()); }catch(e){} } });
+    refreshSnoozeNote();
+  }); refreshSnoozeNote(); }
+  var nl=document.getElementById('nowlist');
+  if(nl){
+    var order=JSON.parse(read('board-order')||'[]');
+    if(order.length){
+      order.forEach(function(t){
+        var li=[...nl.querySelectorAll('li')].find(function(x){ var b=x.querySelector('b'); return b && b.textContent.replace(/^Task:\s*/,'').trim()===t; });
+        if(li) nl.insertBefore(li, note||null);
+      });
+    }
+    var dragged=null;
+    nl.querySelectorAll('li').forEach(function(li){ if(li.id!=='snoozed-note') li.draggable=true; });
+    nl.addEventListener('dragstart', function(e){ dragged=e.target.closest('li'); });
+    nl.addEventListener('dragover', function(e){ e.preventDefault(); });
+    nl.addEventListener('drop', function(e){
+      e.preventDefault();
+      var target=e.target.closest('li');
+      if(!dragged || !target || dragged===target || target.id==='snoozed-note') return;
+      nl.insertBefore(dragged, target);
+      var titles=[...nl.querySelectorAll('li')].filter(function(x){return x.id!=='snoozed-note';}).map(function(x){ var b=x.querySelector('b'); return b?b.textContent.replace(/^Task:\s*/,'').trim():''; });
+      store('board-order', JSON.stringify(titles));
+    });
+  }
   flush();
 })();
 </script>

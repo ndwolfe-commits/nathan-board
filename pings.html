@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="The Board">
+<meta name="theme-color" content="#fafafa">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
+<title>Pings up front - Nathan Wolfe</title>
+<style>
+:root { --ink:#16181d; --mut:#6b7280; --line:#e3e5e8; --accent:#8a6d3b; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:13.5px/1.42 -apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fafafa; }
+.wrap { max-width:660px; margin:0 auto; padding:18px 16px 40px; }
+header { border-bottom:1.5px solid var(--ink); padding-bottom:5px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
+h1 { font-size:17px; letter-spacing:.02em; }
+header .meta { font-size:11px; color:var(--mut); text-align:right; }
+h2 { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:2px; margin:16px 0 5px; }
+h2 span { float:right; text-transform:none; letter-spacing:0; color:var(--mut); font-size:10.5px; }
+ul { list-style:none; }
+li { padding:2.5px 0 2.5px 10px; border-bottom:1px solid #f0f1f2; position:relative; }
+li:before { content:""; position:absolute; left:0; top:9px; width:4px; height:4px; border-radius:50%; background:#c3c7cc; }
+li b { font-weight:600; }
+.d { color:var(--mut); }
+.tag { display:inline-block; font-size:10px; color:var(--accent); border:1px solid #e6dcc4; background:#fbf7ec; border-radius:3px; padding:0 4px; margin-left:2px; white-space:nowrap; }
+.cols ul { columns:2; column-gap:22px; }
+.cols li { break-inside:avoid; }
+.done li { color:var(--mut); }
+.done li:before { background:#9bbf8f; }
+a.tapdone, a.tapsnooze { float:right; font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:6px; }
+a.tapdone:hover, a.tapsnooze:hover { color:var(--accent); border-color:var(--accent); }
+.snzmenu { display:none; float:right; font-size:10px; line-height:1.9; margin-left:4px; }
+.snzmenu a { color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent); margin:0 3px; }
+li.pdone { opacity:.55; }
+li.pdone a.tapdone { color:#4a7c4e; border-color:#bcd3bd; background:#f2f8f2; }
+li.snoozed { display:none; }
+#snoozed-note { color:var(--mut); font-size:11px; cursor:pointer; }
+#snoozed-note:before { background:#d9c89a; }
+ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
+ol.num li { counter-increment:nowc; cursor:grab; }
+ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
+nav.bottom { margin-top:20px; font-size:11px; border-top:1px solid var(--line); padding-top:7px; }
+nav.bottom a { color:var(--accent); text-decoration:none; }
+nav.bottom a:hover { text-decoration:underline; }
+nav.bottom .sep { color:var(--line); margin:0 5px; }
+footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
+@media (max-width:520px) { .cols ul { columns:1; } body { font-size:13px; } }
+</style></head>
+<body><div class="wrap">
+<header>
+<h1>Pings up front</h1>
+<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a><br>Wednesday 2 September</div>
+</header>
+<p class="d" style="margin-top:14px">Nothing here yet.</p>
+
+<footer>To change anything here, just tell Stinkty on WhatsApp.</footer>
+</div></body></html>
