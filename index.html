@@ -207,7 +207,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       while(d.getDay()===0||d.getDay()===6) d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
       return iso(d);
     }
-    var ov=li.dataset.override; if(ov) consider(new Date(ov+'T00:00:00'), null); // one-off instance move override (max wins)
+    var ov=li.dataset.override||null; // one-off instance move: replaces the current cycle's occurrence
     if(f==='ordinal'){
       var iv=parseInt(li.dataset.interval||'1',10), ord=parseInt(li.dataset.ordinal,10), wd=parseInt(li.dataset.weekday,10);
       var anchor=li.dataset.anchor||null; var am=anchor?anchor.slice(0,7):null;
@@ -240,7 +240,9 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       if(ds && ds<=t && ds>=FLOOR) out=ds;
       return out;
     }
-    return out ? shiftWeekend(out) : out;
+    var s = out ? shiftWeekend(out) : out;
+    if(ov && s && ov>=s) s=ov; // moved instance is a real placed date - no weekend shift on it (refined rule 12)
+    return s;
   }
   function doneDateFor(title, serverDone){
     var d=read('board-done:'+title);
