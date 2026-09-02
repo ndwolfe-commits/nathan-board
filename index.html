@@ -48,9 +48,6 @@ li.recur-hidden { display:none; }
 ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
 ol.num li { counter-increment:nowc; cursor:grab; }
 ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
-ol.num li.addli:before { content:none; }
-li.addli { border-bottom:none; }
-li.addli a { color:var(--accent); text-decoration:none; font-size:12px; border-bottom:1px dotted var(--accent); }
 nav.bottom { margin-top:22px; border-top:1px solid var(--line); padding-top:10px; line-height:2.3; }
 nav.bottom a { display:inline-block; font-size:11.5px; border:1px solid #d8d2c4; border-radius:5px; padding:2px 9px; margin:2px 1px; background:#fbfaf7; }
 nav.bottom a { color:var(--accent); text-decoration:none; font-weight:500; }
@@ -108,7 +105,6 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Connect%20Lance%20and%20Adam" rel="noopener">done</a><b>Connect Lance and Adam</b> <span class=d>- intro email pending your confirm</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Olga%3A%20Roth%20conversion" rel="noopener">done</a><b>Olga: Roth conversion</b> <span class=d>- moved off the calendar 2 Sep (was a weekly reminder series); one-time task</span> </li>
-<li class="addli" id="addli"><a href="#add" id="addtask">+ add a task</a></li>
 </ol>
 </section>
 <section class="cols">
@@ -183,7 +179,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     var iso=isoLocal(untilDate);
     li.classList.add('snoozed'); li.dataset.until=fmtUntil(iso);
     store('board-snooze:'+title, iso);
-    send('item='+encodeURIComponent(title)+'&src='+(li.dataset.custom?'board-custom-snooze':'board-snooze')+'&until='+encodeURIComponent(iso));
+    send('item='+encodeURIComponent(title)+'&src=board-snooze&until='+encodeURIComponent(iso));
   }
 
   // Today's recurring engine (Nathan, 2 Sep): habits = done/not-done daily; must-dos show from their
@@ -350,96 +346,6 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       menu.style.display='none';
     });
   });
-  // User-added tasks (Nathan, 2 Sep): board-only until done or snoozed to a date.
-  // Done -> standard completion beacon; snooze-to-date -> src=board-custom-snooze, reported
-  // to the main agent so a calendar entry gets created. Stored per device (board-custom).
-  function customs(){ try{ return JSON.parse(read('board-custom')||'[]'); }catch(e){ return []; } }
-  function saveCustoms(list){ store('board-custom', JSON.stringify(list)); }
-  function wireItem(li){
-    var b=li.querySelector('b');
-    var t=function(){ return b.textContent.replace(/^Task:\s*/,'').trim(); };
-    li.querySelector('a.tapdone').addEventListener('click', function(e){
-      e.preventDefault();
-      li.classList.add('pdone'); e.target.textContent='\u2713 done';
-      store('board-done:'+t(), today());
-      send('item='+encodeURIComponent(t())+'&src=board');
-      saveCustoms(customs().filter(function(x){ return x.title!==t(); }));
-    });
-    li.querySelector('a.tapsnooze').addEventListener('click', function(e){
-      e.preventDefault();
-      var m=li.querySelector('.snzmenu');
-      m.style.display = m.style.display==='inline' ? 'none' : 'inline';
-    });
-    li.querySelectorAll('.snzmenu a').forEach(function(a){
-      a.addEventListener('click', function(e){
-        e.preventDefault();
-        var menu=a.closest('.snzmenu'); var d=a.dataset.days;
-        if(d==='custom'){
-          if(menu.querySelector('input.snzd')) return;
-          var inp=document.createElement('input'); inp.type='datetime-local'; inp.className='snzd';
-          inp.value=isoLocal(new Date(Date.now()+86400000)).slice(0,11)+'12:00';
-          var go=document.createElement('a'); go.textContent='set'; go.href='#set';
-          var cx=document.createElement('a'); cx.textContent='cancel'; cx.href='#x';
-          function close(){ menu.style.display='none'; inp.remove(); go.remove(); cx.remove(); }
-          go.addEventListener('click', function(ev){ ev.preventDefault();
-            if(!inp.value) return; var ud=new Date(inp.value); if(isNaN(ud)) return;
-            snoozeApply(li,t(),ud); close();
-          });
-          cx.addEventListener('click', function(ev){ ev.preventDefault(); close(); });
-          inp.addEventListener('keydown', function(ev){
-            if(ev.key==='Escape'){ ev.preventDefault(); close(); return; }
-            if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].indexOf(ev.key)===-1) ev.preventDefault();
-          });
-          menu.appendChild(inp); menu.appendChild(go); menu.appendChild(cx);
-          return;
-        }
-        var days=parseInt(d,10); if(!days || days<1) return;
-        snoozeApply(li,t(),new Date(Date.now()+days*86400000));
-        menu.style.display='none';
-      });
-    });
-  }
-  function makeCustomLi(title){
-    var li=document.createElement('li'); li.dataset.custom='1';
-    li.innerHTML='<a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done">done</a><b></b>';
-    li.querySelector('b').textContent=title;
-    wireItem(li);
-    return li;
-  }
-  function updateNowCount(){
-    var nl=document.getElementById('nowlist'); if(!nl) return;
-    var h=nl.closest('section').querySelector('h2 span'); if(!h) return;
-    h.textContent=String([...nl.querySelectorAll('li')].filter(function(x){ return x.id!=='addli'; }).length);
-  }
-  function renderCustoms(){
-    var nl=document.getElementById('nowlist'); var addli=document.getElementById('addli'); if(!nl||!addli) return;
-    customs().forEach(function(x){
-      if([...nl.querySelectorAll('li')].some(function(l){ var b=l.querySelector('b'); return b && b.textContent.trim()===x.title; })) return;
-      nl.insertBefore(makeCustomLi(x.title), addli);
-    });
-    updateNowCount();
-  }
-  var addA=document.getElementById('addtask');
-  if(addA){ addA.addEventListener('click', function(e){
-    e.preventDefault();
-    var nl=document.getElementById('nowlist'); var addli=document.getElementById('addli');
-    if(nl.querySelector('b[contenteditable]')) return;
-    var li=document.createElement('li'); li.dataset.custom='1';
-    li.innerHTML='<b contenteditable="plaintext-only" spellcheck="false"></b>';
-    nl.insertBefore(li, addli);
-    var nb=li.querySelector('b'); nb.focus();
-    nb.addEventListener('blur', function(){
-      var t=nb.textContent.replace(/\s+/g,' ').trim();
-      li.remove();
-      if(!t) return;
-      var list=customs(); list.push({title:t, ts:new Date().toISOString()}); saveCustoms(list);
-      send('item='+encodeURIComponent(t)+'&src=board-custom-add'); // drained hourly -> baked into the page canonically
-      renderCustoms();
-    });
-    nb.addEventListener('keydown', function(ev){ if(ev.key==='Enter'){ ev.preventDefault(); nb.blur(); } });
-  }); }
-  renderCustoms();
-
   document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
     var b=li.querySelector('b'); if(!b) return;
     var title=b.textContent.replace(/^Task:\s*/,'').trim();
