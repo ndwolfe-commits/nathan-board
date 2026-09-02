@@ -54,15 +54,22 @@ nav.bottom .sep { display:none; }
 footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 @media (max-width:520px) { .cols ul { columns:1; } body { font-size:13px; } }
 
+
+section.arc { border:1px solid var(--line); border-radius:10px; background:#fff; padding:10px 12px 8px 26px; margin:0 0 10px; position:relative; }
+section.arc h2.arc-title { margin-top:0; }
+section.arc.dragging { opacity:.55; border-style:dashed; }
+.grip { position:absolute; left:7px; top:12px; color:#c3c7cc; cursor:grab; touch-action:none; font-size:13px; letter-spacing:-2px; user-select:none; -webkit-user-select:none; }
+.grip:active { cursor:grabbing; }
+
 h2.arc-title { font-size:13.5px; color:var(--ink); text-transform:none; letter-spacing:.02em; border-bottom:1.5px solid var(--ink); padding-bottom:3px; margin:24px 0 8px; }
 p.arc-abs { margin:2px 0 2px 10px; }
 </style></head>
-<body><div class="wrap">
+<body><div class="wrap" data-orderts="0">
 <header>
 <h1>Longer arcs</h1>
 <div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a> &middot; Wednesday 2 September</div>
 </header>
-<section class="arc">
+<section class="arc" data-arc="Security &amp; insurance">
 <h2 class="arc-title">Security &amp; insurance</h2>
 <p class="d arc-abs">review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</p>
 <section>
@@ -78,7 +85,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">UK personal liability stack (core): UK personal liability policy with worldwide coverage; UK umbrella/excess liability sitting above it (GBP5-10m typical at your asset level); purchased in the UK, governed by UK law. 2) Cyber + identity: standalone personal cyber policy (identity theft, fraud response, extortion, recovery costs), global coverage required. 3) Travel medical + evacuation: annual worldwide, focus on medevac/repatriation/gap coverage outside UK. 4) D&amp;O: do nothing unless a specific role lacks coverage; audit board roles, confirm certificates. Intentionally skip: life insurance, valuables/fine art, auto, US umbrella tied to rente. Note: a proper cyber/identity theft policy covers theft of assets from investment/brokerage accounts ONLY if wording specifically includes financial fraud/theft losses - needs a high-net-worth personal cyber policy with direct financial loss cover.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="Boys activities">
 <h2 class="arc-title">Boys activities</h2>
 <p class="d arc-abs">swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</p>
 <section>
@@ -90,7 +97,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">Standing watcher. Details land here as they come.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="Estate planning">
 <h2 class="arc-title">Estate planning</h2>
 <p class="d arc-abs">will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</p>
 <section>
@@ -102,7 +109,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">The calendar work session was retired 2 Sep and consolidated here; the running agenda notes are kept privately. Nathan picks this up when he gets to it.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="PocketSmith">
 <h2 class="arc-title">PocketSmith</h2>
 <p class="d arc-abs">research + cleanup plan; paused by you</p>
 <section>
@@ -110,7 +117,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">Research + cleanup plan. Paused by Nathan.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="LinkedIn profile fixes">
 <h2 class="arc-title">LinkedIn profile fixes</h2>
 <p class="d arc-abs">queued for 12 Oct</p>
 <section>
@@ -118,7 +125,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">Queued for 12 Oct.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="Sell the blue circular sofa + Persian rug; donate clothes">
 <h2 class="arc-title">Sell the blue circular sofa + Persian rug; donate clothes</h2>
 <p class="d arc-abs">send photos + dimensions, listings get drafted</p>
 <section>
@@ -126,7 +133,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">Send photos + dimensions; listings get drafted from those.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="Linking">
 <h2 class="arc-title">Linking</h2>
 <p class="d arc-abs">one topic now: WhatsApp personal linking + any other accounts worth connecting (Google parked per you)</p>
 <section>
@@ -134,7 +141,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">One topic now: WhatsApp personal linking + any other accounts worth connecting. Google parked per Nathan.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="Tock password">
 <h2 class="arc-title">Tock password</h2>
 <p class="d arc-abs">in breach databases; reset worth doing</p>
 <section>
@@ -142,7 +149,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <p class=d style="margin-top:6px">Tock appears in breach databases; a reset is worth doing.</p>
 </section>
 </section>
-<section class="arc">
+<section class="arc" data-arc="Kids scuba">
 <h2 class="arc-title">Kids scuba</h2>
 <p class="d arc-abs">finish coursework; dive trip spring or Dec</p>
 <section>
@@ -151,4 +158,64 @@ p.arc-abs { margin:2px 0 2px 10px; }
 </section>
 </section>
 <footer>To change anything here, just tell Stinkty on WhatsApp.</footer>
-</div></body></html>
+</div>
+<script>
+(function(){
+  var ENDPOINT='https://webhook.site/974e7dc9-08e9-441f-844f-7ab514e13d17';
+  function send(params){
+    var url=ENDPOINT+'?'+params+'&t='+encodeURIComponent(new Date().toISOString());
+    var ok=false;
+    try{ ok=navigator.sendBeacon(url); }catch(e){}
+    if(!ok){ try{ fetch(url,{mode:'no-cors'}).then(function(){},function(){}); }catch(e){} }
+  }
+  function cards(){ return Array.prototype.slice.call(document.querySelectorAll('section.arc[data-arc]')); }
+  function order(){ return cards().map(function(c){ return c.getAttribute('data-arc'); }); }
+  // apply saved order if newer than baked (ts compare)
+  (function(){
+    try{
+      var wrap=document.querySelector('.wrap');
+      var baked=parseInt(wrap.getAttribute('data-orderts')||'0',10);
+      var loc=null; try{ loc=JSON.parse(localStorage.getItem('board-arcorder')||'null'); }catch(e){}
+      if(!loc||!loc.order||!(loc.ts>baked)) return;
+      var cs={}; cards().forEach(function(c){ cs[c.getAttribute('data-arc')]=c; });
+      loc.order.forEach(function(t){ if(cs[t]) cs[t].parentNode.appendChild(cs[t]); });
+    }catch(e){}
+  })();
+  // drag to reorder (pointer events: mouse + touch via the grip)
+  var drag=null;
+  cards().forEach(function(c){
+    var g=document.createElement('span'); g.className='grip'; g.textContent='\u22ee\u22ee'; g.setAttribute('aria-hidden','true');
+    c.appendChild(g);
+    g.addEventListener('pointerdown', function(ev){
+      ev.preventDefault();
+      try{ g.setPointerCapture(ev.pointerId); }catch(e){}
+      drag={card:c, grip:g, moved:false};
+    });
+  });
+  document.addEventListener('pointermove', function(ev){
+    if(!drag) return;
+    drag.moved=true;
+    drag.card.classList.add('dragging');
+    var el=document.elementFromPoint(ev.clientX, ev.clientY);
+    var over=el ? el.closest('section.arc') : null;
+    if(over && over!==drag.card){
+      var r=over.getBoundingClientRect();
+      if(ev.clientY < r.top + r.height/2) over.parentNode.insertBefore(drag.card, over);
+      else over.parentNode.insertBefore(drag.card, over.nextSibling);
+    }
+  });
+  function endDrag(){
+    if(!drag) return;
+    drag.card.classList.remove('dragging');
+    if(drag.moved){
+      var o=order(), ts=Date.now();
+      try{ localStorage.setItem('board-arcorder', JSON.stringify({order:o, ts:ts})); }catch(e){}
+      send('src=board-arcorder&ts='+ts+'&order='+encodeURIComponent(o.join('|')));
+    }
+    drag=null;
+  }
+  document.addEventListener('pointerup', endDrag);
+  document.addEventListener('pointercancel', endDrag);
+})();
+</script>
+</body></html>

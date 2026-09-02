@@ -107,16 +107,16 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Olga%3A%20Roth%20conversion" rel="noopener">done</a><b>Olga: Roth conversion</b> <span class=d>- moved off the calendar 2 Sep (was a weekly reminder series); one-time task</span> </li>
 </ol>
 </section>
-<section class="cols">
+<section class="cols" data-orderts="0">
 <h2>Longer arcs <a class="h2btn" href="arcs.html">Link</a></h2>
-<ul><li><b>Security &amp; insurance</b> <span class=d>- review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</span></li><li><b>Boys activities</b> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
-<li><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
-<li><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
-<li><b>LinkedIn profile fixes</b> <span class=d>- queued for 12 Oct</span></li>
-<li><b>Sell the blue circular sofa + Persian rug; donate clothes</b> <span class=d>- send photos + dimensions, listings get drafted</span></li>
-<li><b>Linking</b> <span class=d>- one topic now: WhatsApp personal linking + any other accounts worth connecting (Google parked per you)</span></li>
-<li><b>Tock password</b> <span class=d>- in breach databases; reset worth doing</span></li>
-<li><b>Kids scuba</b> <span class=d>- finish coursework; dive trip spring or Dec</span></li>
+<ul id="arclist"><li data-arc="Security &amp; insurance"><b>Security &amp; insurance</b> <span class=d>- review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</span></li><li data-arc="Boys activities"><b>Boys activities</b> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
+<li data-arc="Estate planning"><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
+<li data-arc="PocketSmith"><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
+<li data-arc="LinkedIn profile fixes"><b>LinkedIn profile fixes</b> <span class=d>- queued for 12 Oct</span></li>
+<li data-arc="Sell the blue circular sofa + Persian rug; donate clothes"><b>Sell the blue circular sofa + Persian rug; donate clothes</b> <span class=d>- send photos + dimensions, listings get drafted</span></li>
+<li data-arc="Linking"><b>Linking</b> <span class=d>- one topic now: WhatsApp personal linking + any other accounts worth connecting (Google parked per you)</span></li>
+<li data-arc="Tock password"><b>Tock password</b> <span class=d>- in breach databases; reset worth doing</span></li>
+<li data-arc="Kids scuba"><b>Kids scuba</b> <span class=d>- finish coursework; dive trip spring or Dec</span></li>
 </ul>
 </section>
 <section class="">
@@ -346,6 +346,19 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       menu.style.display='none';
     });
   });
+
+  // Arc order (Nathan, 2 Sep): canonical order baked in HTML; a newer local drag wins until baked (ts compare).
+  (function(){
+    try{
+      var sec=document.querySelector('section.cols[data-orderts]'); var ul=document.getElementById('arclist');
+      if(!sec||!ul) return;
+      var baked=parseInt(sec.getAttribute('data-orderts')||'0',10);
+      var loc=null; try{ loc=JSON.parse(localStorage.getItem('board-arcorder')||'null'); }catch(e){}
+      if(!loc||!loc.order||!(loc.ts>baked)) return;
+      var lis={}; ul.querySelectorAll('li[data-arc]').forEach(function(li){ lis[li.getAttribute('data-arc')]=li; });
+      loc.order.forEach(function(t){ if(lis[t]) ul.appendChild(lis[t]); });
+    }catch(e){}
+  })();
   document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
     var b=li.querySelector('b'); if(!b) return;
     var title=b.textContent.replace(/^Task:\s*/,'').trim();
