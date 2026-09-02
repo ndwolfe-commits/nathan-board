@@ -41,7 +41,7 @@ for rec in data:
     q = rec.get("query") or {}
     src, item = q.get("src"), q.get("item")
     t = q.get("t") or rec.get("created_at", "")
-    if src in ("board-snooze", "board-unsnooze", "board") and item and item not in seen:
+    if src in ("board-snooze", "board-unsnooze", "board-custom-snooze", "board") and item and item not in seen:
         seen[item] = (t, src, q.get("until"))
 done = state.get("done", {})
 for item, (t, src, until) in seen.items():
@@ -54,7 +54,7 @@ for item, (t, src, until) in seen.items():
     cur = items.get(item)
     if cur and cur.get("ts", "") >= t:
         continue
-    if src == "board-snooze" and until:
+    if src in ("board-snooze", "board-custom-snooze") and until:
         items[item] = {"until": until, "ts": t}
     elif src == "board-unsnooze":
         items.pop(item, None)

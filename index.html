@@ -44,12 +44,15 @@ li.snoozed { display:none; }
 li.donehide { display:none; }
 li.recur-hidden { display:none; }
 .dt { color:#3d6b8e; font-weight:500; }
-#nowlist .d { border-bottom:1px dotted #ddd6c8; cursor:text; }
-#nowlist .d:focus { outline:none; border-bottom-color:var(--accent); }
+#nowlist .d, #waitlist .d { border-bottom:1px dotted #ddd6c8; cursor:text; }
+#nowlist .d:focus, #waitlist .d:focus { outline:none; border-bottom-color:var(--accent); }
 .snzmenu input.snzd { font-size:10px; margin-left:4px; max-width:150px; }
 ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
 ol.num li { counter-increment:nowc; cursor:grab; }
 ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
+ol.num li.addli:before { content:none; }
+li.addli { border-bottom:none; }
+li.addli a { color:var(--accent); text-decoration:none; font-size:12px; border-bottom:1px dotted var(--accent); }
 nav.bottom { margin-top:22px; border-top:1px solid var(--line); padding-top:10px; line-height:2.3; }
 nav.bottom a { display:inline-block; font-size:11.5px; border:1px solid #d8d2c4; border-radius:5px; padding:2px 9px; margin:2px 1px; background:#fbfaf7; }
 nav.bottom a { color:var(--accent); text-decoration:none; font-weight:500; }
@@ -66,32 +69,32 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <section class="">
 <h2>Today&#x27;s recurring <span id="recurcount">2</span></h2>
 <ul>
-<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=d>- daily</span> </li>
-<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=d>- daily</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="3" data-override="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=d>- monthly, 1st Wed 12:00; Sep: Fri 4 Sep 13:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="3" data-day="4" data-anchor="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20quarterly%20taxes" rel="noopener">done</a><b>Pay quarterly taxes</b> <span class=d>- every 3 months, on the 4th, 12:00 (provisional cadence)</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="2"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Schedule%20annual%20with%20Dr%20Sera%20Shoukru%20%28new%20GP%29" rel="noopener">done</a><b>Schedule annual with Dr Sera Shoukru (new GP)</b> <span class=d>- yearly, 2nd Tue Sep 11:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Last%20Month%20CMAs%20to%20Pocketsmith" rel="noopener">done</a><b>Last Month CMAs to Pocketsmith</b> <span class=d>- monthly, 1st Mon 13:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-07"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20London%20residence%20recital%20%2B%20chase%20judgment%20packet" rel="noopener">done</a><b>London residence recital + chase judgment packet</b> <span class=d>- one-off, Mon 7 Sep 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="2" data-weekday="3"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Financial%20account%20security%20hygiene" rel="noopener">done</a><b>Financial account security hygiene</b> <span class=d>- monthly, 2nd Wed 12:00 (Fidelity etc.)</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="5"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Contact%20Don%20Caskey%20-%20Baktus%20D%26amp%3BO" rel="noopener">done</a><b>Contact Don Caskey - Baktus D&amp;O</b> <span class=d>- yearly, 2nd Fri Sep 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Moth%20trap%20check" rel="noopener">done</a><b>Moth trap check</b> <span class=d>- monthly, 1st Mon 10:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Consider%20employing%20boys" rel="noopener">done</a><b>Consider employing boys</b> <span class=d>- yearly, 2nd Mon Sep 11:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-14"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Nudge%20Fairley%20House%20re%20Asa%20accommodations%20response" rel="noopener">done</a><b>Nudge Fairley House re Asa accommodations response</b> <span class=d>- one-off, Mon 14 Sep 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="10" data-ordinal="1" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Start%20SAD%20light%20therapy" rel="noopener">done</a><b>Start SAD light therapy</b> <span class=d>- yearly, 1st Thu Oct 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-10-01"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Breathing%20Microbiome%20Chichester" rel="noopener">done</a><b>Breathing Microbiome Chichester</b> <span class=d>- one-off, Thu 1 Oct 13:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="1" data-anchor="2026-10-12"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Extend%20UK%20credit%20card%20Travel%20Notice%20on%20Visa%200205" rel="noopener">done</a><b>Extend UK credit card Travel Notice on Visa 0205</b> <span class=d>- every 3 months, 2nd Mon 11:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="6" data-ordinal="2" data-weekday="3" data-anchor="2026-10-14"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Delete%20nw%40nathanwolfe.net" rel="noopener">done</a><b>Delete nw@nathanwolfe.net</b> <span class=d>- every 6 months, 2nd Wed 13:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-10-15"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Change%20fidelity%20beneficiaries" rel="noopener">done</a><b>Change fidelity beneficiaries</b> <span class=d>- one-off, Thu 15 Oct 14:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-10-20"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Hire%202026%20US%20CPA%20%2B%20open%20Claude%20Tax%20project%20for%20handoff%20brief" rel="noopener">done</a><b>Hire 2026 US CPA + open Claude Tax project for handoff brief</b> <span class=d>- one-off, Tue 20 Oct 10:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-11-02"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Call%20Francesca" rel="noopener">done</a><b>Call Francesca</b> <span class=d>- one-off, Mon 2 Nov 10:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-11-03"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Change%20Maison%20Estelle%20membership%20to%20just%20main%20club" rel="noopener">done</a><b>Change Maison Estelle membership to just main club</b> <span class=d>- one-off, Tue 3 Nov 09:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="2" data-anchor="2026-11-10"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20SHL" rel="noopener">done</a><b>SHL</b> <span class=d>- every 3 months, 2nd Tue 11:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="11" data-ordinal="2" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Set%20up%20fidelity%20emails%20%2415k" rel="noopener">done</a><b>Set up fidelity emails $15k</b> <span class=d>- yearly, 2nd Thu Nov 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="2" data-ordinal="-1" data-weekday="5"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20BST" rel="noopener">done</a><b>Calendly BST</b> <span class=d>- yearly, last Fri Feb 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="4" data-ordinal="2" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Keep%20or%20cancel%20koko" rel="noopener">done</a><b>Keep or cancel koko</b> <span class=d>- yearly, 2nd Thu Apr 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="4" data-ordinal="-1" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Economist%20renewal" rel="noopener">done</a><b>Economist renewal</b> <span class=d>- yearly, last Thu Apr 12:00 (renews 3 May)</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="1" data-day="5" data-anchor="2027-01-05"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20rent%2036%20Gloucester" rel="noopener">done</a><b>Pay rent 36 Gloucester</b> <span class=d>- monthly, on the 5th, 12:00 (provisional)</span> </li>
+<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=dt>- daily</span> </li>
+<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=dt>- daily</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="3" data-override="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=dt>- monthly, 1st Wed 12:00; Sep: Fri 4 Sep 13:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="3" data-day="4" data-anchor="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20quarterly%20taxes" rel="noopener">done</a><b>Pay quarterly taxes</b> <span class=dt>- every 3 months, on the 4th, 12:00 (provisional cadence)</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="2"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Schedule%20annual%20with%20Dr%20Sera%20Shoukru%20%28new%20GP%29" rel="noopener">done</a><b>Schedule annual with Dr Sera Shoukru (new GP)</b> <span class=dt>- yearly, 2nd Tue Sep 11:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Last%20Month%20CMAs%20to%20Pocketsmith" rel="noopener">done</a><b>Last Month CMAs to Pocketsmith</b> <span class=dt>- monthly, 1st Mon 13:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-07"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20London%20residence%20recital%20%2B%20chase%20judgment%20packet" rel="noopener">done</a><b>London residence recital + chase judgment packet</b> <span class=dt>- Mon 7 Sep 12:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="2" data-weekday="3"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Financial%20account%20security%20hygiene" rel="noopener">done</a><b>Financial account security hygiene</b> <span class=dt>- monthly, 2nd Wed 12:00 (Fidelity etc.)</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="5"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Contact%20Don%20Caskey%20-%20Baktus%20D%26amp%3BO" rel="noopener">done</a><b>Contact Don Caskey - Baktus D&amp;O</b> <span class=dt>- yearly, 2nd Fri Sep 12:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Moth%20trap%20check" rel="noopener">done</a><b>Moth trap check</b> <span class=dt>- monthly, 1st Mon 10:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Consider%20employing%20boys" rel="noopener">done</a><b>Consider employing boys</b> <span class=dt>- yearly, 2nd Mon Sep 11:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-14"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Nudge%20Fairley%20House%20re%20Asa%20accommodations%20response" rel="noopener">done</a><b>Nudge Fairley House re Asa accommodations response</b> <span class=dt>- Mon 14 Sep 12:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="10" data-ordinal="1" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Start%20SAD%20light%20therapy" rel="noopener">done</a><b>Start SAD light therapy</b> <span class=dt>- yearly, 1st Thu Oct 12:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-10-01"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Breathing%20Microbiome%20Chichester" rel="noopener">done</a><b>Breathing Microbiome Chichester</b> <span class=dt>- Thu 1 Oct 13:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="1" data-anchor="2026-10-12"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Extend%20UK%20credit%20card%20Travel%20Notice%20on%20Visa%200205" rel="noopener">done</a><b>Extend UK credit card Travel Notice on Visa 0205</b> <span class=dt>- every 3 months, 2nd Mon 11:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="6" data-ordinal="2" data-weekday="3" data-anchor="2026-10-14"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Delete%20nw%40nathanwolfe.net" rel="noopener">done</a><b>Delete nw@nathanwolfe.net</b> <span class=dt>- every 6 months, 2nd Wed 13:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-10-15"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Change%20fidelity%20beneficiaries" rel="noopener">done</a><b>Change fidelity beneficiaries</b> <span class=dt>- Thu 15 Oct 14:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-10-20"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Hire%202026%20US%20CPA%20%2B%20open%20Claude%20Tax%20project%20for%20handoff%20brief" rel="noopener">done</a><b>Hire 2026 US CPA + open Claude Tax project for handoff brief</b> <span class=dt>- Tue 20 Oct 10:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-11-02"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Call%20Francesca" rel="noopener">done</a><b>Call Francesca</b> <span class=dt>- Mon 2 Nov 10:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-11-03"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Change%20Maison%20Estelle%20membership%20to%20just%20main%20club" rel="noopener">done</a><b>Change Maison Estelle membership to just main club</b> <span class=dt>- Tue 3 Nov 09:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="2" data-anchor="2026-11-10"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20SHL" rel="noopener">done</a><b>SHL</b> <span class=dt>- every 3 months, 2nd Tue 11:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="11" data-ordinal="2" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Set%20up%20fidelity%20emails%20%2415k" rel="noopener">done</a><b>Set up fidelity emails $15k</b> <span class=dt>- yearly, 2nd Thu Nov 12:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="2" data-ordinal="-1" data-weekday="5"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20BST" rel="noopener">done</a><b>Calendly BST</b> <span class=dt>- yearly, last Fri Feb 12:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="4" data-ordinal="2" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Keep%20or%20cancel%20koko" rel="noopener">done</a><b>Keep or cancel koko</b> <span class=dt>- yearly, 2nd Thu Apr 12:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="4" data-ordinal="-1" data-weekday="4"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Economist%20renewal" rel="noopener">done</a><b>Economist renewal</b> <span class=dt>- yearly, last Thu Apr 12:00 (renews 3 May)</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="1" data-day="5" data-anchor="2027-01-05"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20rent%2036%20Gloucester" rel="noopener">done</a><b>Pay rent 36 Gloucester</b> <span class=dt>- monthly, on the 5th, 12:00 (provisional)</span> </li>
 
 </ul>
 </section>
@@ -107,6 +110,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a><b>Calendly redesign</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- state review + availability layer; line-item yeses pending</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Connect%20Lance%20and%20Adam" rel="noopener">done</a><b>Connect Lance and Adam</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- intro email pending your confirm</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Olga%3A%20Roth%20conversion" rel="noopener">done</a><b>Olga: Roth conversion</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- moved off the calendar 2 Sep (was a weekly reminder series); one-time task</span> </li>
+<li class="addli" id="addli"><a href="#add" id="addtask">+ add a task</a></li>
 </ol>
 </section>
 <section class="cols">
@@ -123,8 +127,8 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </section>
 <section class="">
 <h2>Waiting <span>1</span></h2>
-<ul>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Mounjaro" rel="noopener">done</a><b>Mounjaro</b> <span class=d>- shipped 1 Sep; DPD parcel in transit (ref 15976516827527, refrigerated), delivery being tracked</span> </li>
+<ul id="waitlist">
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Mounjaro" rel="noopener">done</a><b>Mounjaro</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- shipped 1 Sep; DPD parcel in transit (ref 15976516827527, refrigerated), delivery being tracked</span> </li>
 </ul>
 </section>
 <nav class="bottom">
@@ -181,7 +185,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     var iso=isoLocal(untilDate);
     li.classList.add('snoozed'); li.dataset.until=fmtUntil(iso);
     store('board-snooze:'+title, iso);
-    send('item='+encodeURIComponent(title)+'&src=board-snooze&until='+encodeURIComponent(iso));
+    send('item='+encodeURIComponent(title)+'&src='+(li.dataset.custom?'board-custom-snooze':'board-snooze')+'&until='+encodeURIComponent(iso));
   }
 
   // Today's recurring engine (Nathan, 2 Sep): habits = done/not-done daily; must-dos show from their
@@ -269,7 +273,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 
   // Editable Now descriptions (Nathan, 2 Sep): board-owned fields - never mirrored from the
   // calendar, so his edits can't fight the calendar sync. Persist locally per device.
-  document.querySelectorAll('#nowlist .d').forEach(function(sp){
+  document.querySelectorAll('#nowlist .d, #waitlist .d').forEach(function(sp){
     var li=sp.closest('li'); var b=li.querySelector('b'); if(!b) return;
     var title=b.textContent.replace(/^Task:\s*/,'').trim();
     var saved=read('board-desc:'+title);
@@ -322,6 +326,88 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       menu.style.display='none';
     });
   });
+  // User-added tasks (Nathan, 2 Sep): board-only until done or snoozed to a date.
+  // Done -> standard completion beacon; snooze-to-date -> src=board-custom-snooze, reported
+  // to the main agent so a calendar entry gets created. Stored per device (board-custom).
+  function customs(){ try{ return JSON.parse(read('board-custom')||'[]'); }catch(e){ return []; } }
+  function saveCustoms(list){ store('board-custom', JSON.stringify(list)); }
+  function wireItem(li){
+    var b=li.querySelector('b');
+    var t=function(){ return b.textContent.replace(/^Task:\s*/,'').trim(); };
+    li.querySelector('a.tapdone').addEventListener('click', function(e){
+      e.preventDefault();
+      li.classList.add('pdone'); e.target.textContent='\u2713 done';
+      store('board-done:'+t(), today());
+      send('item='+encodeURIComponent(t())+'&src=board');
+      saveCustoms(customs().filter(function(x){ return x.title!==t(); }));
+    });
+    li.querySelector('a.tapsnooze').addEventListener('click', function(e){
+      e.preventDefault();
+      var m=li.querySelector('.snzmenu');
+      m.style.display = m.style.display==='inline' ? 'none' : 'inline';
+    });
+    li.querySelectorAll('.snzmenu a').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var menu=a.closest('.snzmenu'); var d=a.dataset.days;
+        if(d==='custom'){
+          if(menu.querySelector('input.snzd')) return;
+          var inp=document.createElement('input'); inp.type='datetime-local'; inp.className='snzd';
+          inp.value=isoLocal(new Date(Date.now()+86400000)).slice(0,11)+'12:00';
+          var go=document.createElement('a'); go.textContent='set'; go.href='#set';
+          go.addEventListener('click', function(ev){ ev.preventDefault();
+            if(!inp.value) return; var ud=new Date(inp.value); if(isNaN(ud)) return;
+            snoozeApply(li,t(),ud); menu.style.display='none'; inp.remove(); go.remove();
+          });
+          menu.appendChild(inp); menu.appendChild(go);
+          return;
+        }
+        var days=parseInt(d,10); if(!days || days<1) return;
+        snoozeApply(li,t(),new Date(Date.now()+days*86400000));
+        menu.style.display='none';
+      });
+    });
+  }
+  function makeCustomLi(title){
+    var li=document.createElement('li'); li.dataset.custom='1';
+    li.innerHTML='<a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done">done</a><b></b>';
+    li.querySelector('b').textContent=title;
+    wireItem(li);
+    return li;
+  }
+  function updateNowCount(){
+    var nl=document.getElementById('nowlist'); if(!nl) return;
+    var h=nl.closest('section').querySelector('h2 span'); if(!h) return;
+    h.textContent=String([...nl.querySelectorAll('li')].filter(function(x){ return x.id!=='addli'; }).length);
+  }
+  function renderCustoms(){
+    var nl=document.getElementById('nowlist'); var addli=document.getElementById('addli'); if(!nl||!addli) return;
+    customs().forEach(function(x){
+      if([...nl.querySelectorAll('li')].some(function(l){ var b=l.querySelector('b'); return b && b.textContent.trim()===x.title; })) return;
+      nl.insertBefore(makeCustomLi(x.title), addli);
+    });
+    updateNowCount();
+  }
+  var addA=document.getElementById('addtask');
+  if(addA){ addA.addEventListener('click', function(e){
+    e.preventDefault();
+    var nl=document.getElementById('nowlist'); var addli=document.getElementById('addli');
+    if(nl.querySelector('b[contenteditable]')) return;
+    var li=document.createElement('li'); li.dataset.custom='1';
+    li.innerHTML='<b contenteditable="plaintext-only" spellcheck="false"></b>';
+    nl.insertBefore(li, addli);
+    var nb=li.querySelector('b'); nb.focus();
+    nb.addEventListener('blur', function(){
+      var t=nb.textContent.replace(/\s+/g,' ').trim();
+      li.remove();
+      if(!t) return;
+      var list=customs(); list.push({title:t, ts:new Date().toISOString()}); saveCustoms(list);
+      renderCustoms();
+    });
+    nb.addEventListener('keydown', function(ev){ if(ev.key==='Enter'){ ev.preventDefault(); nb.blur(); } });
+  }); }
+  renderCustoms();
+
   document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
     var b=li.querySelector('b'); if(!b) return;
     var title=b.textContent.replace(/^Task:\s*/,'').trim();
