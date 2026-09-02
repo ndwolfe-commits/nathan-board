@@ -168,6 +168,11 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       if(anchor && ds<anchor) return;
       if(!out || ds>out) out=ds;
     }
+    function shiftWeekend(ds){
+      var d=new Date(ds+'T00:00:00');
+      while(d.getDay()===0||d.getDay()===6) d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+      return iso(d);
+    }
     if(f==='ordinal'){
       var iv=parseInt(li.dataset.interval||'1',10), ord=parseInt(li.dataset.ordinal,10), wd=parseInt(li.dataset.weekday,10);
       var anchor=li.dataset.anchor||null; var am=anchor?anchor.slice(0,7):null;
@@ -191,7 +196,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       consider(new Date(now.getFullYear(),mo,day), null);
       consider(new Date(now.getFullYear()-1,mo,day), null);
     }
-    return out;
+    return out ? shiftWeekend(out) : out;
   }
   function doneDateFor(title, serverDone){
     var d=read('board-done:'+title);
