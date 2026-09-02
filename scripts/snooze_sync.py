@@ -15,6 +15,14 @@ RECURRING = {
     "Set up fidelity emails $15k": "mustdo", "Calendly BST": "mustdo",
     "Keep or cancel koko": "mustdo", "Economist renewal": "mustdo",
     "Pay rent 36 Gloucester": "mustdo",
+    # one-off Task: events (due-date must-dos, done hides permanently via 366d keep)
+    "London residence recital + chase judgment packet": "mustdo",
+    "Nudge Fairley House re Asa accommodations response": "mustdo",
+    "Breathing Microbiome Chichester": "mustdo",
+    "Change fidelity beneficiaries": "mustdo",
+    "Hire 2026 US CPA + open Claude Tax project for handoff brief": "mustdo",
+    "Call Francesca": "mustdo",
+    "Change Maison Estelle membership to just main club": "mustdo",
 }
 PATH = "snooze-state.json"
 today = datetime.datetime.now(ZoneInfo("Europe/London")).date().isoformat()
