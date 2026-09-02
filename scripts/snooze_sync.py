@@ -41,8 +41,8 @@ for rec in data:
     q = rec.get("query") or {}
     src, item = q.get("src"), q.get("item")
     t = q.get("t") or rec.get("created_at", "")
-    if src in ("board-snooze", "board-unsnooze", "board-custom-snooze", "board") and item and item not in seen:
-        seen[item] = (t, src, q.get("until"))
+    if src in ("board-snooze", "board-unsnooze", "board-custom-snooze", "board-set", "board") and item and item not in seen:
+        seen[item] = (t, src, q.get("until") or q.get("when"))
 done = state.get("done", {})
 for item, (t, src, until) in seen.items():
     if src == "board" and item in RECURRING:
@@ -54,9 +54,11 @@ for item, (t, src, until) in seen.items():
     cur = items.get(item)
     if cur and cur.get("ts", "") >= t:
         continue
-    if src in ("board-snooze", "board-custom-snooze") and until:
+    if src in ("board-snooze", "board-custom-snooze", "board-set") and until:
         if RECURRING.get(item) == "habit":
             continue  # daily habits can't be snoozed (Nathan, 2 Sep)
+        if src == "board-set":
+            until = until[:10] + "T00:00"  # Set: hide until the date's morning - item resurfaces in Now on the date (Nathan, 2 Sep)
         items[item] = {"until": until, "ts": t}
     elif src == "board-unsnooze":
         items.pop(item, None)
