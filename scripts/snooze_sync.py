@@ -55,6 +55,8 @@ for item, (t, src, until) in seen.items():
     if cur and cur.get("ts", "") >= t:
         continue
     if src in ("board-snooze", "board-custom-snooze") and until:
+        if RECURRING.get(item) == "habit":
+            continue  # daily habits can't be snoozed (Nathan, 2 Sep)
         items[item] = {"until": until, "ts": t}
     elif src == "board-unsnooze":
         items.pop(item, None)

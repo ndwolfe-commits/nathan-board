@@ -17,8 +17,8 @@ body { font:13.5px/1.42 -apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,
 .wrap { max-width:660px; margin:0 auto; padding:18px 16px 40px; }
 header { border-bottom:1.5px solid var(--ink); padding-bottom:3px; margin-bottom:2px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
 header + section h2 { margin-top:10px; }
-h2 a { color:inherit; text-decoration:none; }
-h2 a:hover { text-decoration:underline; }
+h2 .h2btn { float:right; font-size:10px; font-weight:500; text-transform:none; letter-spacing:0; color:var(--accent); text-decoration:none; border:1px solid #d8d2c4; border-radius:5px; padding:1px 8px; background:#fbfaf7; }
+h2 .h2btn:hover { border-color:var(--accent); }
 h1 { font-size:17px; letter-spacing:.02em; }
 header .meta { font-size:11px; color:var(--mut); text-align:right; }
 h2 { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:2px; margin:16px 0 5px; }
@@ -34,8 +34,8 @@ li b { font-weight:600; }
 .cols li { break-inside:avoid; }
 .done li { color:var(--mut); }
 .done li:before { background:#9bbf8f; }
-a.tapdone, a.tapsnooze { float:right; font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:6px; }
-a.tapdone:hover, a.tapsnooze:hover { color:var(--accent); border-color:var(--accent); }
+a.tapdone, a.tapsnooze, a.tapset { float:right; font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:6px; }
+a.tapdone:hover, a.tapsnooze:hover, a.tapset:hover { color:var(--accent); border-color:var(--accent); }
 .snzmenu { display:none; float:right; font-size:10px; line-height:1.9; margin-left:4px; }
 .snzmenu a { color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent); margin:0 3px; }
 li.pdone { opacity:.55; }
@@ -67,10 +67,10 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <div class="meta">Nathan Wolfe &middot; Wednesday 2 September</div>
 </header>
 <section class="">
-<h2>Today&#x27;s recurring <span id="recurcount">2</span></h2>
+<h2>Today&#x27;s recurring</h2>
 <ul>
-<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=dt>- daily</span> </li>
-<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=dt>- daily</span> </li>
+<li data-recur="habit"><a class="tapset" href="#set">set</a><span class="snzmenu"></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=dt>- daily<span class="todaytime"></span></span> </li>
+<li data-recur="habit"><a class="tapset" href="#set">set</a><span class="snzmenu"></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=dt>- daily<span class="todaytime"></span></span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="3" data-override="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=dt>- monthly, 1st Wed 12:00; Sep: Fri 4 Sep 13:00</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="3" data-day="4" data-anchor="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20quarterly%20taxes" rel="noopener">done</a><b>Pay quarterly taxes</b> <span class=dt>- every 3 months, on the 4th, 12:00 (provisional cadence)</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="2"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Schedule%20annual%20with%20Dr%20Sera%20Shoukru%20%28new%20GP%29" rel="noopener">done</a><b>Schedule annual with Dr Sera Shoukru (new GP)</b> <span class=dt>- yearly, 2nd Tue Sep 11:00</span> </li>
@@ -99,7 +99,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </ul>
 </section>
 <section class="">
-<h2>Now <span>9</span></h2>
+<h2>Now</h2>
 <ol class="num" id="nowlist">
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20HSBC%20cash%20run%20%28counter%20service%29" rel="noopener">done</a><b>HSBC cash run (counter service)</b> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20King%20Alfred%20Y7%20application%20%28Asa%2C%20Sept%202027%20entry%29" rel="noopener">done</a><b>King Alfred Y7 application (Asa, Sept 2027 entry)</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- not yet submitted (prior one bounced); worksheet in your inbox; you wanted it in by Wed 2 Sep</span> <span class=dt>submit ASAP &middot; hard deadline Thu 24 Sep, 4pm</span> <a href="https://www.kingalfred.org.uk/admissions/entry-at-11/year-7-entry-application-form/">application form</a> </li>
@@ -114,7 +114,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </ol>
 </section>
 <section class="cols">
-<h2><a href="arcs.html">Longer arcs</a> <span>9</span></h2>
+<h2>Longer arcs <a class="h2btn" href="arcs.html">Link</a></h2>
 <ul><li><b>Security &amp; insurance</b> <span class=d>- review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</span></li><li><b>Boys activities</b> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
 <li><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
 <li><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
@@ -126,7 +126,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </ul>
 </section>
 <section class="">
-<h2>Waiting <span>1</span></h2>
+<h2>Waiting</h2>
 <ul id="waitlist">
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Mounjaro" rel="noopener">done</a><b>Mounjaro</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- shipped 1 Sep; DPD parcel in transit (ref 15976516827527, refrigerated), delivery being tracked</span> </li>
 </ul>
@@ -287,6 +287,41 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     });
   });
 
+  // Daily habits: "set" = time-only exception for TODAY's occurrence (Nathan, 2 Sep). No snooze on dailies.
+  // Beacons src=board-settime so the main agent can sync the calendar if the habit maps to an event.
+  document.querySelectorAll('li[data-recur="habit"]').forEach(function(li){
+    var b=li.querySelector('b'); if(!b) return;
+    var title=b.textContent.replace(/^Task:\s*/,'').trim();
+    var st=read('board-settime:'+title);
+    if(st && st.slice(0,10)===today()){ var tt=li.querySelector('.todaytime'); if(tt) tt.textContent=' \u00b7 today '+st.slice(11); }
+  });
+  document.querySelectorAll('a.tapset').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var li=a.closest('li'); var m=li.querySelector('.snzmenu');
+      if(m.querySelector('input.snzd')){ m.style.display = m.style.display==='inline'?'none':'inline'; return; }
+      var inp=document.createElement('input'); inp.type='time'; inp.className='snzd'; inp.value='07:30';
+      var go=document.createElement('a'); go.textContent='set'; go.href='#set';
+      var cx=document.createElement('a'); cx.textContent='cancel'; cx.href='#x';
+      function close(){ m.style.display='none'; inp.remove(); go.remove(); cx.remove(); }
+      go.addEventListener('click', function(ev){ ev.preventDefault();
+        if(!inp.value) return;
+        var title=titleOf(a); var t=today();
+        store('board-settime:'+title, t+' '+inp.value);
+        var tt=li.querySelector('.todaytime'); if(tt) tt.textContent=' \u00b7 today '+inp.value;
+        send('item='+encodeURIComponent(title)+'&src=board-settime&date='+t+'&time='+encodeURIComponent(inp.value));
+        close();
+      });
+      cx.addEventListener('click', function(ev){ ev.preventDefault(); close(); });
+      inp.addEventListener('keydown', function(ev){
+        if(ev.key==='Escape'){ ev.preventDefault(); close(); return; }
+        if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].indexOf(ev.key)===-1) ev.preventDefault();
+      });
+      m.appendChild(inp); m.appendChild(go); m.appendChild(cx);
+      m.style.display='inline';
+    });
+  });
+
   document.querySelectorAll('a.tapdone').forEach(function(a){
     var li=a.closest('li'); var title=titleOf(a); var daily=isDaily(li);
     var done=read('board-done:'+title);
@@ -314,11 +349,18 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
         var inp=document.createElement('input'); inp.type='datetime-local'; inp.className='snzd';
         inp.value=isoLocal(new Date(Date.now()+86400000)).slice(0,11)+'12:00';
         var go=document.createElement('a'); go.textContent='set'; go.href='#set';
+        var cx=document.createElement('a'); cx.textContent='cancel'; cx.href='#x';
+        function close(){ menu.style.display='none'; inp.remove(); go.remove(); cx.remove(); }
         go.addEventListener('click', function(ev){ ev.preventDefault();
           if(!inp.value) return; var ud=new Date(inp.value); if(isNaN(ud)) return;
-          snoozeApply(li,title,ud); menu.style.display='none'; inp.remove(); go.remove();
+          snoozeApply(li,title,ud); close();
         });
-        menu.appendChild(inp); menu.appendChild(go);
+        cx.addEventListener('click', function(ev){ ev.preventDefault(); close(); });
+        inp.addEventListener('keydown', function(ev){
+          if(ev.key==='Escape'){ ev.preventDefault(); close(); return; }
+          if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].indexOf(ev.key)===-1) ev.preventDefault();
+        });
+        menu.appendChild(inp); menu.appendChild(go); menu.appendChild(cx);
         return;
       }
       var days=parseInt(d,10); if(!days || days<1) return;
@@ -355,11 +397,18 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
           var inp=document.createElement('input'); inp.type='datetime-local'; inp.className='snzd';
           inp.value=isoLocal(new Date(Date.now()+86400000)).slice(0,11)+'12:00';
           var go=document.createElement('a'); go.textContent='set'; go.href='#set';
+          var cx=document.createElement('a'); cx.textContent='cancel'; cx.href='#x';
+          function close(){ menu.style.display='none'; inp.remove(); go.remove(); cx.remove(); }
           go.addEventListener('click', function(ev){ ev.preventDefault();
             if(!inp.value) return; var ud=new Date(inp.value); if(isNaN(ud)) return;
-            snoozeApply(li,t(),ud); menu.style.display='none'; inp.remove(); go.remove();
+            snoozeApply(li,t(),ud); close();
           });
-          menu.appendChild(inp); menu.appendChild(go);
+          cx.addEventListener('click', function(ev){ ev.preventDefault(); close(); });
+          inp.addEventListener('keydown', function(ev){
+            if(ev.key==='Escape'){ ev.preventDefault(); close(); return; }
+            if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].indexOf(ev.key)===-1) ev.preventDefault();
+          });
+          menu.appendChild(inp); menu.appendChild(go); menu.appendChild(cx);
           return;
         }
         var days=parseInt(d,10); if(!days || days<1) return;
@@ -412,6 +461,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     var b=li.querySelector('b'); if(!b) return;
     var title=b.textContent.replace(/^Task:\s*/,'').trim();
     var sn=read('board-snooze:'+title);
+    if(li.dataset.recur==='habit'){ if(sn){ try{ localStorage.removeItem('board-snooze:'+title); }catch(e){} } return; } // dailies can't be snoozed (Nathan, 2 Sep)
     if(sn && snoozeActive(sn)){ li.classList.add('snoozed'); li.dataset.until=fmtUntil(sn); }
     else if(sn){ try{ localStorage.removeItem('board-snooze:'+title); }catch(e){} }
   });
@@ -455,6 +505,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
       var b=li.querySelector('b'); if(!b) return;
       var title=b.textContent.replace(/^Task:\s*/,'').trim();
+      if(li.dataset.recur==='habit') return; // dailies can't be snoozed
       var e=st.items[title];
       if(!e || !e.until || !snoozeActive(e.until)) return;
       var un=read('board-unsnooze:'+title);
