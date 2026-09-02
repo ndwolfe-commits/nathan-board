@@ -59,34 +59,57 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </section>
 <script>
 (function(){
-  var items=[];
+  var today = new Date().toISOString().slice(0,10);
+  var items = {};
   try{
     for(var i=0;i<localStorage.length;i++){
       var k=localStorage.key(i);
       if(k.indexOf('board-snooze:')===0){
         var t=k.slice(13), until=localStorage.getItem(k);
-        if(until>=new Date().toISOString().slice(0,10)) items.push({t:t,until:until});
+        if(until>=today) items[t]={until:until,src:'this device'};
         else localStorage.removeItem(k);
       }
     }
   }catch(e){}
-  if(!items.length) return;
-  var ul=document.getElementById('snzlist');
-  document.getElementById('snzempty').remove();
-  items.sort(function(a,b){return a.until<b.until?-1:1;});
-  items.forEach(function(it){
-    var li=document.createElement('li');
-    var d=new Date(it.until+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
-    li.innerHTML='<a class="tapdone" href="#">unsnooze</a><b></b> <span class=d>- snoozed until '+d+'</span>';
-    li.querySelector('b').textContent=it.t;
-    li.querySelector('a').addEventListener('click',function(e){
-      e.preventDefault();
-      try{localStorage.removeItem('board-snooze:'+it.t);}catch(err){}
-      li.remove();
-      if(!ul.querySelector('li')) ul.innerHTML='<li class="d">Nothing snoozed on this device.</li>';
+  function render(){
+    var ul=document.getElementById('snzlist');
+    ul.innerHTML='';
+    var titles=Object.keys(items);
+    if(!titles.length){ ul.innerHTML='<li class="d">Nothing snoozed.</li>'; return; }
+    titles.sort(function(a,b){return items[a].until<items[b].until?-1:1;});
+    titles.forEach(function(t){
+      var it=items[t];
+      var li=document.createElement('li');
+      var d=new Date(it.until+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+      li.innerHTML='<a class="tapdone" href="#">unsnooze</a><b></b> <span class=d>- snoozed until '+d+' &middot; '+it.src+'</span>';
+      li.querySelector('b').textContent=t;
+      li.querySelector('a').addEventListener('click',function(e){
+        e.preventDefault();
+        try{
+          localStorage.removeItem('board-snooze:'+t);
+          localStorage.setItem('board-unsnooze:'+t, new Date().toISOString());
+        }catch(err){}
+        var url='https://webhook.site/974e7dc9-08e9-441f-844f-7ab514e13d17?item='+encodeURIComponent(t)+'&src=board-unsnooze&t='+encodeURIComponent(new Date().toISOString());
+        var ok=false; try{ ok=navigator.sendBeacon(url); }catch(err){}
+        if(!ok){ try{ fetch(url,{mode:'no-cors'}); }catch(err){} }
+        delete items[t];
+        render();
+      });
+      ul.appendChild(li);
     });
-    ul.appendChild(li);
-  });
+  }
+  render();
+  fetch('snooze-state.json?v='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(st){
+    if(!st||!st.items) return;
+    Object.keys(st.items).forEach(function(t){
+      var e=st.items[t];
+      if(!e.until || e.until < today) return;
+      var un=null; try{ un=localStorage.getItem('board-unsnooze:'+t); }catch(err){}
+      if(un && un > (e.ts||'')) return;
+      items[t]={until:e.until,src: items[t] ? items[t].src : 'any device'};
+    });
+    render();
+  }).catch(function(){});
 })();
 </script>
 <footer>To change anything here, just tell Stinkty on WhatsApp.</footer>

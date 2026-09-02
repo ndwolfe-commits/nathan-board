@@ -74,8 +74,8 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </ol>
 </section>
 <section class="cols">
-<h2>Longer arcs <span>8 &middot; important, not on fire</span></h2>
-<ul>
+<h2>Longer arcs <span>9 &middot; important, not on fire</span></h2>
+<ul><li><b>Boys activities</b> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
 <li><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
 <li><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
 <li><b>LinkedIn profile fixes</b> <span class=d>- queued for 12 Oct</span> <a href="https://www.linkedin.com/">linkedin.com</a></li>
@@ -189,6 +189,21 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       store('board-order', JSON.stringify(titles));
     });
   }
+
+  fetch('snooze-state.json?v='+Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(st){
+    if(!st || !st.items) return;
+    var todayStr = new Date().toISOString().slice(0,10);
+    document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
+      var b=li.querySelector('b'); if(!b) return;
+      var title=b.textContent.replace(/^Task:\s*/,'').trim();
+      var e=st.items[title];
+      if(!e || !e.until || e.until < todayStr) return;
+      var un=read('board-unsnooze:'+title);
+      if(un && un > (e.ts||'')) return;
+      li.classList.add('snoozed');
+      li.dataset.until=new Date(e.until+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    });
+  }).catch(function(){});
   flush();
 })();
 </script>
