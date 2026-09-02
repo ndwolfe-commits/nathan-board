@@ -19,6 +19,8 @@ RECURRING = {
     "Nudge Fairley House re Asa accommodations response": "mustdo",
     "Hire 2026 US CPA + open Claude Tax project for handoff brief": "mustdo",
     "Change Maison Estelle membership to just main club": "mustdo",
+    "Custody script integrity check (editor access + Libraries)": "mustdo",
+    "Design agent peer channel (Claude <-> Instinct)": "mustdo",
 }
 
 # LATE-DONE GUARD (Nathan, 2 Sep 23:52, spec 5.1): date-sensitive recurring items only.
