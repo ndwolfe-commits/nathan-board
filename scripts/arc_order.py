@@ -68,3 +68,35 @@ cur_ts2 = re.search(r'<div class="wrap" data-orderts="(\d+)">', a).group(1)
 a = a.replace('<div class="wrap" data-orderts="%s">' % cur_ts2, '<div class="wrap" data-orderts="%d">' % ts)
 open("arcs.html", "w").write(a)
 print("BAKED arc order ts=%d: %s" % (ts, " > ".join(order)))
+
+# --- Now-list order (src=board-noworder): validate against current #nowlist titles, reorder, bump ts ---
+best = None
+for rec in data:
+    q = rec.get("query") or {}
+    if q.get("src") != "board-noworder":
+        continue
+    ts = int(q.get("ts") or 0)
+    order = (q.get("order") or "").split("|")
+    if ts and (not best or ts > best[0]):
+        best = (ts, order)
+if not best:
+    print("no board-noworder beacon"); raise SystemExit(0)
+ts, order = best
+s = open("index.html").read()
+m = re.search(r'(<ol class="num" id="nowlist" data-orderts="(\d+)">)(.*?)(</ol>)', s, re.S)
+blocks2 = {}
+for blk in re.findall(r'<li>.*?</li>|<li [^>]*>.*?</li>', m.group(3), re.S):
+    b = re.search(r'<b>(.*?)</b>', blk, re.S)
+    t = html.unescape(b.group(1)).strip()
+    t = re.sub(r'^Task:\s*', '', t)
+    blocks2[t] = blk
+if sorted(order) != sorted(blocks2.keys()):
+    print("IGNORED noworder ts=%s: not a permutation of current Now items (board: %s / beacon: %s)" % (ts, sorted(blocks2.keys()), order)); raise SystemExit(0)
+cur_ts = m.group(2)
+if int(cur_ts) >= ts:
+    print("noworder already baked at ts", cur_ts); raise SystemExit(0)
+newbody = "\n".join(blocks2[t] for t in order)
+s = s[:m.start(3)] + "\n" + newbody + "\n" + s[m.end(3):]
+s = s.replace('id="nowlist" data-orderts="%s"' % cur_ts, 'id="nowlist" data-orderts="%d"' % ts)
+open("index.html", "w").write(s)
+print("BAKED now order ts=%d: %s" % (ts, " > ".join(order)))

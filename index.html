@@ -17,6 +17,10 @@ body { font:13.5px/1.42 -apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,
 .wrap { max-width:660px; margin:0 auto; padding:18px 16px 40px; }
 header { border-bottom:1.5px solid var(--ink); padding-bottom:3px; margin-bottom:2px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
 header + section h2 { margin-top:10px; }
+
+.ngrip { display:none; cursor:grab; touch-action:none; color:#c3c7cc; font-size:12px; letter-spacing:-2px; user-select:none; -webkit-user-select:none; margin-right:3px; }
+@media (pointer:coarse) { .ngrip { display:inline-block; } }
+#nowlist li.dragging { opacity:.55; }
 h2 .h2btn { float:right; font-size:10px; font-weight:500; text-transform:none; letter-spacing:0; color:var(--accent); text-decoration:none; border:1px solid #d8d2c4; border-radius:5px; padding:1px 8px; background:#fbfaf7; }
 h2 .h2btn:hover { border-color:var(--accent); }
 h1 { font-size:17px; letter-spacing:.02em; }
@@ -95,7 +99,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </section>
 <section class="">
 <h2>Now</h2>
-<ol class="num" id="nowlist">
+<ol class="num" id="nowlist" data-orderts="0">
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20HSBC%20cash%20run%20%28counter%20service%29" rel="noopener">done</a><b>HSBC cash run (counter service)</b> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20King%20Alfred%20Y7%20application%20%28Asa%2C%20Sept%202027%20entry%29" rel="noopener">done</a><b>King Alfred Y7 application (Asa, Sept 2027 entry)</b> <span class=d>- not yet submitted (prior one bounced); worksheet in your inbox; you wanted it in by Wed 2 Sep</span> <span class=dt>submit ASAP &middot; hard deadline Thu 24 Sep, 4pm</span> <a href="https://www.kingalfred.org.uk/admissions/entry-at-11/year-7-entry-application-form/">application form</a> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Double-check%20new-flat%20insurance%20stack" rel="noopener">done</a><b>Double-check new-flat insurance stack</b> <span class=d>- make sure the cover matches the new place (renters insurance rolled in from the old task list)</span> </li>
@@ -370,13 +374,28 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
   evalMustdos(null);
   var nl=document.getElementById('nowlist');
   if(nl){
-    var order=JSON.parse(read('board-order')||'[]');
-    if(order.length){
-      order.forEach(function(t){
+    function nowTitles(){ return [...nl.querySelectorAll('li')].map(function(x){ var b=x.querySelector('b'); return b?b.textContent.replace(/^Task:\s*/,'').trim():''; }); }
+    function nowFinish(){
+      var o=nowTitles(), ts=Date.now();
+      try{ localStorage.setItem('board-order', JSON.stringify({order:o, ts:ts})); }catch(e){}
+      send('src=board-noworder&ts='+ts+'&order='+encodeURIComponent(o.join('|')));
+    }
+    (function(){
+      var baked=parseInt(nl.getAttribute('data-orderts')||'0',10);
+      var raw=read('board-order'); if(!raw) return;
+      var loc=null; try{ loc=JSON.parse(raw); }catch(e){}
+      if(Array.isArray(loc)){ // legacy pre-beacon format: adopt and beacon so his drag reaches canon
+        loc={order:loc, ts:Date.now()};
+        try{ localStorage.setItem('board-order', JSON.stringify(loc)); }catch(e){}
+        send('src=board-noworder&ts='+loc.ts+'&order='+encodeURIComponent(loc.order.join('|')));
+      }
+      if(!loc||!loc.order||!(loc.ts>baked)) return;
+      loc.order.forEach(function(t){
         var li=[...nl.querySelectorAll('li')].find(function(x){ var b=x.querySelector('b'); return b && b.textContent.replace(/^Task:\s*/,'').trim()===t; });
         if(li) nl.appendChild(li);
       });
-    }
+    })();
+    // desktop: HTML5 drag (unchanged gesture)
     var dragged=null;
     nl.querySelectorAll('li').forEach(function(li){ li.draggable=true; });
     nl.addEventListener('dragstart', function(e){ dragged=e.target.closest('li'); });
@@ -386,9 +405,39 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       var target=e.target.closest('li');
       if(!dragged || !target || dragged===target) return;
       nl.insertBefore(dragged, target);
-      var titles=[...nl.querySelectorAll('li')].filter(function(x){return true;}).map(function(x){ var b=x.querySelector('b'); return b?b.textContent.replace(/^Task:\s*/,'').trim():''; });
-      store('board-order', JSON.stringify(titles));
+      nowFinish();
     });
+    // touch: grip drag (pointer events, grip visible only on coarse pointers)
+    var ndrag=null;
+    nl.querySelectorAll('li').forEach(function(li){
+      var g=document.createElement('span'); g.className='ngrip'; g.textContent='\u22ee\u22ee'; g.setAttribute('aria-hidden','true');
+      li.insertBefore(g, li.firstChild);
+      g.addEventListener('pointerdown', function(ev){
+        ev.preventDefault();
+        try{ g.setPointerCapture(ev.pointerId); }catch(e){}
+        ndrag={card:li, moved:false};
+      });
+    });
+    document.addEventListener('pointermove', function(ev){
+      if(!ndrag) return;
+      ndrag.moved=true;
+      ndrag.card.classList.add('dragging');
+      var el=document.elementFromPoint(ev.clientX, ev.clientY);
+      var over=el ? el.closest('#nowlist > li') : null;
+      if(over && over!==ndrag.card){
+        var r=over.getBoundingClientRect();
+        if(ev.clientY < r.top + r.height/2) nl.insertBefore(ndrag.card, over);
+        else nl.insertBefore(ndrag.card, over.nextSibling);
+      }
+    });
+    function endNDrag(){
+      if(!ndrag) return;
+      ndrag.card.classList.remove('dragging');
+      if(ndrag.moved) nowFinish();
+      ndrag=null;
+    }
+    document.addEventListener('pointerup', endNDrag);
+    document.addEventListener('pointercancel', endNDrag);
   }
 
   fetch('snooze-state.json?v='+Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(st){
