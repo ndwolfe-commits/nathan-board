@@ -70,7 +70,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <ul>
 <li data-recur="habit"><a class="tapset" href="#set">set</a><span class="snzmenu"></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=dt>- daily<span class="todaytime"></span></span> </li>
 <li data-recur="habit"><a class="tapset" href="#set">set</a><span class="snzmenu"></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=dt>- daily<span class="todaytime"></span></span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="3" data-override="2026-09-04"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=dt>- monthly, 1st Wed 12:00; Sep: Fri 4 Sep 13:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="cmonthly" data-interval="1" data-date="2026-09-04"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=dt>- monthly, completion-anchored; next Fri 4 Sep 13:00</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="3" data-day="4" data-anchor="2026-09-04"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20quarterly%20taxes" rel="noopener">done</a><b>Pay quarterly taxes</b> <span class=dt>- every 3 months, on the 4th, 12:00 (provisional cadence)</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="2"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Schedule%20annual%20with%20Dr%20Sera%20Shoukru%20%28new%20GP%29" rel="noopener">done</a><b>Schedule annual with Dr Sera Shoukru (new GP)</b> <span class=dt>- yearly, 2nd Tue Sep 11:00</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Last%20Month%20CMAs%20to%20Pocketsmith" rel="noopener">done</a><b>Last Month CMAs to Pocketsmith</b> <span class=dt>- monthly, 1st Mon 13:00</span> </li>
@@ -253,8 +253,22 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     document.querySelectorAll('li[data-recur="mustdo"]').forEach(function(li){
       var b=li.querySelector('b'); if(!b) return;
       var title=b.textContent.replace(/^Task:\s*/,'').trim();
-      var D=lastOccurrence(li);
-      var open = D && D<=today() && (!doneDateFor(title,serverDone) || doneDateFor(title,serverDone)<D);
+      var dd=doneDateFor(title,serverDone);
+      var D, open;
+      if(li.dataset.freq==='cmonthly'){ // completion-anchored (HSBC pattern): next = done-date + interval months; initial date from data-date
+        var iv=parseInt(li.dataset.interval||'1',10);
+        var base=dd||li.dataset.date;
+        var d0=new Date(base+'T00:00:00');
+        if(dd) d0=new Date(d0.getFullYear(), d0.getMonth()+iv, d0.getDate());
+        var wd=d0.getDay();
+        if(wd===0) d0=new Date(d0.getFullYear(),d0.getMonth(),d0.getDate()+1);
+        else if(wd===6) d0=new Date(d0.getFullYear(),d0.getMonth(),d0.getDate()+2);
+        D=iso(d0);
+        open = D<=today() && (!dd || dd<D);
+      } else {
+        D=lastOccurrence(li);
+        open = D && D<=today() && (!dd || dd<D);
+      }
       li.classList.toggle('recur-hidden', !open);
     });
     updateRecurCount();
