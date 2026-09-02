@@ -37,8 +37,6 @@ a.tapdone:hover, a.tapsnooze:hover { color:var(--accent); border-color:var(--acc
 li.pdone { opacity:.55; }
 li.pdone a.tapdone { color:#4a7c4e; border-color:#bcd3bd; background:#f2f8f2; }
 li.snoozed { display:none; }
-#snoozed-note { color:var(--mut); font-size:11px; cursor:pointer; }
-#snoozed-note:before { background:#d9c89a; }
 ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
 ol.num li { counter-increment:nowc; cursor:grab; }
 ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
@@ -54,7 +52,41 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <h1>Snoozed</h1>
 <div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a><br>Wednesday 2 September</div>
 </header>
-<p class="d" style="margin-top:14px">Nothing here yet.</p>
-
+<section>
+<h2>Snoozed items <span>per this device &middot; they return on their date</span></h2>
+<ul id="snzlist"><li class="d" id="snzempty">Nothing snoozed on this device.</li></ul>
+</section>
+<script>
+(function(){
+  var items=[];
+  try{
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(k.indexOf('board-snooze:')===0){
+        var t=k.slice(13), until=localStorage.getItem(k);
+        if(until>=new Date().toISOString().slice(0,10)) items.push({t:t,until:until});
+        else localStorage.removeItem(k);
+      }
+    }
+  }catch(e){}
+  if(!items.length) return;
+  var ul=document.getElementById('snzlist');
+  document.getElementById('snzempty').remove();
+  items.sort(function(a,b){return a.until<b.until?-1:1;});
+  items.forEach(function(it){
+    var li=document.createElement('li');
+    var d=new Date(it.until+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    li.innerHTML='<b></b> <span class=d>- snoozed until '+d+'</span> <a class="tapdone" href="#">unsnooze</a>';
+    li.querySelector('b').textContent=it.t;
+    li.querySelector('a').addEventListener('click',function(e){
+      e.preventDefault();
+      try{localStorage.removeItem('board-snooze:'+it.t);}catch(err){}
+      li.remove();
+      if(!ul.querySelector('li')) ul.innerHTML='<li class="d">Nothing snoozed on this device.</li>';
+    });
+    ul.appendChild(li);
+  });
+})();
+</script>
 <footer>To change anything here, just tell Stinkty on WhatsApp.</footer>
 </div></body></html>
