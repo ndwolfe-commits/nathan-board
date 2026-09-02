@@ -68,7 +68,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <ul>
 <li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=d>- daily</span> </li>
 <li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=d>- daily</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="3"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=d>- monthly, 1st Wed 19:00-20:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="3" data-override="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=d>- monthly, 1st Wed 12:00; Sep: Fri 4 Sep 13:00</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="3" data-day="4" data-anchor="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20quarterly%20taxes" rel="noopener">done</a><b>Pay quarterly taxes</b> <span class=d>- every 3 months, on the 4th, 12:00 (provisional cadence)</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="2"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Schedule%20annual%20with%20Dr%20Sera%20Shoukru%20%28new%20GP%29" rel="noopener">done</a><b>Schedule annual with Dr Sera Shoukru (new GP)</b> <span class=d>- yearly, 2nd Tue Sep 11:00</span> </li>
 <li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Last%20Month%20CMAs%20to%20Pocketsmith" rel="noopener">done</a><b>Last Month CMAs to Pocketsmith</b> <span class=d>- monthly, 1st Mon 13:00</span> </li>
@@ -207,6 +207,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       while(d.getDay()===0||d.getDay()===6) d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
       return iso(d);
     }
+    var ov=li.dataset.override; if(ov) consider(new Date(ov+'T00:00:00'), null); // one-off instance move override (max wins)
     if(f==='ordinal'){
       var iv=parseInt(li.dataset.interval||'1',10), ord=parseInt(li.dataset.ordinal,10), wd=parseInt(li.dataset.weekday,10);
       var anchor=li.dataset.anchor||null; var am=anchor?anchor.slice(0,7):null;
@@ -272,6 +273,12 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     var saved=read('board-desc:'+title);
     if(saved!==null && saved!==sp.textContent) sp.textContent=saved;
     sp.addEventListener('input', function(){ store('board-desc:'+title, sp.textContent); });
+    var orig=sp.textContent;
+    sp.addEventListener('focus', function(){ orig=sp.textContent; });
+    sp.addEventListener('blur', function(){
+      var cur=sp.textContent;
+      if(cur!==orig){ send('item='+encodeURIComponent(title)+'&src=board-desc&old='+encodeURIComponent(orig)+'&new='+encodeURIComponent(cur)); orig=cur; }
+    });
   });
 
   document.querySelectorAll('a.tapdone').forEach(function(a){
