@@ -14,7 +14,7 @@ try:
 except Exception as e:
     print("beacon fetch failed:", e); data = []
 seen = {}
-for rec in reversed(data):
+for rec in data:
     q = rec.get("query") or {}
     src, item = q.get("src"), q.get("item")
     t = q.get("t") or rec.get("created_at", "")
