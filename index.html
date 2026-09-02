@@ -43,6 +43,10 @@ li.pdone a.tapdone { color:#4a7c4e; border-color:#bcd3bd; background:#f2f8f2; }
 li.snoozed { display:none; }
 li.donehide { display:none; }
 li.recur-hidden { display:none; }
+.dt { color:#3d6b8e; font-weight:500; }
+#nowlist .d { border-bottom:1px dotted #ddd6c8; cursor:text; }
+#nowlist .d:focus { outline:none; border-bottom-color:var(--accent); }
+.snzmenu input.snzd { font-size:10px; margin-left:4px; max-width:150px; }
 ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
 ol.num li { counter-increment:nowc; cursor:grab; }
 ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
@@ -60,7 +64,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <div class="meta">Nathan Wolfe &middot; Wednesday 2 September</div>
 </header>
 <section class="">
-<h2>Today&#x27;s recurring <span id="recurcount">2 &middot; habits reset daily &middot; must-dos roll over till done</span></h2>
+<h2>Today&#x27;s recurring <span id="recurcount">2</span></h2>
 <ul>
 <li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=d>- daily</span> </li>
 <li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=d>- daily</span> </li>
@@ -92,21 +96,21 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </ul>
 </section>
 <section class="">
-<h2>Now <span>9 &middot; things Nathan himself has to do</span></h2>
+<h2>Now <span>9</span></h2>
 <ol class="num" id="nowlist">
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20HSBC%20cash%20run%20%28counter%20service%29" rel="noopener">done</a><b>HSBC cash run (counter service)</b> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20King%20Alfred%20Y7%20application%20%28Asa%2C%20Sept%202027%20entry%29" rel="noopener">done</a><b>King Alfred Y7 application (Asa, Sept 2027 entry)</b> <span class=d>- not yet submitted (prior one bounced); worksheet in your inbox; you wanted it in by Wed 2 Sep</span> <span class=tag>submit ASAP - hard deadline Thu 24 Sep, 4pm</span> <a href="https://www.kingalfred.org.uk/admissions/entry-at-11/year-7-entry-application-form/">application form</a> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Double-check%20new-flat%20insurance%20stack" rel="noopener">done</a><b>Double-check new-flat insurance stack</b> <span class=d>- make sure the cover matches the new place (renters insurance rolled in from the old task list)</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Utilities%20audit" rel="noopener">done</a><b>Utilities audit</b> <span class=d>- close out St Pancras Chambers + Gasholders; verify everything&#x27;s on the new flat</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Doctor%26%23x27%3Bs%20appointments" rel="noopener">done</a><b>Doctor&#x27;s appointments</b> <span class=d>- one test to schedule + reply to Patel and Saleha</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Fidelity" rel="noopener">done</a><b>Fidelity</b> <span class=d>- fix credit card payment structure; needs a call - maybe a Retell job</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Connect%20Lance%20and%20Adam" rel="noopener">done</a><b>Connect Lance and Adam</b> <span class=d>- intro email pending your confirm</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Olga%3A%20Roth%20conversion" rel="noopener">done</a><b>Olga: Roth conversion</b> <span class=d>- moved off the calendar 2 Sep (was a weekly reminder series); one-time task</span> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20King%20Alfred%20Y7%20application%20%28Asa%2C%20Sept%202027%20entry%29" rel="noopener">done</a><b>King Alfred Y7 application (Asa, Sept 2027 entry)</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- not yet submitted (prior one bounced); worksheet in your inbox; you wanted it in by Wed 2 Sep</span> <span class=dt>submit ASAP &middot; hard deadline Thu 24 Sep, 4pm</span> <a href="https://www.kingalfred.org.uk/admissions/entry-at-11/year-7-entry-application-form/">application form</a> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Double-check%20new-flat%20insurance%20stack" rel="noopener">done</a><b>Double-check new-flat insurance stack</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- make sure the cover matches the new place (renters insurance rolled in from the old task list)</span> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Utilities%20audit" rel="noopener">done</a><b>Utilities audit</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- close out St Pancras Chambers + Gasholders; verify everything&#x27;s on the new flat</span> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Doctor%26%23x27%3Bs%20appointments" rel="noopener">done</a><b>Doctor&#x27;s appointments</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- one test to schedule + reply to Patel and Saleha</span> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Fidelity" rel="noopener">done</a><b>Fidelity</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- fix credit card payment structure; needs a call - maybe a Retell job</span> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a><b>Calendly redesign</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- state review + availability layer; line-item yeses pending</span> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Connect%20Lance%20and%20Adam" rel="noopener">done</a><b>Connect Lance and Adam</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- intro email pending your confirm</span> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Olga%3A%20Roth%20conversion" rel="noopener">done</a><b>Olga: Roth conversion</b> <span class=d contenteditable="plaintext-only" spellcheck="false">- moved off the calendar 2 Sep (was a weekly reminder series); one-time task</span> </li>
 </ol>
 </section>
 <section class="cols">
-<h2><a href="arcs.html">Longer arcs</a> <span>9 &middot; important, not on fire</span></h2>
+<h2><a href="arcs.html">Longer arcs</a> <span>9</span></h2>
 <ul><li><b>Security &amp; insurance</b> <span class=d>- review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</span></li><li><b>Boys activities</b> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
 <li><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
 <li><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
@@ -118,7 +122,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 </ul>
 </section>
 <section class="">
-<h2>Waiting <span>1 &middot; attention items only - full list behind the Waiting link</span></h2>
+<h2>Waiting <span>1</span></h2>
 <ul>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Mounjaro" rel="noopener">done</a><b>Mounjaro</b> <span class=d>- shipped 1 Sep; DPD parcel in transit (ref 15976516827527, refrigerated), delivery being tracked</span> </li>
 </ul>
@@ -160,6 +164,24 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     var left=[];
     q.forEach(function(p){ var ok=false; try{ ok=navigator.sendBeacon(ENDPOINT+'?'+p+'&src=board-outbox'); }catch(e){} if(!ok) left.push(p); });
     store('board-outbox', JSON.stringify(left));
+  }
+
+  function fmtUntil(iso){ // date-only => date; datetime => date + time
+    var d=new Date(iso.length===10 ? iso+'T00:00:00' : iso);
+    var s=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    if(iso.length>10) s+=', '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    return s;
+  }
+  function snoozeActive(until){ // date-only hides through that day; datetime hides until that moment
+    if(until.length===10) return until>=today();
+    return new Date(until)>new Date();
+  }
+  function isoLocal(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'T'+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
+  function snoozeApply(li,title,untilDate){
+    var iso=isoLocal(untilDate);
+    li.classList.add('snoozed'); li.dataset.until=fmtUntil(iso);
+    store('board-snooze:'+title, iso);
+    send('item='+encodeURIComponent(title)+'&src=board-snooze&until='+encodeURIComponent(iso));
   }
 
   // Today's recurring engine (Nathan, 2 Sep): habits = done/not-done daily; must-dos show from their
@@ -239,8 +261,18 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     var c=document.getElementById('recurcount'); if(!c) return;
     var ul=document.querySelector('li[data-recur]').closest('ul');
     var n=[...ul.querySelectorAll('li')].filter(function(x){return getComputedStyle(x).display!=='none';}).length;
-    c.textContent=n+' \u00b7 habits reset daily \u00b7 must-dos roll over till done';
+    c.textContent=String(n);
   }
+
+  // Editable Now descriptions (Nathan, 2 Sep): board-owned fields - never mirrored from the
+  // calendar, so his edits can't fight the calendar sync. Persist locally per device.
+  document.querySelectorAll('#nowlist .d').forEach(function(sp){
+    var li=sp.closest('li'); var b=li.querySelector('b'); if(!b) return;
+    var title=b.textContent.replace(/^Task:\s*/,'').trim();
+    var saved=read('board-desc:'+title);
+    if(saved!==null && saved!==sp.textContent) sp.textContent=saved;
+    sp.addEventListener('input', function(){ store('board-desc:'+title, sp.textContent); });
+  });
 
   document.querySelectorAll('a.tapdone').forEach(function(a){
     var li=a.closest('li'); var title=titleOf(a); var daily=isDaily(li);
@@ -263,21 +295,29 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     a.addEventListener('click', function(e){
       e.preventDefault();
       var li=a.closest('li'); var title=titleOf(a); var d=a.dataset.days;
-      var days = d==='custom' ? parseInt(prompt('Snooze how many days?','3'),10) : parseInt(d,10);
-      if(!days || days<1) return;
-      var until=new Date(Date.now()+days*86400000);
-      var untilStr=until.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
-      li.classList.add('snoozed'); li.dataset.until=untilStr;
-      store('board-snooze:'+title, until.toISOString().slice(0,10));
-      a.closest('.snzmenu').style.display='none';
-      send('item='+encodeURIComponent(title)+'&src=board-snooze&until='+encodeURIComponent(until.toISOString().slice(0,10)));
+      var menu=a.closest('.snzmenu');
+      if(d==='custom'){ // date AND time picker (Nathan, 2 Sep)
+        if(menu.querySelector('input.snzd')) return;
+        var inp=document.createElement('input'); inp.type='datetime-local'; inp.className='snzd';
+        inp.value=isoLocal(new Date(Date.now()+86400000)).slice(0,11)+'12:00';
+        var go=document.createElement('a'); go.textContent='set'; go.href='#set';
+        go.addEventListener('click', function(ev){ ev.preventDefault();
+          if(!inp.value) return; var ud=new Date(inp.value); if(isNaN(ud)) return;
+          snoozeApply(li,title,ud); menu.style.display='none'; inp.remove(); go.remove();
+        });
+        menu.appendChild(inp); menu.appendChild(go);
+        return;
+      }
+      var days=parseInt(d,10); if(!days || days<1) return;
+      snoozeApply(li,title,new Date(Date.now()+days*86400000));
+      menu.style.display='none';
     });
   });
   document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
     var b=li.querySelector('b'); if(!b) return;
     var title=b.textContent.replace(/^Task:\s*/,'').trim();
     var sn=read('board-snooze:'+title);
-    if(sn && sn>=today()){ li.classList.add('snoozed'); li.dataset.until=new Date(sn+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); }
+    if(sn && snoozeActive(sn)){ li.classList.add('snoozed'); li.dataset.until=fmtUntil(sn); }
     else if(sn){ try{ localStorage.removeItem('board-snooze:'+title); }catch(e){} }
   });
   evalMustdos(null);
@@ -321,11 +361,11 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
       var b=li.querySelector('b'); if(!b) return;
       var title=b.textContent.replace(/^Task:\s*/,'').trim();
       var e=st.items[title];
-      if(!e || !e.until || e.until < todayStr) return;
+      if(!e || !e.until || !snoozeActive(e.until)) return;
       var un=read('board-unsnooze:'+title);
       if(un && un > (e.ts||'')) return;
       li.classList.add('snoozed');
-      li.dataset.until=new Date(e.until+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+      li.dataset.until=fmtUntil(e.until);
     });
   }).catch(function(){});
   flush();

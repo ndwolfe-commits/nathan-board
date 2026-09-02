@@ -61,12 +61,19 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 (function(){
   var today = new Date().toISOString().slice(0,10);
   var items = {};
+  function snoozeActive(until){ if(until.length===10) return until>=today; return new Date(until)>new Date(); }
+  function fmtUntil(iso){
+    var d=new Date(iso.length===10 ? iso+'T00:00:00' : iso);
+    var s=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    if(iso.length>10) s+=', '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    return s;
+  }
   try{
     for(var i=0;i<localStorage.length;i++){
       var k=localStorage.key(i);
       if(k.indexOf('board-snooze:')===0){
         var t=k.slice(13), until=localStorage.getItem(k);
-        if(until>=today) items[t]={until:until,src:'this device'};
+        if(snoozeActive(until)) items[t]={until:until,src:'this device'};
         else localStorage.removeItem(k);
       }
     }
@@ -80,7 +87,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     titles.forEach(function(t){
       var it=items[t];
       var li=document.createElement('li');
-      var d=new Date(it.until+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+      var d=fmtUntil(it.until);
       li.innerHTML='<a class="tapdone" href="#">unsnooze</a><b></b> <span class=d>- snoozed until '+d+' &middot; '+it.src+'</span>';
       li.querySelector('b').textContent=t;
       li.querySelector('a').addEventListener('click',function(e){
@@ -103,7 +110,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     if(!st||!st.items) return;
     Object.keys(st.items).forEach(function(t){
       var e=st.items[t];
-      if(!e.until || e.until < today) return;
+      if(!e.until || !snoozeActive(e.until)) return;
       var un=null; try{ un=localStorage.getItem('board-unsnooze:'+t); }catch(err){}
       if(un && un > (e.ts||'')) return;
       items[t]={until:e.until,src: items[t] ? items[t].src : 'any device'};
