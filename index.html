@@ -38,6 +38,7 @@ a.tapdone:hover, a.tapsnooze:hover { color:var(--accent); border-color:var(--acc
 li.pdone { opacity:.55; }
 li.pdone a.tapdone { color:#4a7c4e; border-color:#bcd3bd; background:#f2f8f2; }
 li.snoozed { display:none; }
+li.donehide { display:none; }
 ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
 ol.num li { counter-increment:nowc; cursor:grab; }
 ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
@@ -54,10 +55,10 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <div class="meta">Nathan Wolfe &middot; <a href="channel.html">The Channel (Instinct &lt;&gt; Claude)</a> &middot; <a href="rules.html">Rules &amp; Memory</a><br>Wednesday 2 September</div>
 </header>
 <section class="">
-<h2>Today&#x27;s recurring <span>2 &middot; daily, resets tomorrow</span></h2>
+<h2>Today&#x27;s recurring <span>2 &middot; habits reset daily &middot; must-dos roll over till done</span></h2>
 <ul>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=d>- daily</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=d>- daily</span> </li>
+<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=d>- daily</span> </li>
+<li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=d>- daily</span> </li>
 </ul>
 </section>
 <section class="">
@@ -111,7 +112,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <script>
 (function(){
   var ENDPOINT='https://webhook.site/974e7dc9-08e9-441f-844f-7ab514e13d17';
-  function today(){ return new Date().toISOString().slice(0,10); }
+  function today(){ return new Date().toLocaleDateString('sv-SE'); }
   function store(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
   function read(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
   function isDaily(li){ return li.textContent.indexOf('- daily') !== -1; }
@@ -133,6 +134,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
   document.querySelectorAll('a.tapdone').forEach(function(a){
     var li=a.closest('li'); var title=titleOf(a); var daily=isDaily(li);
     var done=read('board-done:'+title);
+    if(li.dataset.recur && done && done===today()){ li.classList.add('donehide'); return; }
     if(done && (daily ? done===today() : true)) mark(li,a,daily);
     a.addEventListener('click', function(e){
       e.preventDefault(); mark(li,a,daily); store('board-done:'+title, today());
@@ -191,8 +193,17 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
   }
 
   fetch('snooze-state.json?v='+Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(st){
-    if(!st || !st.items) return;
-    var todayStr = new Date().toISOString().slice(0,10);
+    if(!st) return;
+    var todayStr = new Date().toLocaleDateString('sv-SE');
+    if(st.done){
+      document.querySelectorAll('li[data-recur]').forEach(function(li){
+        var b=li.querySelector('b'); if(!b) return;
+        var title=b.textContent.replace(/^Task:\s*/,'').trim();
+        var d=st.done[title];
+        if(d && d.date===todayStr) li.classList.add('donehide');
+      });
+    }
+    if(!st.items) return;
     document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
       var b=li.querySelector('b'); if(!b) return;
       var title=b.textContent.replace(/^Task:\s*/,'').trim();
