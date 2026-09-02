@@ -15,7 +15,10 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font:13.5px/1.42 -apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fafafa; }
 .wrap { max-width:660px; margin:0 auto; padding:18px 16px 40px; }
-header { border-bottom:1.5px solid var(--ink); padding-bottom:5px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
+header { border-bottom:1.5px solid var(--ink); padding-bottom:3px; margin-bottom:2px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
+header + section h2 { margin-top:10px; }
+h2 a { color:inherit; text-decoration:none; }
+h2 a:hover { text-decoration:underline; }
 h1 { font-size:17px; letter-spacing:.02em; }
 header .meta { font-size:11px; color:var(--mut); text-align:right; }
 h2 { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:2px; margin:16px 0 5px; }
@@ -54,7 +57,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <body><div class="wrap">
 <header>
 <h1>The Board</h1>
-<div class="meta">Nathan Wolfe<br>Wednesday 2 September</div>
+<div class="meta">Nathan Wolfe &middot; Wednesday 2 September</div>
 </header>
 <section class="">
 <h2>Today&#x27;s recurring <span id="recurcount">2 &middot; habits reset daily &middot; must-dos roll over till done</span></h2>
@@ -97,21 +100,21 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Utilities%20audit" rel="noopener">done</a><b>Utilities audit</b> <span class=d>- close out St Pancras Chambers + Gasholders; verify everything&#x27;s on the new flat</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Doctor%26%23x27%3Bs%20appointments" rel="noopener">done</a><b>Doctor&#x27;s appointments</b> <span class=d>- one test to schedule + reply to Patel and Saleha</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Fidelity" rel="noopener">done</a><b>Fidelity</b> <span class=d>- fix credit card payment structure; needs a call - maybe a Retell job</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending</span> <a href="https://calendly.com/">calendly.com</a> </li>
+<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20redesign" rel="noopener">done</a><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Connect%20Lance%20and%20Adam" rel="noopener">done</a><b>Connect Lance and Adam</b> <span class=d>- intro email pending your confirm</span> </li>
 <li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Olga%3A%20Roth%20conversion" rel="noopener">done</a><b>Olga: Roth conversion</b> <span class=d>- moved off the calendar 2 Sep (was a weekly reminder series); one-time task</span> </li>
 </ol>
 </section>
 <section class="cols">
-<h2>Longer arcs <span>9 &middot; important, not on fire</span></h2>
-<ul><li><a href="arcs/security-insurance.html"><b>Security &amp; insurance</b></a> <span class=d>- review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</span></li><li><a href="arcs/boys-activities.html"><b>Boys activities</b></a> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
-<li><a href="arcs/estate-planning.html"><b>Estate planning</b></a> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
-<li><a href="arcs/pocketSmith.html"><b>PocketSmith</b></a> <span class=d>- research + cleanup plan; paused by you</span></li>
-<li><a href="arcs/linkedin-profile-fixes.html"><b>LinkedIn profile fixes</b></a> <span class=d>- queued for 12 Oct</span> <a href="https://www.linkedin.com/">linkedin.com</a></li>
-<li><a href="arcs/sofa-rug.html"><b>Sell the blue circular sofa + Persian rug; donate clothes</b></a> <span class=d>- send photos + dimensions, listings get drafted</span></li>
-<li><a href="arcs/linking.html"><b>Linking</b></a> <span class=d>- one topic now: WhatsApp personal linking + any other accounts worth connecting (Google parked per you)</span></li>
-<li><a href="arcs/tock-password.html"><b>Tock password</b></a> <span class=d>- in breach databases; reset worth doing</span></li>
-<li><a href="arcs/kids-scuba.html"><b>Kids scuba</b></a> <span class=d>- finish coursework; dive trip spring or Dec</span></li>
+<h2><a href="arcs.html">Longer arcs</a> <span>9 &middot; important, not on fire</span></h2>
+<ul><li><b>Security &amp; insurance</b> <span class=d>- review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</span></li><li><b>Boys activities</b> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
+<li><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say</span></li>
+<li><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
+<li><b>LinkedIn profile fixes</b> <span class=d>- queued for 12 Oct</span></li>
+<li><b>Sell the blue circular sofa + Persian rug; donate clothes</b> <span class=d>- send photos + dimensions, listings get drafted</span></li>
+<li><b>Linking</b> <span class=d>- one topic now: WhatsApp personal linking + any other accounts worth connecting (Google parked per you)</span></li>
+<li><b>Tock password</b> <span class=d>- in breach databases; reset worth doing</span></li>
+<li><b>Kids scuba</b> <span class=d>- finish coursework; dive trip spring or Dec</span></li>
 </ul>
 </section>
 <section class="">
