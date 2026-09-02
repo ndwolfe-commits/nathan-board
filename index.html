@@ -39,6 +39,7 @@ li.pdone { opacity:.55; }
 li.pdone a.tapdone { color:#4a7c4e; border-color:#bcd3bd; background:#f2f8f2; }
 li.snoozed { display:none; }
 li.donehide { display:none; }
+li.recur-hidden { display:none; }
 ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
 ol.num li { counter-increment:nowc; cursor:grab; }
 ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
@@ -56,10 +57,27 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <div class="meta">Nathan Wolfe<br>Wednesday 2 September</div>
 </header>
 <section class="">
-<h2>Today&#x27;s recurring <span>2 &middot; habits reset daily &middot; must-dos roll over till done</span></h2>
+<h2>Today&#x27;s recurring <span id="recurcount">2 &middot; habits reset daily &middot; must-dos roll over till done</span></h2>
 <ul>
 <li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Cardio%20%2B%20strength" rel="noopener">done</a><b>Cardio + strength</b> <span class=d>- daily</span> </li>
 <li data-recur="habit"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Meditate" rel="noopener">done</a><b>Meditate</b> <span class=d>- daily</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="3"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Charge%20HUD%20Galileo" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=d>- monthly, 1st Wed 19:00-20:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="3" data-day="4" data-anchor="2026-09-04"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20quarterly%20taxes" rel="noopener">done</a><b>Pay quarterly taxes</b> <span class=d>- every 3 months, on the 4th, 12:00 (provisional cadence)</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="9" data-day="5"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Schedule%20annual%20with%20Dr%20Sera%20Shoukru%20%28new%20GP%29" rel="noopener">done</a><b>Schedule annual with Dr Sera Shoukru (new GP)</b> <span class=d>- yearly, 5 Sep 20:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Last%20Month%20CMAs%20to%20Pocketsmith" rel="noopener">done</a><b>Last Month CMAs to Pocketsmith</b> <span class=d>- monthly, 1st Mon 13:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="2" data-weekday="3"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Financial%20account%20security%20hygiene" rel="noopener">done</a><b>Financial account security hygiene</b> <span class=d>- monthly, 2nd Wed 12:00 (Fidelity etc.)</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="9" data-day="11"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Contact%20Don%20Caskey%20-%20Baktus%20D%26amp%3BO" rel="noopener">done</a><b>Contact Don Caskey - Baktus D&amp;O</b> <span class=d>- yearly, 11 Sep, all-day</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="9" data-day="12"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Consider%20employing%20boys" rel="noopener">done</a><b>Consider employing boys</b> <span class=d>- yearly, 12 Sep, all-day</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="10" data-day="1"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Start%20SAD%20light%20therapy" rel="noopener">done</a><b>Start SAD light therapy</b> <span class=d>- yearly, 1 Oct 16:00-18:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="1" data-anchor="2026-10-12"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Extend%20UK%20credit%20card%20Travel%20Notice%20on%20Visa%200205" rel="noopener">done</a><b>Extend UK credit card Travel Notice on Visa 0205</b> <span class=d>- every 3 months, 2nd Mon 11:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="6" data-ordinal="2" data-weekday="3" data-anchor="2026-10-14"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Delete%20nw%40nathanwolfe.net" rel="noopener">done</a><b>Delete nw@nathanwolfe.net</b> <span class=d>- every 6 months, 2nd Wed, all-day</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="2" data-anchor="2026-11-10"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20SHL" rel="noopener">done</a><b>SHL</b> <span class=d>- every 3 months, 2nd Tue 11:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="11" data-day="12"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Set%20up%20fidelity%20emails%20%2415k" rel="noopener">done</a><b>Set up fidelity emails $15k</b> <span class=d>- yearly, 12 Nov, all-day</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="2" data-day="26"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Calendly%20BST" rel="noopener">done</a><b>Calendly BST</b> <span class=d>- yearly, 26 Feb 18:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="4" data-day="8"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Keep%20or%20cancel%20koko" rel="noopener">done</a><b>Keep or cancel koko</b> <span class=d>- yearly, 8 Apr 11:00</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="yearly" data-month="4" data-day="29"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Economist%20renewal" rel="noopener">done</a><b>Economist renewal</b> <span class=d>- yearly, 29 Apr 14:00 (renews 3 May)</span> </li>
+<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="1" data-day="5" data-anchor="2027-01-05"><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="https://wa.me/16508702892?text=Done%3A%20Pay%20rent%2036%20Gloucester" rel="noopener">done</a><b>Pay rent 36 Gloucester</b> <span class=d>- monthly, on the 5th, 12:00 (provisional)</span> </li>
+
 </ul>
 </section>
 <section class="">
@@ -132,6 +150,72 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     q.forEach(function(p){ var ok=false; try{ ok=navigator.sendBeacon(ENDPOINT+'?'+p+'&src=board-outbox'); }catch(e){} if(!ok) left.push(p); });
     store('board-outbox', JSON.stringify(left));
   }
+
+  // Today's recurring engine (Nathan, 2 Sep): habits = done/not-done daily; must-dos show from their
+  // occurrence date and roll over until done or snoozed. FLOOR: nothing carries over from before 2 Sep 2026.
+  var FLOOR='2026-09-02';
+  function iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function ordinalDate(y,m,ord,wd){ // m 0-based; wd 0=Sun
+    var first=new Date(y,m,1); var add=((wd-first.getDay())+7)%7; var day=1+add+(ord-1)*7;
+    var d=new Date(y,m,day); return d.getMonth()===m ? d : null;
+  }
+  function lastOccurrence(li){
+    var t=today(); var f=li.dataset.freq; var out=null;
+    function consider(d, anchor){
+      if(!d) return;
+      var ds=iso(d);
+      if(ds>t || ds<FLOOR) return;
+      if(anchor && ds<anchor) return;
+      if(!out || ds>out) out=ds;
+    }
+    if(f==='ordinal'){
+      var iv=parseInt(li.dataset.interval||'1',10), ord=parseInt(li.dataset.ordinal,10), wd=parseInt(li.dataset.weekday,10);
+      var anchor=li.dataset.anchor||null; var am=anchor?anchor.slice(0,7):null;
+      var now=new Date();
+      for(var k=0;k<=iv+1;k++){
+        var ref=new Date(now.getFullYear(), now.getMonth()-k, 1);
+        var ym=ref.getFullYear()+'-'+String(ref.getMonth()+1).padStart(2,'0');
+        if(am){ var diff=(ref.getFullYear()*12+ref.getMonth())-(parseInt(am.slice(0,4),10)*12+parseInt(am.slice(5,7),10)-1); if(diff%iv!==0) continue; }
+        consider(ordinalDate(ref.getFullYear(),ref.getMonth(),ord,wd), anchor);
+      }
+    } else if(f==='monthday'){
+      var iv=parseInt(li.dataset.interval||'1',10), day=parseInt(li.dataset.day,10), anchor=li.dataset.anchor||null; var am=anchor?anchor.slice(0,7):null;
+      var now=new Date();
+      for(var k=0;k<=iv+1;k++){
+        var ref=new Date(now.getFullYear(), now.getMonth()-k, 1);
+        if(am){ var diff=(ref.getFullYear()*12+ref.getMonth())-(parseInt(am.slice(0,4),10)*12+parseInt(am.slice(5,7),10)-1); if(diff%iv!==0) continue; }
+        consider(new Date(ref.getFullYear(),ref.getMonth(),day), anchor);
+      }
+    } else if(f==='yearly'){
+      var mo=parseInt(li.dataset.month,10)-1, day=parseInt(li.dataset.day,10), now=new Date();
+      consider(new Date(now.getFullYear(),mo,day), null);
+      consider(new Date(now.getFullYear()-1,mo,day), null);
+    }
+    return out;
+  }
+  function doneDateFor(title, serverDone){
+    var d=read('board-done:'+title);
+    if(serverDone && serverDone[title] && (!d || serverDone[title].date>d)) d=serverDone[title].date;
+    return d;
+  }
+  function evalMustdos(serverDone){
+    var changed=false;
+    document.querySelectorAll('li[data-recur="mustdo"]').forEach(function(li){
+      var b=li.querySelector('b'); if(!b) return;
+      var title=b.textContent.replace(/^Task:\s*/,'').trim();
+      var D=lastOccurrence(li);
+      var open = D && D<=today() && (!doneDateFor(title,serverDone) || doneDateFor(title,serverDone)<D);
+      li.classList.toggle('recur-hidden', !open);
+    });
+    updateRecurCount();
+  }
+  function updateRecurCount(){
+    var c=document.getElementById('recurcount'); if(!c) return;
+    var ul=document.querySelector('li[data-recur]').closest('ul');
+    var n=[...ul.querySelectorAll('li')].filter(function(x){return getComputedStyle(x).display!=='none';}).length;
+    c.textContent=n+' \u00b7 habits reset daily \u00b7 must-dos roll over till done';
+  }
+
   document.querySelectorAll('a.tapdone').forEach(function(a){
     var li=a.closest('li'); var title=titleOf(a); var daily=isDaily(li);
     var done=read('board-done:'+title);
@@ -170,6 +254,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
     if(sn && sn>=today()){ li.classList.add('snoozed'); li.dataset.until=new Date(sn+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); }
     else if(sn){ try{ localStorage.removeItem('board-snooze:'+title); }catch(e){} }
   });
+  evalMustdos(null);
   var nl=document.getElementById('nowlist');
   if(nl){
     var order=JSON.parse(read('board-order')||'[]');
@@ -204,6 +289,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
         if(d && d.date===todayStr) li.classList.add('donehide');
       });
     }
+    evalMustdos(st.done||{});
     if(!st.items) return;
     document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
       var b=li.querySelector('b'); if(!b) return;

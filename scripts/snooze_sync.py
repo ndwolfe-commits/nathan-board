@@ -2,7 +2,20 @@ import json, urllib.request, datetime, os
 from zoneinfo import ZoneInfo
 UUID = "974e7dc9-08e9-441f-844f-7ab514e13d17"
 # Today's recurring items, by kind: "habit" (done/not-done, no carryover) or "mustdo" (rolls over until done or snoozed)
-RECURRING = {"Cardio + strength": "habit", "Meditate": "habit"}
+RECURRING = {
+    "Cardio + strength": "habit", "Meditate": "habit",
+    "Charge HUD Galileo": "mustdo", "Pay quarterly taxes": "mustdo",
+    "Schedule annual with Dr Sera Shoukru (new GP)": "mustdo",
+    "Last Month CMAs to Pocketsmith": "mustdo",
+    "Financial account security hygiene": "mustdo",
+    "Contact Don Caskey - Baktus D&O": "mustdo",
+    "Consider employing boys": "mustdo", "Start SAD light therapy": "mustdo",
+    "Extend UK credit card Travel Notice on Visa 0205": "mustdo",
+    "Delete nw@nathanwolfe.net": "mustdo", "SHL": "mustdo",
+    "Set up fidelity emails $15k": "mustdo", "Calendly BST": "mustdo",
+    "Keep or cancel koko": "mustdo", "Economist renewal": "mustdo",
+    "Pay rent 36 Gloucester": "mustdo",
+}
 PATH = "snooze-state.json"
 today = datetime.datetime.now(ZoneInfo("Europe/London")).date().isoformat()
 state = {"items": {}}
@@ -37,7 +50,9 @@ for item, (t, src, until) in seen.items():
         items[item] = {"until": until, "ts": t}
     elif src == "board-unsnooze":
         items.pop(item, None)
-done = {k: v for k, v in done.items() if v.get("date", "") >= today}
+cutoff_habit = today
+cutoff_mustdo = (datetime.date.fromisoformat(today) - datetime.timedelta(days=366)).isoformat()
+done = {k: v for k, v in done.items() if v.get("date", "") >= (cutoff_habit if v.get("kind") == "habit" else cutoff_mustdo)}
 state["done"] = done
 items = {k: v for k, v in items.items() if v.get("until", "") >= today}
 state["items"] = items
