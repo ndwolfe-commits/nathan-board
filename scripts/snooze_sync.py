@@ -15,6 +15,7 @@ RECURRING = {
     "Set up fidelity emails $15k": "mustdo", "Calendly BST": "mustdo",
     "Keep or cancel koko": "mustdo", "Economist renewal": "mustdo",
     "Pay rent 36 Gloucester": "mustdo",
+    "Chrome profile per Google account (fix script mis-routing)": "mustdo",
     # one-off Task: events (due-date must-dos, done hides permanently via 366d keep)
     "Nudge Fairley House re Asa accommodations response": "mustdo",
     "Hire 2026 US CPA + open Claude Tax project for handoff brief": "mustdo",
