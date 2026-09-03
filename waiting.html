@@ -52,15 +52,17 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <body><div class="wrap">
 <header>
 <h1>Waiting</h1>
-<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a><br>Wednesday 2 September</div>
+<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a><br><span class="hdrd">Wednesday 2 September</span></div>
 </header>
 <section>
 <h2>Waiting - full list <span>attention items surface on the board</span></h2>
 <ul>
-<li><b>Mounjaro</b> <span class=d>- shipped 1 Sep; DPD parcel in transit (ref 15976516827527, refrigerated), delivery being tracked</span></li>
+<li><b>Mounjaro</b> <span class=d>- DPD parcel 15976516827527: attempted Thu 3 Sep failed (driver logged 17:51, no contact info on the parcel record). Redelivery Fri 4 Sep; active watch armed, window gets pinged when assigned. Pharmacist confirmation on the temperature excursion may follow once delivered</span> <span class="tag">on the board</span></li>
+<li><b>Philips defibrillator battery (Defib Store)</b> <span class=d>- ordered 3 Sep (order 000029785, &#163;154.80); dispatch expected next working day (Fri 4 Sep); confirmation + tracking going to your Gmail. Waiting on: delivery</span></li>
+<li><b>Philips battery Amazon order (refund)</b> <span class=d>- order 026-6376964-5311553 cancelled 3 Sep after the carrier lost it; full &#163;161.99 refund issued to Visa ...0205, lands in 5-7 business days. Waiting on: the refund landing</span></li>
 <li><b>Young Farmers, Kentish Town City Farm (Charles)</b> <span class=d>- held in Standing until announced, then graduates here</span></li>
 </ul>
 </section>
 
 <footer>To change anything here, just tell Stinkty on WhatsApp.</footer>
-</div></body></html>
+</div><script>document.querySelectorAll('.hdrd').forEach(function(e){e.textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});});</script></body></html>
