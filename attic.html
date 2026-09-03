@@ -52,9 +52,9 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <body><div class="wrap">
 <header>
 <h1>Attic</h1>
-<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a><br>Wednesday 2 September</div>
+<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a><br><span class="hdrd">Wednesday 2 September</span></div>
 </header>
 <p class="d" style="margin-top:14px">Nothing here yet.</p>
 
 <footer>To change anything here, just tell Stinkty on WhatsApp.</footer>
-</div></body></html>
+</div><script>document.querySelectorAll('.hdrd').forEach(function(e){e.textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});});</script></body></html>

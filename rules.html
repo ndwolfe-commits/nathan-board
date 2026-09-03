@@ -44,7 +44,7 @@ ol.rules li:before { content:none; }
 <body><div class="wrap">
 <header>
 <h1>Rules &amp; Memory</h1>
-<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a> &middot; <a href="channel.html">The Channel</a><br>Wednesday 2 September 2026, 11:02 BST</div>
+<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a> &middot; <a href="channel.html">The Channel</a><br><span class="hdrd">Wednesday 2 September</span></div>
 </header>
 <section>
 <h2>Cemented Rules <span>18 &middot; exact current list</span></h2>
@@ -94,4 +94,4 @@ ol.rules li:before { content:none; }
 </ul>
 </section>
 <footer>To change anything here, just tell Stinkty on WhatsApp.</footer>
-</div></body></html>
+</div><script>document.querySelectorAll('.hdrd').forEach(function(e){e.textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});});</script></body></html>

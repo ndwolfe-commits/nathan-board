@@ -67,7 +67,7 @@ p.arc-abs { margin:2px 0 2px 10px; }
 <body><div class="wrap" data-orderts="0">
 <header>
 <h1>Longer arcs</h1>
-<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a> &middot; Wednesday 2 September</div>
+<div class="meta">Nathan Wolfe &middot; <a href="index.html">The Board</a> &middot; <span class="hdrd">Wednesday 2 September</span></div>
 </header>
 <section class="arc" data-arc="Security &amp; insurance">
 <h2 class="arc-title">Security &amp; insurance</h2>
@@ -222,4 +222,4 @@ p.arc-abs { margin:2px 0 2px 10px; }
   document.addEventListener('pointercancel', endDrag);
 })();
 </script>
-</body></html>
+<script>document.querySelectorAll('.hdrd').forEach(function(e){e.textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});});</script></body></html>

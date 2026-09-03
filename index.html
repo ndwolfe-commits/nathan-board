@@ -63,7 +63,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <body><div class="wrap">
 <header>
 <h1>The Board</h1>
-<div class="meta">Nathan Wolfe &middot; Wednesday 2 September</div>
+<div class="meta">Nathan Wolfe &middot; <span id="hdrdate">Wednesday 2 September</span></div>
 </header>
 <section class="">
 <h2>Today&#x27;s recurring</h2>
@@ -109,6 +109,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 <li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Fidelity</b> <span class=d>- fix credit card payment structure; needs a call - maybe a Retell job</span> </li>
 <li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending</span> </li>
 <li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>London Residence Recital</b> <span class=d>- Part of the divorce project</span> </li>
+<li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Cancel St Pancras Leisure Centre swimming</b> <span class=d>- boys haven&#x27;t used those sessions in ages; concrete task alongside the swimming note under Boys activities</span> </li>
 </ol>
 </section>
 <section class="cols" data-orderts="0">
@@ -149,6 +150,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
 (function(){
   var ENDPOINT='https://webhook.site/974e7dc9-08e9-441f-844f-7ab514e13d17';
   function today(){ return new Date().toLocaleDateString('sv-SE'); }
+  document.getElementById('hdrdate').textContent = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
   function store(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
   function read(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
   function isDaily(li){ return li.textContent.indexOf('- daily') !== -1; }
