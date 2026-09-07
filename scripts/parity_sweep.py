@@ -20,7 +20,6 @@ CALENDAR_BACKED = {
     "Hire 2026 US CPA + open Claude Tax project for handoff brief",
     "Change Maison Estelle membership to just main club",
     "Custody script integrity check (editor access + Libraries)",
-    "Design agent peer channel (Claude <-> Instinct)",
 }
 WD = {"SU":0,"MO":1,"TU":2,"WE":3,"TH":4,"FR":5,"SA":6}
 # Calendar titles carry display suffixes/casing the board dropped; match on normalized form.
