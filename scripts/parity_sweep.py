@@ -57,7 +57,7 @@ def rrule_to_attrs(rr, dtstart, note):
     return None
 
 def dtlabel(dtstart):
-    d = datetime.datetime.fromisoformat(dtstart)
+    d = datetime.datetime.fromisoformat(dtstart.replace('Z','+00:00'))
     return d.strftime("%a %-d %b %H:%M")
 
 def main(path):
