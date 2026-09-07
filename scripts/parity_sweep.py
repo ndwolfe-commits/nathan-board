@@ -60,6 +60,12 @@ def dtlabel(dtstart):
     d = datetime.datetime.fromisoformat(dtstart.replace('Z','+00:00'))
     return d.strftime("%a %-d %b %H:%M")
 
+# Titles Nathan has closed but whose calendar events still exist pending Claude's deletion
+# (D1: Claude is sole calendar writer). Do not wire these back onto the board.
+PARITY_SKIP = {
+    "Design agent peer channel (Claude <-> Instinct)",  # closed 7 Sep 21:00 (channel exists since 4 Sep); [calendar] ask to delete event qv33a89pkk91h6hucq42i9mtik posted 7 Sep 21:15
+}
+
 def main(path):
     cal = json.load(open(path))
     events = cal.get("events", [])
@@ -82,6 +88,8 @@ def main(path):
     for nkey, (key, e) in tasks.items():
         if nkey in {norm(x) for x in EXCLUDE}:
             print(f"EXCLUDED (permanent): {key}"); continue
+        if nkey in {norm(x) for x in PARITY_SKIP}:
+            print(f"SKIPPED (closed by Nathan, calendar delete pending with Claude): {key}"); continue
         if nkey in board_titles: continue
         rr = (e.get("recurrence") or [None])[0]
         start = e.get("start_time") or (e.get("start_date")+"T00:00:00+01:00")
