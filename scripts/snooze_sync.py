@@ -21,7 +21,6 @@ RECURRING = {
     "Hire 2026 US CPA + open Claude Tax project for handoff brief": "mustdo",
     "Change Maison Estelle membership to just main club": "mustdo",
     "Custody script integrity check (editor access + Libraries)": "mustdo",
-    "Design agent peer channel (Claude <-> Instinct)": "mustdo",
 }
 
 # LATE-DONE GUARD (Nathan, 2 Sep 23:52, spec 5.1): date-sensitive recurring items only.
@@ -36,7 +35,7 @@ RECURRENCE = {  # title -> attrs, copied from index.html li data-* (2 Sep)
     "Last Month CMAs to Pocketsmith": {"freq":"ordinal","interval":1,"ordinal":1,"weekday":1},
     "Financial account security hygiene": {"freq":"ordinal","interval":1,"ordinal":2,"weekday":3},
     "Contact Don Caskey - Baktus D&O": {"freq":"yearly-ordinal","month":9,"ordinal":2,"weekday":5},
-    "Moth trap check":                {"freq":"ordinal","interval":1,"ordinal":1,"weekday":1},
+    "Moth trap check":                {"freq":"weekly","weekday":1,"anchor":"2026-09-14","end":"2026-11-23"},
     "Consider employing boys":        {"freq":"yearly-ordinal","month":9,"ordinal":2,"weekday":1},
     "Start SAD light therapy":        {"freq":"yearly-ordinal","month":10,"ordinal":1,"weekday":4},
     "Extend UK credit card Travel Notice on Visa 0205": {"freq":"ordinal","interval":3,"ordinal":2,"weekday":1,"anchor":"2026-10-12"},
@@ -88,6 +87,15 @@ def occurrences(attrs, upto):
                     out.add(shift_fwd(raw).isoformat())
             m += 1
             if m == 12: y, m = y+1, 0
+    elif f == "weekly":
+        wd = attrs["weekday"]; wd = 7 if wd == 0 else wd
+        end = attrs.get("end")
+        d = datetime.date.fromisoformat(FLOOR)
+        lim = min(upto, datetime.date.fromisoformat(end)) if end else upto
+        while d <= lim:
+            if d.isoweekday() == wd and (not anchor or d.isoformat() >= anchor):
+                out.add(shift_fwd(d).isoformat())
+            d += datetime.timedelta(days=1)
     else:  # yearly / yearly-ordinal
         for y in range(y0, y1+1):
             mo = attrs["month"]-1
