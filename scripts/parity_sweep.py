@@ -63,7 +63,7 @@ def dtlabel(dtstart):
 # Titles Nathan has closed but whose calendar events still exist pending Claude's deletion
 # (D1: Claude is sole calendar writer). Do not wire these back onto the board.
 PARITY_SKIP = {
-    "Design agent peer channel (Claude <-> Instinct)",  # closed 7 Sep 21:00 (channel exists since 4 Sep); [calendar] ask to delete event qv33a89pkk91h6hucq42i9mtik posted 7 Sep 21:15
+    # (peer channel entry retired 7 Sep 22:40: Claude deleted event qv33a89pkk91h6hucq42i9mtik; item closed, nothing to skip or track)
 }
 
 def main(path):
