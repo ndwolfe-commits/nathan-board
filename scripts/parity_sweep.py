@@ -11,7 +11,7 @@ EXCLUDE = {"Pelacarsen lp(a) check", "Signature Pharmacy"}
 # Calendar-backed board titles (mirror of internal/standing-rules.md list; update together).
 CALENDAR_BACKED = {
     "HSBC cash run (counter service)", "Moth trap check", "Charge HUD Galileo", "Pay quarterly taxes",
-    "Schedule annual with Dr Sera Shoukru (new GP)", "Last Month CMAs to Pocketsmith",
+    "Schedule doctor's appointments", "Last Month CMAs to Pocketsmith",
     "Financial account security hygiene", "Contact Don Caskey - Baktus D&O", "Consider employing boys",
     "Start SAD light therapy", "Extend UK credit card Travel Notice on Visa 0205",
     "Delete nw@nathanwolfe.net", "SHL", "Set up fidelity emails $15k", "Calendly BST",
