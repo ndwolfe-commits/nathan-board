@@ -1,25 +1,25 @@
 {
-  "items": {
-    "Olga: Roth conversion": {
-      "until": "2026-11-16",
-      "ts": "2026-09-02T14:51:15.933351+00:00"
-    },
-    "Custody script integrity check (editor access + Libraries)": {
-      "until": "2026-09-09T12:00",
-      "ts": "2026-09-06T12:08:29.116Z"
-    },
-    "Charge HUD Galileo": {
-      "until": "2026-09-10T21:00",
-      "ts": "2026-09-08T11:12:00+01:00"
-    }
+ "items": {
+  "Olga: Roth conversion": {
+   "until": "2026-11-16",
+   "ts": "2026-09-02T14:51:15.933351+00:00"
   },
-  "updated": "2026-09-08T15:02:19.251682+00:00",
-  "done": {
-    "Meditate": {
-      "date": "2026-09-08",
-      "ts": "2026-09-08T09:34:47.761Z",
-      "kind": "habit"
-    }
+  "Custody script integrity check (editor access + Libraries)": {
+   "until": "2026-09-09T12:00",
+   "ts": "2026-09-06T12:08:29.116Z"
   },
-  "flags": []
+  "Charge HUD Galileo": {
+   "until": "2026-09-10T21:00",
+   "ts": "2026-09-08T11:12:00+01:00"
+  }
+ },
+ "updated": "2026-09-08T17:06:13.562782+00:00",
+ "done": {
+  "Meditate": {
+   "date": "2026-09-08",
+   "ts": "2026-09-08T09:34:47.761Z",
+   "kind": "habit"
+  }
+ },
+ "flags": []
 }
