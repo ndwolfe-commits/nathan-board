@@ -16,6 +16,7 @@ RECURRING = {
     "Keep or cancel koko": "mustdo", "Economist renewal": "mustdo",
     "Pay rent 36 Gloucester": "mustdo",
     "Replace moth trap lures (expire ~21 Nov)": "mustdo",
+    "Schedule doctor's appointments": "mustdo",
     # one-off Task: events (due-date must-dos, done hides permanently via 366d keep)
     "Nudge Fairley House re Asa accommodations response": "mustdo",
     "Hire 2026 US CPA + open Claude Tax project for handoff brief": "mustdo",
