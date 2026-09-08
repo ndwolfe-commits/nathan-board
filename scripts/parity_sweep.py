@@ -5,13 +5,13 @@
 #  - calendar-backed board line whose event has vanished -> FLAG to Review page, never removed
 # Exclusions: Pelacarsen (permanent, all surfaces) and Signature Pharmacy (retracted) are NEVER added.
 # Run from repo root: python3 scripts/parity_sweep.py /tmp/cal.json   (cal.json = tools google-calendar search --include recurrence,description --json)
-import json, re, sys, datetime
+import json, re, sys, datetime, html as htmlmod
 
 EXCLUDE = {"Pelacarsen lp(a) check", "Signature Pharmacy"}
 # Calendar-backed board titles (mirror of internal/standing-rules.md list; update together).
 CALENDAR_BACKED = {
     "HSBC cash run (counter service)", "Moth trap check", "Charge HUD Galileo", "Pay quarterly taxes",
-    "Schedule doctor's appointments", "Last Month CMAs to Pocketsmith",
+    "Schedule doctors' appointments", "Last Month CMAs to Pocketsmith",
     "Financial account security hygiene", "Contact Don Caskey - Baktus D&O", "Consider employing boys",
     "Start SAD light therapy", "Extend UK credit card Travel Notice on Visa 0205",
     "Delete nw@nathanwolfe.net", "SHL", "Set up fidelity emails $15k", "Calendly BST",
@@ -24,7 +24,7 @@ CALENDAR_BACKED = {
 WD = {"SU":0,"MO":1,"TU":2,"WE":3,"TH":4,"FR":5,"SA":6}
 # Calendar titles carry display suffixes/casing the board dropped; match on normalized form.
 # Explicit aliases for variants normalization can't bridge (calendar normalized -> board normalized).
-ALIASES = {"shl every 3 months": "shl", "economist renews may 3rd": "economist renewal"}
+ALIASES = {"shl every 3 months": "shl", "economist renews may 3rd": "economist renewal", "schedule doctor's appointments": "schedule doctors' appointments"}
 def norm(t):
     t = t.lower()
     t = re.split(r"\s+\(|\s+\u2014|\s+-{2,}", t)[0]
@@ -72,7 +72,7 @@ def main(path):
     board_titles = set()
     for m in re.finditer(r"<b>(.*?)</b>", html, re.S):
         t = re.sub(r"<[^>]+>","",m.group(1)); t = re.sub(r"\s+"," ",t).strip()
-        board_titles.add(norm(re.sub(r"^Task:\s*","",t.replace("&amp;","&"))))
+        board_titles.add(norm(re.sub(r"^Task:\s*","",htmlmod.unescape(t))))
     tasks = {}
     for e in events:
         s = e.get("summary") or ""
