@@ -96,7 +96,7 @@ footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
           localStorage.removeItem('board-snooze:'+t);
           localStorage.setItem('board-unsnooze:'+t, new Date().toISOString());
         }catch(err){}
-        var url='https://webhook.site/974e7dc9-08e9-441f-844f-7ab514e13d17?item='+encodeURIComponent(t)+'&src=board-unsnooze&t='+encodeURIComponent(new Date().toISOString());
+        var url='https://webhook.site/d5163a06-eefc-48cf-ae85-5b3c7d06e29c?item='+encodeURIComponent(t)+'&src=board-unsnooze&t='+encodeURIComponent(new Date().toISOString());
         var ok=false; try{ ok=navigator.sendBeacon(url); }catch(err){}
         if(!ok){ try{ fetch(url,{mode:'no-cors'}); }catch(err){} }
         delete items[t];

@@ -1,5 +1,5 @@
 import json, urllib.request, html, re
-UUID = "974e7dc9-08e9-441f-844f-7ab514e13d17"
+UUID = "d5163a06-eefc-48cf-ae85-5b3c7d06e29c"
 ARC_TITLES = ["Security & insurance", "Boys activities", "Estate planning", "PocketSmith",
           "LinkedIn profile fixes", "Sell the blue circular sofa + Persian rug; donate clothes",
           "Linking", "Tock password", "Kids scuba"]
