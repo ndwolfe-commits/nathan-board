@@ -5,7 +5,6 @@ UUID = "d5163a06-eefc-48cf-ae85-5b3c7d06e29c"
 RECURRING = {
     "Cardio + strength": "habit", "Meditate": "habit",
     "Moth trap check": "mustdo", "Charge HUD Galileo": "mustdo", "Pay quarterly taxes": "mustdo",
-    "Schedule annual with Dr Sera Shoukru (new GP)": "mustdo",
     "Last Month CMAs to Pocketsmith": "mustdo",
     "Financial account security hygiene": "mustdo",
     "Contact Don Caskey - Baktus D&O": "mustdo",
@@ -17,6 +16,7 @@ RECURRING = {
     "Pay rent 36 Gloucester": "mustdo",
     "Replace moth trap lures (expire ~21 Nov)": "mustdo",
     "Schedule doctor's appointments": "mustdo",
+    "Front page build (Cowork with Claude)": "mustdo",
     # one-off Task: events (due-date must-dos, done hides permanently via 366d keep)
     "Nudge Fairley House re Asa accommodations response": "mustdo",
     "Hire 2026 US CPA + open Claude Tax project for handoff brief": "mustdo",
@@ -32,7 +32,6 @@ RECURRING = {
 FLOOR = "2026-09-02"
 RECURRENCE = {  # title -> attrs, copied from index.html li data-* (2 Sep)
     "Pay quarterly taxes":            {"freq":"monthday","interval":3,"day":4,"anchor":"2026-09-04"},
-    "Schedule annual with Dr Sera Shoukru (new GP)": {"freq":"yearly-ordinal","month":9,"ordinal":2,"weekday":2},
     "Last Month CMAs to Pocketsmith": {"freq":"ordinal","interval":1,"ordinal":1,"weekday":1},
     "Financial account security hygiene": {"freq":"ordinal","interval":1,"ordinal":2,"weekday":3},
     "Contact Don Caskey - Baktus D&O": {"freq":"yearly-ordinal","month":9,"ordinal":2,"weekday":5},

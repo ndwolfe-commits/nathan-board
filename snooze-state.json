@@ -1,19 +1,25 @@
 {
-  "items": {
-    "HSBC cash run (counter service)": {
-      "until": "2026-09-16",
-      "ts": "2026-09-02T14:24:49.467Z"
-    },
-    "Olga: Roth conversion": {
-      "until": "2026-11-16",
-      "ts": "2026-09-02T14:51:15.933351+00:00"
-    },
-    "Custody script integrity check (editor access + Libraries)": {
-      "until": "2026-09-09T12:00",
-      "ts": "2026-09-06T12:08:29.116Z"
-    }
+ "items": {
+  "HSBC cash run (counter service)": {
+   "until": "2026-09-16",
+   "ts": "2026-09-02T14:24:49.467Z"
   },
-  "updated": "2026-09-08T09:19:09.643113+00:00",
-  "done": {},
-  "flags": []
+  "Olga: Roth conversion": {
+   "until": "2026-11-16",
+   "ts": "2026-09-02T14:51:15.933351+00:00"
+  },
+  "Custody script integrity check (editor access + Libraries)": {
+   "until": "2026-09-09T12:00",
+   "ts": "2026-09-06T12:08:29.116Z"
+  }
+ },
+ "updated": "2026-09-08T10:24:25.758150+00:00",
+ "done": {
+  "Meditate": {
+   "date": "2026-09-08",
+   "ts": "2026-09-08T09:34:47.761Z",
+   "kind": "habit"
+  }
+ },
+ "flags": []
 }
