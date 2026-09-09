@@ -4,540 +4,120 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="The Board">
 <meta name="theme-color" content="#fafafa">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="apple-touch-icon.png">
 <title>The Board - Nathan Wolfe</title>
 <style>
-:root { --ink:#16181d; --mut:#6b7280; --line:#e3e5e8; --accent:#8a6d3b; }
+:root { --ink:#16181d; --mut:#6b7280; --line:#e3e5e8; --accent:#8a6d3b; --red:#b3261e; --green:#4a7c4e; }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font:13.5px/1.42 -apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fafafa; }
 .wrap { max-width:660px; margin:0 auto; padding:18px 16px 40px; }
-header { border-bottom:1.5px solid var(--ink); padding-bottom:3px; margin-bottom:2px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
-header + section h2 { margin-top:10px; }
-
-.ngrip { display:none; cursor:grab; touch-action:none; color:#c3c7cc; font-size:12px; letter-spacing:-2px; user-select:none; -webkit-user-select:none; margin-right:3px; }
-@media (pointer:coarse) { .ngrip { display:inline-block; } }
-#nowlist li.dragging { opacity:.55; }
-h2 .h2btn { float:right; font-size:10px; font-weight:500; text-transform:none; letter-spacing:0; color:var(--accent); text-decoration:none; border:1px solid #d8d2c4; border-radius:5px; padding:1px 8px; background:#fbfaf7; }
-h2 .h2btn:hover { border-color:var(--accent); }
+header { border-bottom:1.5px solid var(--ink); padding-bottom:5px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
 h1 { font-size:17px; letter-spacing:.02em; }
 header .meta { font-size:11px; color:var(--mut); text-align:right; }
 h2 { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:2px; margin:16px 0 5px; }
-h2 span { float:right; text-transform:none; letter-spacing:0; color:var(--mut); font-size:10.5px; }
-ul { list-style:none; }
-li { padding:2.5px 0 2.5px 10px; border-bottom:1px solid #f0f1f2; position:relative; }
-li:before { content:""; position:absolute; left:0; top:9px; width:4px; height:4px; border-radius:50%; background:#c3c7cc; }
-li:after { content:""; display:block; clear:both; }
-li b { font-weight:600; }
+h2 .h2btn, h2 a { float:right; text-transform:none; letter-spacing:0; font-size:10.5px; color:var(--mut); text-decoration:none; font-weight:400; }
+ul, ol { list-style:none; }
+li.item { padding:3px 0 3px 10px; border-bottom:1px solid #f0f1f2; position:relative; }
+li.item:before { content:""; position:absolute; left:0; top:10px; width:4px; height:4px; border-radius:50%; background:#c3c7cc; }
+li.item:after { content:""; display:block; clear:both; }
+li.item b { font-weight:600; }
+li.stale:before, li.overdue:before { background:var(--red); }
+li.returned:before { background:#d9c89a; }
+li.pending { opacity:.45; }
 .d { color:var(--mut); }
-.tag { display:inline-block; font-size:10px; color:var(--accent); border:1px solid #e6dcc4; background:#fbf7ec; border-radius:3px; padding:0 4px; margin-left:2px; white-space:nowrap; }
-.cols ul { columns:2; column-gap:22px; }
-.cols li { break-inside:avoid; }
-.done li { color:var(--mut); }
-.done li:before { background:#9bbf8f; }
-a.tapdone, a.tapsnooze, a.tapset { float:right; font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:6px; }
-a.tapdone:hover, a.tapsnooze:hover, a.tapset:hover { color:var(--accent); border-color:var(--accent); }
-.snzmenu { display:none; float:right; font-size:10px; line-height:1.9; margin-left:4px; }
-.snzmenu a { color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent); margin:0 3px; }
-li.pdone { opacity:.55; }
-li.pdone a.tapdone { color:#4a7c4e; border-color:#bcd3bd; background:#f2f8f2; }
-li.snoozed { display:none; }
-li.donehide { display:none; }
-li.recur-hidden { display:none; }
-.dt { color:#3d6b8e; font-weight:500; }
-.snzmenu input.snzd { font-size:10px; margin-left:4px; max-width:150px; }
-ol.num { list-style:none; counter-reset:nowc; margin-left:16px; }
-ol.num li { counter-increment:nowc; cursor:grab; }
-ol.num li:before { content:counter(nowc); position:absolute; left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
-nav.bottom { margin-top:22px; border-top:1px solid var(--line); padding-top:10px; line-height:2.3; }
-nav.bottom a { display:inline-block; font-size:11.5px; border:1px solid #d8d2c4; border-radius:5px; padding:2px 9px; margin:2px 1px; background:#fbfaf7; }
-nav.bottom a { color:var(--accent); text-decoration:none; font-weight:500; }
-nav.bottom a:hover { text-decoration:underline; }
-nav.bottom .sep { display:none; }
-footer { margin-top:10px; font-size:10.5px; color:var(--mut); }
-@media (max-width:520px) { .cols ul { columns:1; } body { font-size:13px; } }
-.tier { font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; color:var(--mut); margin:14px 0 4px; }
+.prov { display:block; font-size:10.5px; color:#9aa0a6; }
+.note { display:block; color:var(--mut); white-space:pre-wrap; margin-top:1px; }
+.btns { float:right; margin-left:8px; white-space:nowrap; }
+.btns a { font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:4px; display:inline-block; cursor:pointer; background:#fff; }
+.btns a:hover { color:var(--accent); border-color:var(--accent); }
+.menu { font-size:10.5px; margin:3px 0 2px 0; padding:5px 7px; border:1px solid var(--line); border-radius:4px; background:#fff; clear:both; }
+.menu a { color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent); margin-right:8px; cursor:pointer; }
+.menu input, .menu select, .menu textarea { font:inherit; font-size:11px; border:1px solid var(--line); border-radius:3px; padding:2px 4px; margin:2px 4px 2px 0; }
+.menu textarea { width:100%; min-height:44px; display:block; }
+.menu button { font:inherit; font-size:10.5px; padding:1px 8px; border:1px solid var(--accent); color:var(--accent); background:#fff; border-radius:3px; cursor:pointer; margin-right:6px; }
+ol.num { counter-reset:nowc; margin-left:16px; }
+ol.num li.item { counter-increment:nowc; cursor:grab; }
+ol.num li.item:before { content:counter(nowc); left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
+ol.num li.item.dragging { opacity:.5; }
+.health { font-size:11px; color:var(--mut); margin:6px 0 2px; }
+.health b { color:var(--ink); font-weight:600; }
+.health .bad { color:var(--red); }
+.brief { margin:6px 0 2px; padding:7px 10px; border-left:3px solid var(--accent); background:#fbf7ec; font-size:13px; white-space:pre-wrap; }
+.addbox { display:flex; gap:6px; margin:8px 0 2px; }
+.addbox input { flex:1; font:inherit; font-size:12.5px; padding:4px 8px; border:1px solid var(--line); border-radius:4px; background:#fff; }
+.addbox button { font:inherit; font-size:11px; padding:2px 10px; border:1px solid var(--accent); color:var(--accent); background:#fff; border-radius:4px; cursor:pointer; }
+.tabs { margin-top:22px; border-top:1px solid var(--line); padding-top:8px; font-size:11.5px; }
+.tabs a { color:var(--accent); text-decoration:none; border:1px solid #d8d2c4; border-radius:5px; padding:2px 9px; margin:2px 3px 2px 0; display:inline-block; background:#fbfaf7; cursor:pointer; }
+.tabs a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+.tier { font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; color:var(--mut); margin:12px 0 3px; }
+.empty { color:#9aa0a6; font-size:12px; padding:3px 0 3px 10px; }
+.tag { display:inline-block; font-size:10px; color:var(--accent); border:1px solid #e6dcc4; background:#fbf7ec; border-radius:3px; padding:0 4px; margin-left:3px; white-space:nowrap; vertical-align:1px; }
+.tag.red { color:var(--red); border-color:#f1c4c0; background:#fdf1f0; }
+.tag.grey { color:var(--mut); border-color:var(--line); background:#f6f7f8; }
+#status { font-size:11px; color:var(--mut); min-height:14px; margin-top:6px; }
+#status.err { color:var(--red); }
+#gate { margin:24px 0; }
+#gate input { font:inherit; padding:4px 8px; border:1px solid var(--line); border-radius:4px; width:120px; }
+#gate button { font:inherit; font-size:12px; padding:3px 10px; border:1px solid var(--accent); color:var(--accent); background:#fff; border-radius:4px; cursor:pointer; }
+footer { margin-top:14px; font-size:10.5px; color:var(--mut); }
+.log { font-size:11px; color:var(--mut); }
+.log li { padding:1px 0; }
+.two { columns:2; column-gap:22px; }
+.two li { break-inside:avoid; }
+@media (max-width:520px) { body { font-size:13px; } .two { columns:1; } .btns { float:none; display:block; margin:2px 0 0; } }
 </style></head>
 <body><div class="wrap">
 <header>
 <h1>The Board</h1>
-<div class="meta">Nathan Wolfe &middot; <span id="hdrdate">Monday 7 September</span></div>
+<div class="meta">Nathan Wolfe &middot; <span id="hdrdate"></span></div>
 </header>
-<section class="">
-<h2>Today&#x27;s recurring</h2>
-<ul>
-<li data-recur="habit"><a class="tapset" href="#set">set</a><span class="snzmenu"></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Cardio + strength</b> <span class=dt>- daily<span class="todaytime"></span></span> </li>
-<li data-recur="habit"><a class="tapset" href="#set">set</a><span class="snzmenu"></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Meditate</b> <span class=dt>- daily<span class="todaytime"></span></span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="cmonthly" data-interval="1" data-date="2026-09-04"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Charge HUD Galileo</b> <span class=dt>- monthly, completion-anchored; next Fri 4 Sep 13:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="3" data-day="4" data-anchor="2026-09-04" data-override="2026-09-09" data-time="13:00"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Pay quarterly taxes</b> <span class=dt>- every 3 months, on the 4th, 12:00 (provisional cadence)</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="1" data-weekday="1"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Last Month CMAs to Pocketsmith</b> <span class=dt>- monthly, 1st Mon 13:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="1" data-ordinal="2" data-weekday="3"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Financial account security hygiene</b> <span class=dt>- monthly, 2nd Wed 12:00 (Fidelity etc.)</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="5" data-override="2026-09-16" data-time="13:00"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Contact Don Caskey - Baktus D&amp;O</b> <span class=dt>- yearly, 2nd Fri Sep 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="weekly" data-weekday="1" data-anchor="2026-09-14" data-end="2026-11-23"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Moth trap check</b> <span class=dt>- weekly, Mon 10:00, 14 Sep - 23 Nov</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="9" data-ordinal="2" data-weekday="1"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Consider employing boys</b> <span class=dt>- yearly, 2nd Mon Sep 11:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-15"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Goodwood summit, send bio, photo and badge details (due 24 Sep)</b> <span class=dt>- Tue 15 Sep 11:15</span> <span class=d>Reply to HealthSummit@goodwood.com (Amy) with: short bio, recent photo, badge name and organisation, dietary needs, optional panel question. Their deadline Thu 24 Sep. Draft bio from Claude (Desk 2) below; Instinct is checking it against your current LinkedIn and will ping you 22 Sep if this is still unsent. DRAFT BIO (trim as you like): Nathan Wolfe is a virologist, author and entrepreneur based in London. He founded Metabiota, the epidemic risk company later acquired by Ginkgo Bioworks, and was a Programme Director at ARIA, the UK's advanced research and invention agency. Trained at Stanford and Harvard, he spent years running field virology in Cameroon and Malaysia before turning to the systems that let societies see and act on biological risk. He is the author of The Viral Storm and was named to the Time 100. BADGE: Nathan Wolfe, [organisation: your call; &quot;Independent&quot; or a current venture]. PHOTO: a recent headshot; Instinct can pull the current LinkedIn photo if you want that one. [set by Claude, Desk 2, 8 Sep 2026; returns to the board after this slot]</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-16"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>HSBC cash run (counter service)</b> <span class=dt>- Wed 16 Sep 10:00</span> <span class=d>Completion-anchored task (Nathan, 8 Sep 2026): when done, the next one is set from the done date. Punted from Wed 9 Sep to Wed 16 Sep at Nathan's word, not urgent. Camden HSBC = self-service only. Option 1: Post Office, 91 Regents Park Road NW1 8UT (0.4mi) - HSBC counter withdrawals with debit card + PIN; Mon-Fri 8:30-17:00, Sat 9-14:00. Option 2: HSBC Baker Street, 90 Baker St W1U 6AX (1.8mi) - counter Mon-Fri 9:30-16:30 only. [via Claude, Desk 2, 8 Sep 2026]</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-09"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Front page build (Cowork with Claude)</b> <span class=dt>- Wed 9 Sep 14:00</span> <span class=d>Open Cowork and start from the brief &quot;FRONT PAGE build brief 2026-09-08&quot; in HQ/BRIEFS (Claude x Instinct Drive). Goal: the Claude-owned front page (decision 7 Sep) replaces Instinct's board: task classes, set-and-return, pings, waiting, longer arcs, boys' page lane. Until it ships, Desk 2 keeps the board-rules log in HQ. [via Claude, Desk 2, 8 Sep 2026]</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-08" data-time="15:00"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Schedule doctors' appointments</b> <span class=dt>- Tue 8 Sep 14:30</span> <span class=d>One task, several calls; the running detail lives on the calendar series (Claude, Desk 2, 8 Sep). SET today 14:30-15:00; returns after the slot for done/snooze/reset.</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2027-09-14" data-time="11:00"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Schedule doctor&#x27;s appointments</b> <span class=dt>- Tue 14 Sep 2027 11:00</span> <span class=d>Annual recurrence of the combined doctors task. The old yearly series "Schedule annual with Dr Sera Shoukru (new GP)" was folded into the combined task 8 Sep 2026 (Claude, Desk 2); Claude carries it as single occurrences - this is the 2027 instance (2nd Tue Sep, 11:00, same pattern as the retired series).</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-11-20"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Replace moth trap lures (expire ~21 Nov)</b> <span class=dt>- Fri 20 Nov 10:00</span> <span class=d>Moth trap lures expire about 21 Nov (4 months from the 21 Jul activation). Replace every trap with the spares from the 10-pack, reset the baseline to zero, and note the date in the weekly check event. If any trap caught in the last month, tell Pests of London (JOB-13577) before replacing. [Claude, Desk, 7 Sep]</span> </li>
-<li data-recur="mustdo" data-freq="once" data-date="2026-09-04"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Custody script integrity check (editor access + Libraries)</b> <span class=dt>- Fri 4 Sep 12:00</span> <span class=d>Five-minute check, closes the unauthored-code question from the 31 Aug incident (foreign code appeared twice in the custody mirror project, origin unknown). As wolfefamilyassistant@gmail.com, open the custody mirror project at script.google.com: 1. Share icon (top right): confirm no unexpected editors. 2. Left sidebar, Libraries panel: confirm empty. 3. Glance at the top of Code.gs for anything unfamiliar (e.g. &quot;addbox&quot; / &quot;createEntry&quot;). If all clean: likely an agent session pasted into the wrong project; close the book. If not clean: remove access/library, then rotate the Anthropic API key and script secrets. [Created by Claude, 3 Sep, per Nathan&#x27;s instruction in chat.]</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-11"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>RSVP: Fairley House Meet the Teacher evening</b> <span class=dt>- by Fri 11 Sep</span> <span class=d>Event Wed 16 Sep 5.30pm, Junior School Main Hall, parents without children (on calendar). RSVP via the Microsoft Forms link in the 4 Sep email from the Head&#x27;s PA (ld@fairleyhouse.org.uk); same email offers New Building Tours via a separate form. [via Claude: FHS email 4 Sep]</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-09-14"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Nudge Fairley House re Asa accommodations response</b> <span class=dt>- Mon 14 Sep 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="10" data-ordinal="1" data-weekday="4"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Start SAD light therapy</b> <span class=dt>- yearly, 1st Thu Oct 08:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="1" data-anchor="2026-10-12"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Extend UK credit card Travel Notice on Visa 0205</b> <span class=dt>- every 3 months, 2nd Mon 11:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="6" data-ordinal="2" data-weekday="3" data-anchor="2026-10-14"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Delete nw@nathanwolfe.net</b> <span class=dt>- every 6 months, 2nd Wed 13:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-10-20"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Hire 2026 US CPA + open Claude Tax project for handoff brief</b> <span class=dt>- Tue 20 Oct 10:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="once" data-date="2026-11-03"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Change Maison Estelle membership to just main club</b> <span class=dt>- Tue 3 Nov 09:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="ordinal" data-interval="3" data-ordinal="2" data-weekday="2" data-anchor="2026-11-10"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>SHL</b> <span class=dt>- every 3 months, 2nd Tue 11:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="11" data-ordinal="2" data-weekday="4"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Set up fidelity emails $15k</b> <span class=dt>- yearly, 2nd Thu Nov 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="2" data-ordinal="-1" data-weekday="5"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Calendly BST</b> <span class=dt>- yearly, last Fri Feb 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="4" data-ordinal="2" data-weekday="4"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Keep or cancel koko</b> <span class=dt>- yearly, 2nd Thu Apr 12:00</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="yearly-ordinal" data-month="4" data-ordinal="-1" data-weekday="4"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Economist renewal</b> <span class=dt>- yearly, last Thu Apr 12:00 (renews 3 May)</span> </li>
-<li data-recur="mustdo" class="recur-hidden" data-freq="monthday" data-interval="1" data-day="5" data-anchor="2027-01-05"><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Pay rent 36 Gloucester</b> <span class=dt>- monthly, on the 5th, 12:00 (provisional)</span> </li>
 
-</ul>
-</section>
-<section class="">
-<h2>Now</h2>
-<ol class="num" id="nowlist" data-orderts="1788365217730">
-<li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Connect Lance and Adam</b> <span class=d>- intro email pending your confirm (Nathan has since sent his note to Lance; keep until he taps Done himself) [restore per Claude Desk 2 16-05]</span> </li>
-<li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Utilities audit</b> <span class=d>- close out St Pancras Chambers + Gasholders; verify everything&#x27;s on the new flat. EDF tariff renewal: EDF has supplied 36 Gloucester Avenue since 18 Aug 2026 (switch-complete email). Gmail shows no tariff-renewal notice; two EDF statements dated 13 and 14 Aug predate the switch and are probably the old-address account. Action: log in to EDF MyAccount, check which tariff the new supply is on and its end date; if it is the standard variable (deemed) rate, compare a fixed deal against the Ofgem cap; note the old-address account is closed. [restore per Claude Desk 2 16-05 + 14-05 EDF detail]</span> </li>
-<li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Fidelity credit card</b> <span class=d>- fix credit card payment structure; needs a call - maybe a Retell job [restore per Claude Desk 2 16-05]</span> </li>
-<li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Calendly redesign</b> <span class=d>- state review + availability layer; line-item yeses pending [restore per Claude Desk 2 16-05]</span> </li>
-<li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Divorce: London residency recital</b> <span class=d>- Part of the divorce project [restore per Claude Desk 2 16-05]</span> </li>
-<li><a class="tapset" href="#set">set</a><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Write to Jennifer (landlord)</b> <span class=d>- (1) leak, report now; (2) moth follow-up, she must request it from Pests of London JOB-13577, children&#x27;s bedroom plus master wardrobes; (3) loft blind, unfixed since July; (4) her keys found in the flat, what to do with them; (5) her mail, forward or hold?</span> <span class=d style="font-size:10.5px">since 8 Sep 2026 &middot; Nathan sets the slot &middot; [Claude, Desk 2, 14-05]</span> </li>
-</ol>
-</section>
-<section class="cols" data-orderts="0">
-<h2>Longer arcs <a class="h2btn" href="arcs.html">Link</a></h2>
-<ul id="arclist"><li data-arc="Security &amp; insurance"><b>Security &amp; insurance</b> <span class=d>- review of security and insurance: UK liability stack for the new flat (New insurance, moved off the calendar 2 Sep); digital hygiene audit - cut data shared with OpenAI/Claude/others</span></li><li data-arc="Boys activities"><b>Boys activities</b> <span class=d>- swimming + Scouts; swimming was weekly Wed 4:30pm, series just ended - rebooking prompt lives under Pings</span></li>
-<li data-arc="Estate planning"><b>Estate planning</b> <span class=d>- will + beneficiary updates, trusts for the boys, cross-border (UK/US) attorney, insurance + college backing; solicitor path when you say; Fidelity beneficiary audit still to do (boys 50/50, trust contingent as interim; Alpaca account joins the list)</span></li>
-<li data-arc="PocketSmith"><b>PocketSmith</b> <span class=d>- research + cleanup plan; paused by you</span></li>
-<li data-arc="LinkedIn profile fixes"><b>LinkedIn profile fixes</b> <span class=d>- queued for 12 Oct</span></li>
-<li data-arc="Sell the blue circular sofa + Persian rug; donate clothes"><b>Sell the blue circular sofa + Persian rug; donate clothes</b> <span class=d>- send photos + dimensions, listings get drafted</span></li>
-<li data-arc="Linking"><b>WhatsApp: replace the backdoor channel with the official integration</b> <span class=d>- current WhatsApp access is a backdoor route, believed to limit visibility (Nathan, 9 Sep 2026). Direct instruction: find and switch to the official WhatsApp integration, however long it takes; other account linking resumes after that (Google parked per you).</span></li>
-<li data-arc="Tock password"><b>Tock password</b> <span class=d>- in breach databases; reset worth doing</span></li>
-<li data-arc="Kids scuba"><b>Kids scuba</b> <span class=d>- finish coursework; dive trip spring or Dec</span></li>
-<li data-arc="Connections &amp; next chapter"><b>Connections &amp; next chapter</b> <span class=d>- combine LinkedIn + Google Scholar + The Viral Storm orbit + email (once Google connects) into a who-do-I-know map for the next work chapter; graph shape proposed 4 Sep, awaiting your go to seed ~100-200 nodes</span></li>
-</ul>
-</section>
-<section class="">
-<h2>Waiting</h2>
-<ul id="waitlist">
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>St Pancras deposit - remainder</b> <span class=d>- waiting on the estate agents (Badgemoor)</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>EDF tariff renewal</b> <span class=d>- Simply Fixed Oct26 expires ~1 Nov 2026; &#163;50 exit fee if you leave before that - renewal window late October</span> </li>
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Olga to move munis to self-directed</b> <span class=d>- municipal bonds into a self-directed account; go-ahead reached the adviser 5 Sep; waiting on the funds hitting your self-managed account (Nathan, 7 Sep)</span> </li>
+<div id="gate" hidden>
+<p class="d" style="margin-bottom:6px">This device does not have the code yet.</p>
+<input id="pin" type="password" placeholder="Your code" autocomplete="off"> <button id="pinbtn">Remember this device</button>
+<div id="gatemsg" class="d" style="margin-top:6px;font-size:11px"></div>
+</div>
 
+<div id="app" hidden>
+<div class="health" id="health"></div>
+<div class="brief" id="brief" hidden></div>
+<form class="addbox" id="addform"><input id="addtext" placeholder="Add something: Claude routes it at the next sweep" autocomplete="off"><button type="submit">Add</button></form>
+<div id="status"></div>
 
-</ul>
-<p class="tier">Lower down - likely fine on their own</p>
-<ul id="waitlist-low">
-<li><a class="tapsnooze" href="#snooze">snooze</a><span class="snzmenu"><a data-days="1">1 day</a><a data-days="7">1 week</a><a data-days="custom">custom</a></span><a class="tapdone" href="#done" rel="noopener">done</a><b>Lauren - nanny service</b> <span class=d>- her Sun 10:19pm reply: nanny service in motion; very likely to happen and be fine (Nathan, 7 Sep)</span> </li>
-</ul>
-</section>
-<nav class="bottom">
-<a href="snoozed.html">Snoozed</a><span class=sep>&middot;</span><a href="attic.html">Attic</a><span class=sep>&middot;</span><a href="pings.html">Pings</a><span class=sep">&middot;</span><a href="boys.html">Boys&#x27; list</a><span class=sep">&middot;</span><a href="rules.html">Rules &amp; Memory</a><span class=sep>&middot;</span><a href="channel.html">The Channel</a><span class=sep>&middot;</span><a href="standing.html">Standing</a><span class=sep>&middot;</span><a href="analysis.html">Analysis reports</a><span class=sep>&middot;</span><a href="audit.html">Audit</a><span class=sep>&middot;</span><a href="review.html">Review</a><span class=sep>&middot;</span><a href="cadence.html">Cadence</a><span class=sep>&middot;</span><a href="sweeps.html">Sweeps</a><span class=sep>&middot;</span><a href="waiting.html">Waiting</a><span class=sep>&middot;</span><a href="done.html">Done</a>
-</nav>
-<footer>Maintained by Nathan&#x27;s assistant &middot; same URL, always current</footer>
-<span id="build" style="display:none">Monday 7 September 2026, 20:58 BST</span>
-<script>
-(function(){
-  var cur=document.getElementById('build').textContent;
-  setInterval(function(){
-    fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){
-      var m=t.match(/id="build"[^>]*>([^<]*)</);
-      if(m&&m[1]&&m[1]!==cur){location.replace(location.pathname+'?v='+Date.now());}
-    }).catch(function(){});
-  },180000);
-})();
-</script>
-<script>
-(function(){
-  var ENDPOINT='https://webhook.site/d5163a06-eefc-48cf-ae85-5b3c7d06e29c';
-  function today(){ return new Date().toLocaleDateString('sv-SE'); }
-  document.getElementById('hdrdate').textContent = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-  function store(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-  function read(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-  function isDaily(li){ return li.textContent.indexOf('- daily') !== -1; }
-  function titleOf(el){ var li=el.closest('li'); var b=li.querySelector('b'); return b ? b.textContent.replace(/^Task:\s*/,'').trim() : li.textContent.trim(); }
-  function mark(li,a,daily){ li.classList.add('pdone'); a.textContent = daily ? '\u2713 today' : '\u2713 done'; }
-  function send(params){
-    var url = ENDPOINT + '?' + params + '&t=' + encodeURIComponent(new Date().toISOString());
-    var ok = false;
-    try { ok = navigator.sendBeacon(url); } catch(e){}
-    if(!ok){ try { fetch(url,{mode:'no-cors'}).then(function(){},function(){}); ok = true; } catch(e){} }
-    if(!ok){ var q = JSON.parse(read('board-outbox')||'[]'); q.push(params); store('board-outbox', JSON.stringify(q)); }
-  }
-  function flush(){
-    var q = JSON.parse(read('board-outbox')||'[]'); if(!q.length) return;
-    var left=[];
-    q.forEach(function(p){ var ok=false; try{ ok=navigator.sendBeacon(ENDPOINT+'?'+p+'&src=board-outbox'); }catch(e){} if(!ok) left.push(p); });
-    store('board-outbox', JSON.stringify(left));
-  }
+<div id="tab-today">
+<section><h2>Today</h2><div id="custody" class="d" style="padding:2px 0 2px 10px"></div><ul id="todaylist"></ul></section>
+<section><h2>Today&#x27;s recurring</h2><ul id="habits"></ul><ul id="recurring"></ul></section>
+<section><h2>Now</h2><ol class="num" id="nowlist"></ol></section>
+<section><h2>Waiting, needs you <a id="towaiting">full list</a></h2><ul id="waitflag"></ul></section>
+<section><h2>Longer arcs <a href="arcs.html" target="_blank" rel="noopener">detail</a></h2><ul id="arcs" class="two"></ul></section>
+</div>
 
-  function fmtUntil(iso){ // date-only => date; datetime => date + time
-    var d=new Date(iso.length===10 ? iso+'T00:00:00' : iso);
-    var s=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
-    if(iso.length>10) s+=', '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-    return s;
-  }
-  function snoozeActive(until){ // date-only hides through that day; datetime hides until that moment
-    if(until.length===10) return until>=today();
-    return new Date(until)>new Date();
-  }
-  function isoLocal(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'T'+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
-  function snoozeApply(li,title,untilDate){
-    var iso=isoLocal(untilDate);
-    li.classList.add('snoozed'); li.dataset.until=fmtUntil(iso);
-    store('board-snooze:'+title, iso);
-    send('item='+encodeURIComponent(title)+'&src=board-snooze&until='+encodeURIComponent(iso));
-  }
+<div id="tab-waiting" hidden>
+<section><h2>Waiting, full list</h2><ul id="waitall"></ul></section>
+</div>
 
-  // Today's recurring engine (Nathan, 2 Sep): habits = done/not-done daily; must-dos show from their
-  // occurrence date and roll over until done or snoozed. FLOOR: nothing carries over from before 2 Sep 2026.
-  var FLOOR='2026-09-02';
-  function iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-  function ordinalDate(y,m,ord,wd){ // m 0-based; wd 0=Sun; ord=-1 => last
-    if(ord===-1){ var last=new Date(y,m+1,0); var back=((last.getDay()-wd)+7)%7; return new Date(y,m,last.getDate()-back); }
-    var first=new Date(y,m,1); var add=((wd-first.getDay())+7)%7; var day=1+add+(ord-1)*7;
-    var d=new Date(y,m,day); return d.getMonth()===m ? d : null;
-  }
-  function lastOccurrence(li){
-    var t=today(); var f=li.dataset.freq; var out=null;
-    function consider(d, anchor){
-      if(!d) return;
-      var ds=iso(d);
-      if(ds>t || ds<FLOOR) return;
-      if(anchor && ds<anchor) return;
-      if(!out || ds>out) out=ds;
-    }
-    function shiftWeekend(ds){
-      var d=new Date(ds+'T00:00:00');
-      while(d.getDay()===0||d.getDay()===6) d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
-      return iso(d);
-    }
-    var ov=li.dataset.override||null; // one-off instance move: replaces the current cycle's occurrence
-    if(f==='ordinal'){
-      var iv=parseInt(li.dataset.interval||'1',10), ord=parseInt(li.dataset.ordinal,10), wd=parseInt(li.dataset.weekday,10);
-      var anchor=li.dataset.anchor||null; var am=anchor?anchor.slice(0,7):null;
-      var now=new Date();
-      for(var k=0;k<=iv+1;k++){
-        var ref=new Date(now.getFullYear(), now.getMonth()-k, 1);
-        var ym=ref.getFullYear()+'-'+String(ref.getMonth()+1).padStart(2,'0');
-        if(am){ var diff=(ref.getFullYear()*12+ref.getMonth())-(parseInt(am.slice(0,4),10)*12+parseInt(am.slice(5,7),10)-1); if(diff%iv!==0) continue; }
-        consider(ordinalDate(ref.getFullYear(),ref.getMonth(),ord,wd), anchor);
-      }
-    } else if(f==='monthday'){
-      var iv=parseInt(li.dataset.interval||'1',10), day=parseInt(li.dataset.day,10), anchor=li.dataset.anchor||null; var am=anchor?anchor.slice(0,7):null;
-      var now=new Date();
-      for(var k=0;k<=iv+1;k++){
-        var ref=new Date(now.getFullYear(), now.getMonth()-k, 1);
-        if(am){ var diff=(ref.getFullYear()*12+ref.getMonth())-(parseInt(am.slice(0,4),10)*12+parseInt(am.slice(5,7),10)-1); if(diff%iv!==0) continue; }
-        consider(new Date(ref.getFullYear(),ref.getMonth(),day), anchor);
-      }
-    } else if(f==='yearly'){
-      var mo=parseInt(li.dataset.month,10)-1, day=parseInt(li.dataset.day,10), now=new Date();
-      consider(new Date(now.getFullYear(),mo,day), null);
-      consider(new Date(now.getFullYear()-1,mo,day), null);
-    } else if(f==='yearly-ordinal'){ // weekday-anchored yearly (rule 14): nth weekday of a month, ord=-1 => last
-      var mo=parseInt(li.dataset.month,10)-1, ord=parseInt(li.dataset.ordinal,10), wd=parseInt(li.dataset.weekday,10), now=new Date();
-      consider(ordinalDate(now.getFullYear(),mo,ord,wd), null);
-      consider(ordinalDate(now.getFullYear()-1,mo,ord,wd), null);
-    } else if(f==='weekly'){ // bounded weekly series (anchor=start date, end=last occurrence); weekday 0=Sun..6=Sat
-      var wd=parseInt(li.dataset.weekday,10), anchor=li.dataset.anchor||null, end=li.dataset.end||null;
-      var now=new Date();
-      for(var k=0;k<2;k++){
-        var ref=new Date(now.getFullYear(), now.getMonth(), now.getDate()-7*k);
-        var back=((ref.getDay()-wd)+7)%7;
-        var d=new Date(ref.getFullYear(),ref.getMonth(),ref.getDate()-back);
-        if(end && iso(d)>end) continue;
-        consider(d, anchor);
-      }
-    } else if(f==='once'){
-      // one-off Task: events (Nathan, 2 Sep): dated real-world slots - no weekend shift (rule 12 exempts real events)
-      var ds=li.dataset.date;
-      if(ds && ds>=FLOOR){
-        var tm=li.dataset.time; // set/return (Nathan, 8 Sep): a SET one-off returns after its slot, not at 00:00
-        if(tm){ if(new Date()>=new Date(ds+'T'+tm+':00')) out=ds; }
-        else if(ds<=t) out=ds;
-      }
-      return out;
-    }
-    var s = out ? shiftWeekend(out) : out;
-    if(ov && s && ov>=s) s=ov; // moved instance is a real placed date - no weekend shift on it (refined rule 12)
-    return s;
-  }
-  function doneDateFor(title, serverDone){
-    var d=read('board-done:'+title);
-    if(serverDone && serverDone[title] && (!d || serverDone[title].date>d)) d=serverDone[title].date;
-    return d;
-  }
-  function evalMustdos(serverDone){
-    var changed=false;
-    document.querySelectorAll('li[data-recur="mustdo"]').forEach(function(li){
-      var b=li.querySelector('b'); if(!b) return;
-      var title=b.textContent.replace(/^Task:\s*/,'').trim();
-      var dd=doneDateFor(title,serverDone);
-      var D, open;
-      if(li.dataset.freq==='cmonthly'){ // completion-anchored (HSBC pattern): next = done-date + interval months; initial date from data-date
-        var iv=parseInt(li.dataset.interval||'1',10);
-        var base=dd||li.dataset.date;
-        var d0=new Date(base+'T00:00:00');
-        if(dd) d0=new Date(d0.getFullYear(), d0.getMonth()+iv, d0.getDate());
-        var wd=d0.getDay();
-        if(wd===0) d0=new Date(d0.getFullYear(),d0.getMonth(),d0.getDate()+1);
-        else if(wd===6) d0=new Date(d0.getFullYear(),d0.getMonth(),d0.getDate()+2);
-        D=iso(d0);
-        open = D<=today() && (!dd || dd<D);
-      } else {
-        D=lastOccurrence(li);
-        open = D && D<=today() && (!dd || dd<D);
-        if(open && D===today() && li.dataset.time){ open = new Date()>=new Date(D+'T'+li.dataset.time+':00'); } // set/return: slotted occurrence returns after its slot
-      }
-      li.classList.toggle('recur-hidden', !open);
-    });
-    updateRecurCount();
-  }
-  function updateRecurCount(){
-    var c=document.getElementById('recurcount'); if(!c) return;
-    var ul=document.querySelector('li[data-recur]').closest('ul');
-    var n=[...ul.querySelectorAll('li')].filter(function(x){return getComputedStyle(x).display!=='none';}).length;
-    c.textContent=String(n);
-  }
+<div id="tab-arcs" hidden>
+<section><h2>Longer arcs</h2><ul id="arcsall"></ul><p class="d" style="margin-top:8px;font-size:11px">Detail pages still live on Instinct&#x27;s <a href="arcs.html" target="_blank" rel="noopener">arcs page</a> until v2.</p></section>
+</div>
 
-  // Daily habits: "set" = time-only exception for TODAY's occurrence (Nathan, 2 Sep). No snooze on dailies.
-  // Beacons src=board-settime so the main agent can sync the calendar if the habit maps to an event.
-  document.querySelectorAll('li[data-recur="habit"]').forEach(function(li){
-    var b=li.querySelector('b'); if(!b) return;
-    var title=b.textContent.replace(/^Task:\s*/,'').trim();
-    var st=read('board-settime:'+title);
-    if(st && st.slice(0,10)===today()){ var tt=li.querySelector('.todaytime'); if(tt) tt.textContent=' \u00b7 today '+st.slice(11); }
-  });
-  document.querySelectorAll('li[data-recur="habit"] a.tapset').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var li=a.closest('li'); var m=li.querySelector('.snzmenu');
-      if(m.querySelector('input.snzd')){ m.style.display = m.style.display==='inline'?'none':'inline'; return; }
-      var inp=document.createElement('input'); inp.type='time'; inp.className='snzd'; inp.value='07:30';
-      var go=document.createElement('a'); go.textContent='set'; go.href='#set';
-      var cx=document.createElement('a'); cx.textContent='cancel'; cx.href='#x';
-      function close(){ m.style.display='none'; inp.remove(); go.remove(); cx.remove(); }
-      go.addEventListener('click', function(ev){ ev.preventDefault();
-        if(!inp.value) return;
-        var title=titleOf(a); var t=today();
-        store('board-settime:'+title, t+' '+inp.value);
-        var tt=li.querySelector('.todaytime'); if(tt) tt.textContent=' \u00b7 today '+inp.value;
-        send('item='+encodeURIComponent(title)+'&src=board-settime&date='+t+'&time='+encodeURIComponent(inp.value));
-        close();
-      });
-      cx.addEventListener('click', function(ev){ ev.preventDefault(); close(); });
-      inp.addEventListener('keydown', function(ev){
-        if(ev.key==='Escape'){ ev.preventDefault(); close(); return; }
-        if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].indexOf(ev.key)===-1) ev.preventDefault();
-      });
-      m.appendChild(inp); m.appendChild(go); m.appendChild(cx);
-      m.style.display='inline';
-    });
-  });
+<div id="tab-system" hidden>
+<section><h2>Set, hidden until their day</h2><ul id="sethidden"></ul></section>
+<section><h2>Snoozed</h2><ul id="snoozed"></ul></section>
+<section><h2>Done, last 14 days</h2><ul id="donelist"></ul></section>
+<section><h2>Last actions</h2><ul id="log" class="log"></ul></section>
+<section><h2>Instinct&#x27;s pages</h2>
+<p class="d" style="font-size:11.5px;line-height:2">
+<a href="pings.html">Pings</a> &middot; <a href="boys.html">Boys&#x27; list</a> &middot; <a href="rules.html">Rules &amp; Memory</a> &middot; <a href="channel.html">The Channel</a> &middot; <a href="standing.html">Standing</a> &middot; <a href="audit.html">Audit</a> &middot; <a href="review.html">Review</a> &middot; <a href="cadence.html">Cadence</a> &middot; <a href="sweeps.html">Sweeps</a> &middot; <a href="done.html">Old done list</a>
+</p></section>
+<section><h2>This device</h2><p class="d" style="font-size:11.5px"><a id="forget" style="cursor:pointer;color:var(--accent)">Forget the code on this device</a> &middot; <a id="refresh" style="cursor:pointer;color:var(--accent)">Refresh now</a></p></section>
+</div>
 
-
-  // Now one-offs AND non-daily recurring must-dos: "set" = schedule it (Nathan, 2 Sep 5:19pm; extended to recurring 5:36pm - moves THIS occurrence only, series untouched) - leaves the list until that date,
-  // beacons src=board-set (title+date+time) so the main agent creates the calendar slot; resurfaces in Now on the date.
-  document.querySelectorAll('#nowlist a.tapset, li[data-recur="mustdo"] a.tapset').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var li=a.closest('li'); var m=li.querySelector('.snzmenu');
-      if(m.querySelector('input.snzd')){ m.style.display = m.style.display==='inline'?'none':'inline'; return; }
-      var inp=document.createElement('input'); inp.type='datetime-local'; inp.className='snzd';
-      inp.value=isoLocal(new Date(Date.now()+86400000)).slice(0,11)+'12:00';
-      var go=document.createElement('a'); go.textContent='set'; go.href='#set';
-      var cx=document.createElement('a'); cx.textContent='cancel'; cx.href='#x';
-      function close(){ m.style.display='none'; inp.remove(); go.remove(); cx.remove(); }
-      go.addEventListener('click', function(ev){ ev.preventDefault();
-        if(!inp.value) return; var dt=new Date(inp.value); if(isNaN(dt)) return;
-        var title=titleOf(a); var iso=isoLocal(dt);
-        store('board-set:'+title, iso);
-        li.classList.add('snoozed'); li.dataset.until=fmtUntil(iso.slice(0,10));
-        store('board-snooze:'+title, iso.slice(0,10)+'T00:00'); // hides until the date's morning - resurfaces on the date
-        send('item='+encodeURIComponent(title)+'&src=board-set&when='+encodeURIComponent(iso));
-        close();
-      });
-      cx.addEventListener('click', function(ev){ ev.preventDefault(); close(); });
-      inp.addEventListener('keydown', function(ev){
-        if(ev.key==='Escape'){ ev.preventDefault(); close(); return; }
-        if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].indexOf(ev.key)===-1) ev.preventDefault();
-      });
-      m.appendChild(inp); m.appendChild(go); m.appendChild(cx);
-      m.style.display='inline';
-    });
-  });
-
-  document.querySelectorAll('a.tapdone').forEach(function(a){
-    var li=a.closest('li'); var title=titleOf(a); var daily=isDaily(li);
-    var done=read('board-done:'+title);
-    if(li.dataset.recur && done && done===today()){ li.classList.add('donehide'); return; }
-    if(done && (daily ? done===today() : true)) mark(li,a,daily);
-    a.addEventListener('click', function(e){
-      e.preventDefault(); mark(li,a,daily); store('board-done:'+title, today());
-      send('item='+encodeURIComponent(title)+'&src=board');
-    });
-  });
-  document.querySelectorAll('a.tapsnooze').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var m=a.parentElement.querySelector('.snzmenu');
-      m.style.display = m.style.display==='inline' ? 'none' : 'inline';
-    });
-  });
-  document.querySelectorAll('.snzmenu a').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var li=a.closest('li'); var title=titleOf(a); var d=a.dataset.days;
-      var menu=a.closest('.snzmenu');
-      if(d==='custom'){ // date AND time picker (Nathan, 2 Sep)
-        if(menu.querySelector('input.snzd')) return;
-        var inp=document.createElement('input'); inp.type='datetime-local'; inp.className='snzd';
-        inp.value=isoLocal(new Date(Date.now()+86400000)).slice(0,11)+'12:00';
-        var go=document.createElement('a'); go.textContent='set'; go.href='#set';
-        var cx=document.createElement('a'); cx.textContent='cancel'; cx.href='#x';
-        function close(){ menu.style.display='none'; inp.remove(); go.remove(); cx.remove(); }
-        go.addEventListener('click', function(ev){ ev.preventDefault();
-          if(!inp.value) return; var ud=new Date(inp.value); if(isNaN(ud)) return;
-          snoozeApply(li,title,ud); close();
-        });
-        cx.addEventListener('click', function(ev){ ev.preventDefault(); close(); });
-        inp.addEventListener('keydown', function(ev){
-          if(ev.key==='Escape'){ ev.preventDefault(); close(); return; }
-          if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].indexOf(ev.key)===-1) ev.preventDefault();
-        });
-        menu.appendChild(inp); menu.appendChild(go); menu.appendChild(cx);
-        return;
-      }
-      var days=parseInt(d,10); if(!days || days<1) return;
-      snoozeApply(li,title,new Date(Date.now()+days*86400000));
-      menu.style.display='none';
-    });
-  });
-
-  // Arc order (Nathan, 2 Sep): canonical order baked in HTML; a newer local drag wins until baked (ts compare).
-  (function(){
-    try{
-      var sec=document.querySelector('section.cols[data-orderts]'); var ul=document.getElementById('arclist');
-      if(!sec||!ul) return;
-      var baked=parseInt(sec.getAttribute('data-orderts')||'0',10);
-      var loc=null; try{ loc=JSON.parse(localStorage.getItem('board-arcorder')||'null'); }catch(e){}
-      if(!loc||!loc.order||!(loc.ts>baked)) return;
-      var lis={}; ul.querySelectorAll('li[data-arc]').forEach(function(li){ lis[li.getAttribute('data-arc')]=li; });
-      loc.order.forEach(function(t){ if(lis[t]) ul.appendChild(lis[t]); });
-    }catch(e){}
-  })();
-  document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
-    var b=li.querySelector('b'); if(!b) return;
-    var title=b.textContent.replace(/^Task:\s*/,'').trim();
-    var sn=read('board-snooze:'+title);
-    if(li.dataset.recur==='habit'){ if(sn){ try{ localStorage.removeItem('board-snooze:'+title); }catch(e){} } return; } // dailies can't be snoozed (Nathan, 2 Sep)
-    if(sn && snoozeActive(sn)){ li.classList.add('snoozed'); li.dataset.until=fmtUntil(sn); }
-    else if(sn){ try{ localStorage.removeItem('board-snooze:'+title); }catch(e){} }
-  });
-  evalMustdos(null);
-  var nl=document.getElementById('nowlist');
-  if(nl){
-    function nowTitles(){ return [...nl.querySelectorAll('li')].map(function(x){ var b=x.querySelector('b'); return b?b.textContent.replace(/^Task:\s*/,'').trim():''; }); }
-    function nowFinish(){
-      var o=nowTitles(), ts=Date.now();
-      try{ localStorage.setItem('board-order', JSON.stringify({order:o, ts:ts})); }catch(e){}
-      send('src=board-noworder&ts='+ts+'&order='+encodeURIComponent(o.join('|')));
-    }
-    (function(){
-      var baked=parseInt(nl.getAttribute('data-orderts')||'0',10);
-      var raw=read('board-order'); if(!raw) return;
-      var loc=null; try{ loc=JSON.parse(raw); }catch(e){}
-      if(Array.isArray(loc)){ // legacy pre-beacon format: adopt and beacon so his drag reaches canon
-        loc={order:loc, ts:Date.now()};
-        try{ localStorage.setItem('board-order', JSON.stringify(loc)); }catch(e){}
-        send('src=board-noworder&ts='+loc.ts+'&order='+encodeURIComponent(loc.order.join('|')));
-      }
-      if(!loc||!loc.order||!(loc.ts>baked)) return;
-      loc.order.forEach(function(t){
-        var li=[...nl.querySelectorAll('li')].find(function(x){ var b=x.querySelector('b'); return b && b.textContent.replace(/^Task:\s*/,'').trim()===t; });
-        if(li) nl.appendChild(li);
-      });
-    })();
-    // desktop: HTML5 drag (unchanged gesture)
-    var dragged=null;
-    nl.querySelectorAll('li').forEach(function(li){ li.draggable=true; });
-    nl.addEventListener('dragstart', function(e){ dragged=e.target.closest('li'); });
-    nl.addEventListener('dragover', function(e){ e.preventDefault(); });
-    nl.addEventListener('drop', function(e){
-      e.preventDefault();
-      var target=e.target.closest('li');
-      if(!dragged || !target || dragged===target) return;
-      nl.insertBefore(dragged, target);
-      nowFinish();
-    });
-    // touch: grip drag (pointer events, grip visible only on coarse pointers)
-    var ndrag=null;
-    nl.querySelectorAll('li').forEach(function(li){
-      var g=document.createElement('span'); g.className='ngrip'; g.textContent='\u22ee\u22ee'; g.setAttribute('aria-hidden','true');
-      li.insertBefore(g, li.firstChild);
-      g.addEventListener('pointerdown', function(ev){
-        ev.preventDefault();
-        try{ g.setPointerCapture(ev.pointerId); }catch(e){}
-        ndrag={card:li, moved:false};
-      });
-    });
-    document.addEventListener('pointermove', function(ev){
-      if(!ndrag) return;
-      ndrag.moved=true;
-      ndrag.card.classList.add('dragging');
-      var el=document.elementFromPoint(ev.clientX, ev.clientY);
-      var over=el ? el.closest('#nowlist > li') : null;
-      if(over && over!==ndrag.card){
-        var r=over.getBoundingClientRect();
-        if(ev.clientY < r.top + r.height/2) nl.insertBefore(ndrag.card, over);
-        else nl.insertBefore(ndrag.card, over.nextSibling);
-      }
-    });
-    function endNDrag(){
-      if(!ndrag) return;
-      ndrag.card.classList.remove('dragging');
-      if(ndrag.moved) nowFinish();
-      ndrag=null;
-    }
-    document.addEventListener('pointerup', endNDrag);
-    document.addEventListener('pointercancel', endNDrag);
-  }
-
-  fetch('snooze-state.json?v='+Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(st){
-    if(!st) return;
-    var todayStr = new Date().toLocaleDateString('sv-SE');
-    if(st.done){
-      document.querySelectorAll('li[data-recur]').forEach(function(li){
-        var b=li.querySelector('b'); if(!b) return;
-        var title=b.textContent.replace(/^Task:\s*/,'').trim();
-        var d=st.done[title];
-        if(d && d.date===todayStr) li.classList.add('donehide');
-      });
-    }
-    evalMustdos(st.done||{});
-    if(!st.items) return;
-    document.querySelectorAll('#nowlist > li, section ul > li').forEach(function(li){
-      var b=li.querySelector('b'); if(!b) return;
-      var title=b.textContent.replace(/^Task:\s*/,'').trim();
-      if(li.dataset.recur==='habit') return; // dailies can't be snoozed
-      var e=st.items[title];
-      if(!e || !e.until || !snoozeActive(e.until)) return;
-      var un=read('board-unsnooze:'+title);
-      if(un && un > (e.ts||'')) return;
-      li.classList.add('snoozed');
-      li.dataset.until=fmtUntil(e.until);
-    });
-  }).catch(function(){});
-  flush();
-})();
-</script>
-</div></body></html>
+<nav class="tabs" id="tabs"><a data-tab="today" class="on">Today</a><a data-tab="waiting">Waiting</a><a data-tab="arcs">Arcs</a><a data-tab="system">System</a></nav>
+<footer>Everything here is an event in Google Calendar (FP Board, FP Waiting, FP Boys, FP Done). Edit it there or here; both are the same thing. <span id="gen"></span></footer>
+</div>
+</div>
+<script src="fp.js"></script>
+</body></html>
