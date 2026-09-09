@@ -13,12 +13,13 @@
 :root { --ink:#16181d; --mut:#6b7280; --line:#e3e5e8; --accent:#8a6d3b; --red:#b3261e; --green:#4a7c4e; }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font:13.5px/1.42 -apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fafafa; }
-.wrap { max-width:660px; margin:0 auto; padding:18px 16px 40px; }
+.wrap { max-width:1100px; margin:0 auto; padding:18px 18px 40px; }
 header { border-bottom:1.5px solid var(--ink); padding-bottom:5px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
 h1 { font-size:17px; letter-spacing:.02em; }
+h1 a { color:inherit; text-decoration:none; }
 header .meta { font-size:11px; color:var(--mut); text-align:right; }
 h2 { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:2px; margin:16px 0 5px; }
-h2 .h2btn, h2 a { float:right; text-transform:none; letter-spacing:0; font-size:10.5px; color:var(--mut); text-decoration:none; font-weight:400; }
+h2 a { float:right; text-transform:none; letter-spacing:0; font-size:10.5px; color:var(--mut); text-decoration:none; font-weight:400; cursor:pointer; }
 ul, ol { list-style:none; }
 li.item { padding:3px 0 3px 10px; border-bottom:1px solid #f0f1f2; position:relative; }
 li.item:before { content:""; position:absolute; left:0; top:10px; width:4px; height:4px; border-radius:50%; background:#c3c7cc; }
@@ -26,13 +27,20 @@ li.item:after { content:""; display:block; clear:both; }
 li.item b { font-weight:600; }
 li.stale:before, li.overdue:before { background:var(--red); }
 li.returned:before { background:#d9c89a; }
-li.pending { opacity:.45; }
+li.gone { display:none; }
+li.failed { background:#fdf1f0; }
 .d { color:var(--mut); }
-.prov { display:block; font-size:10.5px; color:#9aa0a6; }
-.note { display:block; color:var(--mut); white-space:pre-wrap; margin-top:1px; }
+.prov { display:none; font-size:10.5px; color:#9aa0a6; }
+li.item:hover .prov, li.item.show .prov { display:block; }
+.note { display:block; color:var(--mut); }
+.note .rest { display:none; white-space:pre-wrap; }
+li.item.open .note .rest { display:block; }
+li.item.open .note .first { display:none; }
+.more { font-size:10.5px; color:var(--accent); cursor:pointer; margin-left:4px; border-bottom:1px dotted var(--accent); }
 .btns { float:right; margin-left:8px; white-space:nowrap; }
 .btns a { font-size:10px; color:var(--mut); text-decoration:none; border:1px solid var(--line); border-radius:3px; padding:0 5px; line-height:1.7; margin-left:4px; display:inline-block; cursor:pointer; background:#fff; }
 .btns a:hover { color:var(--accent); border-color:var(--accent); }
+.err { float:right; font-size:10px; color:var(--red); margin-left:6px; }
 .menu { font-size:10.5px; margin:3px 0 2px 0; padding:5px 7px; border:1px solid var(--line); border-radius:4px; background:#fff; clear:both; }
 .menu a { color:var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent); margin-right:8px; cursor:pointer; }
 .menu input, .menu select, .menu textarea { font:inherit; font-size:11px; border:1px solid var(--line); border-radius:3px; padding:2px 4px; margin:2px 4px 2px 0; }
@@ -42,9 +50,6 @@ ol.num { counter-reset:nowc; margin-left:16px; }
 ol.num li.item { counter-increment:nowc; cursor:grab; }
 ol.num li.item:before { content:counter(nowc); left:-14px; top:3px; width:auto; height:auto; border-radius:0; background:none; color:var(--mut); font-size:10.5px; }
 ol.num li.item.dragging { opacity:.5; }
-.health { font-size:11px; color:var(--mut); margin:6px 0 2px; }
-.health b { color:var(--ink); font-weight:600; }
-.health .bad { color:var(--red); }
 .brief { margin:6px 0 2px; padding:7px 10px; border-left:3px solid var(--accent); background:#fbf7ec; font-size:13px; white-space:pre-wrap; }
 .addbox { display:flex; gap:6px; margin:8px 0 2px; }
 .addbox input { flex:1; font:inherit; font-size:12.5px; padding:4px 8px; border:1px solid var(--line); border-radius:4px; background:#fff; }
@@ -52,26 +57,27 @@ ol.num li.item.dragging { opacity:.5; }
 .tabs { margin-top:22px; border-top:1px solid var(--line); padding-top:8px; font-size:11.5px; }
 .tabs a { color:var(--accent); text-decoration:none; border:1px solid #d8d2c4; border-radius:5px; padding:2px 9px; margin:2px 3px 2px 0; display:inline-block; background:#fbfaf7; cursor:pointer; }
 .tabs a.on { background:var(--accent); color:#fff; border-color:var(--accent); }
-.tier { font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; color:var(--mut); margin:12px 0 3px; }
 .empty { color:#9aa0a6; font-size:12px; padding:3px 0 3px 10px; }
 .tag { display:inline-block; font-size:10px; color:var(--accent); border:1px solid #e6dcc4; background:#fbf7ec; border-radius:3px; padding:0 4px; margin-left:3px; white-space:nowrap; vertical-align:1px; }
 .tag.red { color:var(--red); border-color:#f1c4c0; background:#fdf1f0; }
 .tag.grey { color:var(--mut); border-color:var(--line); background:#f6f7f8; }
-#status { font-size:11px; color:var(--mut); min-height:14px; margin-top:6px; }
-#status.err { color:var(--red); }
+#status { font-size:11px; color:var(--red); min-height:0; }
 #gate { margin:24px 0; }
 #gate input { font:inherit; padding:4px 8px; border:1px solid var(--line); border-radius:4px; width:120px; }
 #gate button { font:inherit; font-size:12px; padding:3px 10px; border:1px solid var(--accent); color:var(--accent); background:#fff; border-radius:4px; cursor:pointer; }
-footer { margin-top:14px; font-size:10.5px; color:var(--mut); }
+.health { margin-top:14px; font-size:10.5px; color:#9aa0a6; }
+.health .bad { color:var(--red); }
+.legacy { font-size:11.5px; line-height:2; }
+.legacy a { color:var(--accent); text-decoration:none; }
 .log { font-size:11px; color:var(--mut); }
 .log li { padding:1px 0; }
 .two { columns:2; column-gap:22px; }
 .two li { break-inside:avoid; }
-@media (max-width:520px) { body { font-size:13px; } .two { columns:1; } .btns { float:none; display:block; margin:2px 0 0; } }
+@media (max-width:600px) { body { font-size:13px; } .two { columns:1; } .btns { float:none; display:block; margin:2px 0 0; } .prov { display:block; } }
 </style></head>
 <body><div class="wrap">
 <header>
-<h1>The Board</h1>
+<h1><a href="index.html">The Board</a></h1>
 <div class="meta">Nathan Wolfe &middot; <span id="hdrdate"></span></div>
 </header>
 
@@ -82,17 +88,16 @@ footer { margin-top:14px; font-size:10.5px; color:var(--mut); }
 </div>
 
 <div id="app" hidden>
-<div class="health" id="health"></div>
-<div class="brief" id="brief" hidden></div>
 <form class="addbox" id="addform"><input id="addtext" placeholder="Add something: Claude routes it at the next sweep" autocomplete="off"><button type="submit">Add</button></form>
 <div id="status"></div>
+<div class="brief" id="brief" hidden></div>
 
 <div id="tab-today">
-<section><h2>Today</h2><div id="custody" class="d" style="padding:2px 0 2px 10px"></div><ul id="todaylist"></ul></section>
+<section><h2>Today</h2><ul id="todaylist"></ul></section>
 <section><h2>Today&#x27;s recurring</h2><ul id="habits"></ul><ul id="recurring"></ul></section>
 <section><h2>Now</h2><ol class="num" id="nowlist"></ol></section>
-<section><h2>Waiting, needs you <a id="towaiting">full list</a></h2><ul id="waitflag"></ul></section>
-<section><h2>Longer arcs <a href="arcs.html" target="_blank" rel="noopener">detail</a></h2><ul id="arcs" class="two"></ul></section>
+<section><h2>Waiting, needs you <a data-tab="waiting">full list</a></h2><ul id="waitflag"></ul></section>
+<section><h2>Longer arcs <a data-tab="arcs">Arcs tab</a></h2><ul id="arcs" class="two"></ul></section>
 </div>
 
 <div id="tab-waiting" hidden>
@@ -100,7 +105,7 @@ footer { margin-top:14px; font-size:10.5px; color:var(--mut); }
 </div>
 
 <div id="tab-arcs" hidden>
-<section><h2>Longer arcs</h2><ul id="arcsall"></ul><p class="d" style="margin-top:8px;font-size:11px">Detail pages still live on Instinct&#x27;s <a href="arcs.html" target="_blank" rel="noopener">arcs page</a> until v2.</p></section>
+<section><h2>Longer arcs</h2><ul id="arcsall"></ul><p class="d" style="margin-top:8px;font-size:11px">Detail pages still live on Instinct&#x27;s <a href="arcs.html" style="color:var(--accent)">arcs page</a> until v2.</p></section>
 </div>
 
 <div id="tab-system" hidden>
@@ -108,15 +113,15 @@ footer { margin-top:14px; font-size:10.5px; color:var(--mut); }
 <section><h2>Snoozed</h2><ul id="snoozed"></ul></section>
 <section><h2>Done, last 14 days</h2><ul id="donelist"></ul></section>
 <section><h2>Last actions</h2><ul id="log" class="log"></ul></section>
-<section><h2>Instinct&#x27;s pages</h2>
-<p class="d" style="font-size:11.5px;line-height:2">
-<a href="pings.html">Pings</a> &middot; <a href="boys.html">Boys&#x27; list</a> &middot; <a href="rules.html">Rules &amp; Memory</a> &middot; <a href="channel.html">The Channel</a> &middot; <a href="standing.html">Standing</a> &middot; <a href="audit.html">Audit</a> &middot; <a href="review.html">Review</a> &middot; <a href="cadence.html">Cadence</a> &middot; <a href="sweeps.html">Sweeps</a> &middot; <a href="done.html">Old done list</a>
+<section><h2>Legacy pages</h2>
+<p class="legacy">
+<a href="snoozed.html">Snoozed</a> &middot; <a href="rules.html">Rules &amp; Memory</a> &middot; <a href="channel.html">The Channel</a> &middot; <a href="standing.html">Standing</a> &middot; <a href="analysis.html">Analysis reports</a> &middot; <a href="audit.html">Audit</a> &middot; <a href="review.html">Review</a> &middot; <a href="cadence.html">Cadence</a> &middot; <a href="sweeps.html">Sweeps</a> &middot; <a href="done.html">Done</a>
 </p></section>
-<section><h2>This device</h2><p class="d" style="font-size:11.5px"><a id="forget" style="cursor:pointer;color:var(--accent)">Forget the code on this device</a> &middot; <a id="refresh" style="cursor:pointer;color:var(--accent)">Refresh now</a></p></section>
+<section><h2>This device</h2><p class="legacy"><a id="forget" style="cursor:pointer">Forget the code on this device</a> &middot; <a id="refresh" style="cursor:pointer">Refresh now</a></p></section>
 </div>
 
-<nav class="tabs" id="tabs"><a data-tab="today" class="on">Today</a><a data-tab="waiting">Waiting</a><a data-tab="arcs">Arcs</a><a data-tab="system">System</a></nav>
-<footer>Everything here is an event in Google Calendar (FP Board, FP Waiting, FP Boys, FP Done). Edit it there or here; both are the same thing. <span id="gen"></span></footer>
+<nav class="tabs" id="tabs"><a data-tab="waiting">Waiting</a><a data-tab="arcs">Arcs</a><a href="pings.html">Pings</a><a data-tab="system">System</a></nav>
+<div class="health" id="health"></div>
 </div>
 </div>
 <script src="fp.js"></script>
