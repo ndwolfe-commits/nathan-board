@@ -1,6 +1,6 @@
 import json, urllib.request, datetime, os
 from zoneinfo import ZoneInfo
-UUID = "d5163a06-eefc-48cf-ae85-5b3c7d06e29c"
+UUID = "77c1e437-144b-4376-bead-abc9481b2777"
 # Today's recurring items, by kind: "habit" (done/not-done, no carryover) or "mustdo" (rolls over until done or snoozed)
 RECURRING = {
     "Cardio + strength": "habit", "Meditate": "habit",
